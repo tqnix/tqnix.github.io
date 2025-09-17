@@ -78,7 +78,7 @@ iframe {
   background-color: white;
   font-size: 1vmax;
   height: 33vw;
-  width: 100%;
+  width: 98%;
   transition: opacity .2s linear;
 }
 iframe:hover {

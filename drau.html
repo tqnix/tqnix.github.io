@@ -1,0 +1,259 @@
+<meta charset="UTF-16">
+<head>
+  <title>Drawing</title>
+  <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+    }
+  </style>
+  </head>
+
+<body style="margin:0;padding:0;display:flex;background-color:white;">
+  <div id=main>
+<canvas id="canvas">
+</canvas>
+<br>
+
+<button onclick="skylearn()">color menu</button><button onclick="phil('#ffffff')">clear</button><button id="navbutton" onclick="window.location.href = 'index.html'">Back to homepage</button><input class="button inputbox" type=color id="s_e1" onchange="changecolorstrM()" value="#ffffff">
+</div>
+
+<div id="tianxue" style="position: absolute; width: 100%; height: 100%; display: none; background-color: #ffffcd7f; color: #000000">
+<br>
+  <input id="lsizetf" class=colorbutton type="text" placeholder="横大小"><button onclick="changelsize();">Apply</button>
+<br>
+  <input id="csizetf" class=colorbutton type="text" placeholder="图画大小"><button onclick="changecsize(0);">Apply(WILL RESET CANVAS)</button><button onclick="changecsize(1);">phil screen</button>
+<br><button onclick="phil('#ffffff')">clear</button>
+<button onclick="phil(lastusedcolor)">fill with last used color</button>
+<button onclick="abimasu()">toggle grid mode</button><br>
+<input onchange="ImportImage()" type="file" id="import-dialog" accept="image/png, image/jpeg, image/webp, image/bmp"><button onclick="ImportImage();">IMPORT</button><button id="btn-download">Save!</button>
+<button style="position: fixed; right:15%; bottom: 0px;font-size:40px; padding:5% 25%" onclick="skylearn()">close</button>
+</div>
+</body>
+<script>
+  const canvas = document.getElementById("canvas");
+document.getElementById("canvas").style.border = "2px solid #000000";
+const ctx = canvas.getContext("2d");
+var lastusedcolor = "black";
+var colors = [
+  'red',
+  'tomato',
+  'orange',
+  'yellow',
+  'lime',
+  'green',
+  'skyblue',
+  'cyan',
+  'blue',
+  'purple',
+  'violet',
+  'magenta',
+  'beige',
+  'tan',
+  'brown',
+  'lightgray',
+  'gray',
+  'dimgray',
+  'black',
+  'white',
+  '#ffffcd',
+  '#d8e0d0',
+  '#404048',
+];
+DrawStartFlag = false;
+IsMouseDown = false;
+GridMode = 0;
+ctx.canvas.width  = window.innerWidth - 5;
+ctx.canvas.height = window.innerHeight - 100;
+ctx.strokeStyle = "black";
+ctx.fillStyle = "black";
+  ctx.lineWidth = 15;
+
+for (var i=0; i<colors.length; i++) {
+document.getElementById("tianxue").innerHTML += "<br><button style='display:inline-block; background-color:" + colors[i] + ";' onclick='changecolor(" + i + ")'>" + colors[i] + "</button>";
+//newb.style.display = "block"; newb.innerHTML = colors[i];
+//newb.style.background = colors[i];
+}
+
+document.addEventListener('mousedown', event => {
+  if (event.button == 0) {
+        ctx.fillStyle = lastusedcolor;
+        ctx.strokeStyle = lastusedcolor;
+      } else {
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#ffffff";
+      }
+    mx = event.clientX + window.pageXOffset;
+    my = event.clientY + window.pageYOffset;
+  IsMouseDown = true;
+if (document.getElementById("tianxue").style.display == "none") {
+    ctx.beginPath();
+    ctx.arc(mx, my, ctx.lineWidth/2, 0, 2 * Math.PI);
+    if (GridMode%3 !== 1) {
+      ctx.fill();
+    } else {
+      ctx.fillRect(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth,ctx.lineWidth-1,ctx.lineWidth-1);
+      
+    }
+  draw(mx,my);
+  ctx.beginPath();
+  ctx.moveTo(mx,my);
+  DrawStartFlag = true;
+
+}
+});
+document.addEventListener('mouseup', event => {
+  IsMouseDown = false;
+  DrawStartFlag = false;
+});
+document.addEventListener('mousemove', event => {
+    mx = event.clientX + window.pageXOffset;
+    my = event.clientY + window.pageYOffset;
+    if (IsMouseDown) {
+      if (event.button == 0) {
+        draw(mx,my,0);
+      } else {
+        draw(mx,my,1);
+      }
+  ctx.beginPath();
+  ctx.moveTo(mx,my);
+  DrawStartFlag = true;
+    }
+});
+document.addEventListener('contextmenu', event => {
+  event.preventDefault();
+});
+function touch2Mouse(e)
+{
+  var theTouch = e.changedTouches[0];
+  var mouseEv;
+  if (e.changedTouches[1] != null) {
+    tianxue.style.display = "flex";
+  }
+
+  switch(e.type)
+  {
+    case "touchstart": mouseEv="mousedown"; break;  
+    case "touchend":   mouseEv="mouseup"; break;
+    case "touchmove":  mouseEv="mousemove"; break;
+    default: return;
+  }
+
+  var mouseEvent = document.createEvent("MouseEvent");
+  mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
+  theTouch.target.dispatchEvent(mouseEvent);
+
+  e.preventDefault();
+}
+document.getElementById("canvas").addEventListener("touchstart", touch2Mouse, true);
+document.getElementById("canvas").addEventListener("touchmove", touch2Mouse, true);
+document.getElementById("canvas").addEventListener("touchend", touch2Mouse, true);
+function draw(x,y,a) {
+if (DrawStartFlag && document.getElementById("tianxue").style.display == "none") {
+  if (GridMode%3 == 1) {
+    ctx.fillRect(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth,ctx.lineWidth-1,ctx.lineWidth-1);
+  } else if (GridMode%3 == 2) {
+    ctx.lineTo(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth);
+   if (true) {ctx.stroke();}
+  ctx.beginPath();
+    //ctx.arc(Math.floor(x/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2,Math.floor(y/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2, ctx.lineWidth/2, 0, 2 * Math.PI);
+    //ctx.fill();
+  ctx.moveTo(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth);
+  } else {
+    ctx.lineTo(x,y);
+   if (true) {ctx.stroke();}
+  ctx.beginPath();
+    ctx.arc(x, y, ctx.lineWidth/2, 0, 2 * Math.PI);
+    ctx.fill();
+  ctx.moveTo(x,y);
+  }
+}
+}
+function futatsu() {
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+}
+function tungu() {
+  //menu
+}
+function abimasu() {
+  GridMode++;
+}
+function changecsize(se) {
+if (se == 0) {
+  	ctx.canvas.width = parseInt(document.getElementById("csizetf").value);
+	ctx.canvas.height = parseInt(document.getElementById("csizetf").value);
+} else {
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
+}
+	console.log("Canvas size is now " + parseInt(document.getElementById("csizetf").value));
+	phil("#ffffff");
+  changelsize();
+}
+function changelsize() {
+	ctx.lineWidth = parseInt(document.getElementById("lsizetf").value);
+	console.log("Line size is now " + parseInt(document.getElementById("lsizetf").value));
+}
+function skylearn() {
+  let x = document.getElementById("tianxue");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+function changecolor(b) {
+  ctx.strokeStyle = colors[b];
+  ctx.fillStyle = colors[b];
+  console.log(b);
+lastusedcolor = colors[b];
+}
+function changecolorstr() {
+  ctx.strokeStyle = document.getElementById("colortf").value;
+  ctx.fillStyle = document.getElementById("colortf").value;
+  console.log(document.getElementById("colortf").value);
+lastusedcolor = document.getElementById("colortf").value;
+}
+function changecolorstrM(b) {
+  ctx.strokeStyle = document.getElementById('s_e1').value;
+  ctx.fillStyle = document.getElementById('s_e1').value;
+  console.log(document.getElementById('s_e1').value);
+lastusedcolor = document.getElementById('s_e1').value;
+}
+// Convert canvas to image
+document.getElementById('btn-download').addEventListener("click", function(e) {
+
+    var dataURL = canvas.toDataURL("image/jpeg", 1.0);
+
+    var a = document.createElement('a');
+    a.href = dataURL;
+    a.download = "tqnixity-w3spaces-canvas-test-drawing.jpeg";
+    document.body.appendChild(a);
+    a.click();
+});
+function phil(c) {
+	ctx.fillStyle = c;
+	ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+	ctx.fillStyle = lastusedcolor;
+ctx.strokeStyle = lastusedcolor;
+console.log("philled | " + lastusedcolor);
+}
+var ldh = new Image();
+function CalcCanvasResolution(c) {
+    c.canvas.width = Math.max(ldh.width,ldh.height);
+    c.canvas.height = Math.max(ldh.width,ldh.height);
+}
+function ImportImage() {
+ const reader = new FileReader();
+    reader.onload = (e) => {
+      ldh.src = e.target.result;
+  ctx.drawImage(ldh, ctx.canvas.width/2-ldh.width/2, ctx.canvas.height/2-ldh.height/2);
+    };
+    reader.readAsDataURL(document.getElementById("import-dialog").files[0]);
+  
+}
+</script>

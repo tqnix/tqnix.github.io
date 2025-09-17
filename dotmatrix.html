@@ -1,0 +1,418 @@
+<head>
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+    }
+    .btn {
+      padding: 1% 1.5%;
+      font-size:20px;
+    }
+    input[type=checkbox] {
+    transform: scale(1.6);
+    }
+  </style>
+  </head> <body style="margin:0px;padding:0px;" onload="GenerateCheckboxes()">
+<canvas height=70 width=350 id=canvas style="border: 1px solid red; width: calc(100% - 2px); height:140px;"></canvas><br>
+
+<div hidden id="hadde">
+  <button class="btn" onclick="StoreToChar(6969,0)">Store to Char: 0</button>
+<button class="btn" onclick="StoreToChar(6969,1)">1</button>
+<button class="btn" onclick="StoreToChar(6969,2)">2</button>
+<button class="btn" onclick="StoreToChar(6969,3)">3</button>
+<button class="btn" onclick="StoreToChar(6969,4)">4</button>
+<button class="btn" onclick="StoreToChar(6969,5)">5</button>
+<button class="btn" onclick="StoreToChar(6969,6)">6</button>
+<button class="btn" onclick="StoreToChar(6969,7)">7</button>
+<button class="btn" onclick="StoreToChar(6969,8)">8</button>
+<button class="btn" onclick="StoreToChar(6969,9)">9</button>
+<button class="btn" onclick="StoreToChar(6969,57)">ALL</button>
+<br>
+<textarea hidden id="iki" cols=5 rows=7>
+</textarea>
+
+<div id="yod"></div>
+
+<p>Use the number keys on your keyboard to enter some dot matrix numbers, or make a pattern on the checkboxes and store your pattern to a number to see your custom dot matrix letter!</p>
+<p>OUTPUT:</p>
+<p id="zhangfu"></p>
+</div>
+</body>
+<script src="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"></script>
+<script>
+  //canvas is originally window.innerWidth*0.995 or 99.5vw by 70px
+var pixels = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+];
+var output = [
+];
+yid = [];//array of all 35 checkboxes
+inna = "";
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext("2d");
+ctx.canvas.width = window.innerWidth*0.495;
+ctx.canvas.height = 70;
+pos = -1;
+MaxLength = 13;
+//{"x":0,"y":0,"w":1,"l":1},
+var char0 = [
+{"x":1,"y":0,"w":3,"l":1},
+{"x":1,"y":6,"w":3,"l":1},
+{"x":0,"y":1,"w":1,"l":5},
+{"x":4,"y":1,"w":1,"l":5},
+{"x":3,"y":2,"w":1,"l":1},
+{"x":2,"y":3,"w":1,"l":1},
+{"x":1,"y":4,"w":1,"l":1},
+];
+var char1 = [
+{"x":2,"y":0,"w":1,"l":6},
+{"x":1,"y":6,"w":3,"l":1},
+{"x":1,"y":1,"w":2,"l":1},
+];
+var char2 = [
+{"x":0,"y":1,"w":1,"l":1},
+{"x":1,"y":0,"w":3,"l":1},
+{"x":4,"y":1,"w":1,"l":2},
+{"x":3,"y":3,"w":1,"l":1},
+{"x":2,"y":4,"w":1,"l":1},
+{"x":1,"y":5,"w":1,"l":1},
+{"x":0,"y":6,"w":5,"l":1},
+];
+var char3 = [
+{"x":1,"y":0,"w":3,"l":1},
+{"x":4,"y":1,"w":1,"l":2},
+{"x":4,"y":4,"w":1,"l":2},
+{"x":2,"y":3,"w":2,"l":1},
+{"x":1,"y":6,"w":3,"l":1},
+{"x":0,"y":1,"w":1,"l":1},
+{"x":0,"y":5,"w":1,"l":1},
+];
+var char4 = [
+{'w':1,'l':7,'x':3,'y':0},
+{'w':2,'l':1,'x':2,'y':1},
+{'w':1,'l':1,'x':1,'y':2},
+{'w':1,'l':2,'x':0,'y':3},
+{'w':5,'l':1,'x':0,'y':4},
+];
+var char5 = [
+{"x":0,"y":6,"w":1,"l":-1},
+{"x":1,"y":7,"w":3,"l":-1},
+{"x":4,"y":3,"w":1,"l":3},
+{"x":1,"y":2,"w":3,"l":1},
+{"x":0,"y":0,"w":1,"l":3},
+{"x":0,"y":1,"w":5,"l":-1},
+];
+var char6 = [
+{'w':2,'l':1,'x':2,'y':0},
+{'w':1,'l':1,'x':1,'y':1},
+{'w':1,'l':4,'x':0,'y':2},
+{'w':4,'l':1,'x':0,'y':3},
+{'w':1,'l':2,'x':0,'y':4},
+{'w':1,'l':2,'x':4,'y':4},
+{'w':3,'l':1,'x':1,'y':6},
+];
+var char7 = [
+{"x":2,"y":4,"w":1,"l":3},
+{"x":0,"y":0,"w":5,"l":1},
+{"x":4,"y":1,"w":1,"l":1},
+{"x":3,"y":2,"w":1,"l":1},
+{"x":2,"y":3,"w":1,"l":1},
+];
+var char8 = [
+{"x":1,"y":0,"w":3,"l":1},
+{"x":4,"y":1,"w":1,"l":2},
+{"x":4,"y":4,"w":1,"l":2},
+{"x":0,"y":1,"w":1,"l":2},
+{"x":0,"y":4,"w":1,"l":2},
+{"x":1,"y":3,"w":3,"l":1},
+{"x":1,"y":6,"w":3,"l":1},
+];
+var char9 = [
+{'w':3,'l':1,'x':1,'y':0},
+{'w':1,'l':2,'x':0,'y':1},
+{'w':1,'l':4,'x':4,'y':1},
+{'w':4,'l':1,'x':1,'y':3},
+{'w':1,'l':1,'x':4,'y':4},
+{'w':1,'l':1,'x':3,'y':5},
+{'w':2,'l':1,'x':1,'y':6},
+{'w':1,'l':1,'x':2,'y':6},
+];
+var charPlus = [//correct
+{'w':1,'l':2,'x':4,'y':1},
+{'w':2,'l':1,'x':3,'y':2},
+{'w':1,'l':2,'x':0,'y':3},
+{'w':2,'l':1,'x':2,'y':3},
+{'w':2,'l':1,'x':1,'y':4},
+{'w':1,'l':1,'x':1,'y':5},
+];
+var charMinus = [//wrong
+{'w':1,'l':1,'x':0,'y':1},
+{'w':1,'l':1,'x':4,'y':1},
+{'w':1,'l':1,'x':1,'y':2},
+{'w':1,'l':1,'x':3,'y':2},
+{'w':1,'l':1,'x':2,'y':3},
+{'w':1,'l':1,'x':1,'y':4},
+{'w':1,'l':1,'x':3,'y':4},
+{'w':1,'l':1,'x':0,'y':5},
+{'w':1,'l':1,'x':4,'y':5},
+];
+var charHyphen = [//dash
+{'w':3,'l':1,'x':1,'y':3},
+];
+var charCODE = [
+//c
+{"x":0,"y":1,"w":3,"l":1},
+{"x":0,"y":5,"w":3,"l":1},
+{"x":0,"y":1,"w":1,"l":5},
+//o
+{"x":4,"y":1,"w":1,"l":5},
+{"x":6,"y":1,"w":1,"l":5},
+{"x":4,"y":1,"w":3,"l":1},
+{"x":4,"y":5,"w":3,"l":1},
+//d
+{"x":8,"y":1,"w":1,"l":5},
+{"x":9,"y":1,"w":1,"l":1},
+{"x":9,"y":5,"w":1,"l":1},
+{"x":10,"y":2,"w":1,"l":3},
+//e
+{"x":12,"y":1,"w":3,"l":1},
+{"x":12,"y":3,"w":3,"l":1},
+{"x":12,"y":5,"w":3,"l":1},
+{"x":12,"y":1,"w":1,"l":5},
+//:
+{"x":16,"y":2,"w":1,"l":1},
+{"x":16,"y":4,"w":1,"l":1},
+];
+ctx.fillStyle = "#d0e0d0";
+ctx.fillRect(0,0,9999,999);
+pos=0;
+DrawIndividualNumber("CODE",0);
+document.addEventListener("keydown",function() {
+
+if (!document.querySelector("#iki:focus")) {
+  pos += 1;
+if (event.code[5] != null) {
+if (pos < MaxLength) {DrawIndividualNumber(event.code[5],pos*60);} else {pos = MaxLength;}
+if (event.code == "Backspace") {
+	ctx.fillStyle = "#d0e0d0";
+	ctx.fillRect(pos*60-60,0,60,70);
+  pos -= 2;
+}
+console.log(event.code);//debug
+} else if (event.code == "Space") {
+	ctx.fillStyle = "#d0e0d0";
+	ctx.fillRect(0,0,9999,999);
+  pos = 0;
+  DrawIndividualNumber("CODE",0);
+} else if (event.code == "Minus") {
+	MaxLength--;
+  console.log(MaxLength);
+  DrawIndividualNumber(String((MaxLength-3)%10),0);
+  pos -= 1;
+} else if (event.code == "Equal") {
+	MaxLength++;
+  console.log(MaxLength);
+  DrawIndividualNumber(String((MaxLength-3)%10),0);
+  pos -= 1;
+} else if (event.code == "Enter") {
+	//DrawIndividualNumber("CODE",pos*60);
+  if (pos == 9) {
+  	DrawIndividualNumber("+",MaxLength*60);
+    document.getElementById("hadde").style.display = "block";
+  } else {
+  	DrawIndividualNumber("-",MaxLength*60);
+  }
+  pos -= 1;
+} else if (event.code == "KeyQ") {
+	ctx.fillStyle = "#d0e0d0";
+	ctx.fillRect(pos*60,0,60,70);
+if (pos < MaxLength) {DrawIndividualNumber("-",pos*60);} else {pos = MaxLength;}
+} else if (event.code == "KeyW") {
+	ctx.fillStyle = "#d0e0d0";
+	ctx.fillRect(pos*60,0,60,70);
+if (pos < MaxLength) {DrawIndividualNumber("+",pos*60);} else {pos = MaxLength;}
+} else if (event.code == "KeyE") {
+	ctx.fillStyle = "#d0e0d0";
+	ctx.fillRect(pos*60,0,60,70);
+if (pos < MaxLength) {DrawIndividualNumber("n",pos*60);} else {pos = MaxLength;}
+}
+}
+
+});
+
+function zoom(event) {
+  event.preventDefault();
+
+  MaxLength += event.deltaY * 0.01;
+  console.log(MaxLength);
+  DrawIndividualNumber(String(parseInt((MaxLength-3)%10)),0);
+}
+
+const el = document.querySelector("body");
+el.onwheel = zoom;
+
+function PixelToRect(inn, width) {
+  let checkedPixels = [
+    ['0','0','0','0','0'],
+    ['0','0','0','0','0'],
+    ['0','0','0','0','0'],
+    ['0','0','0','0','0'],
+    ['0','0','0','0','0'],
+    ['0','0','0','0','0'],
+    ['0','0','0','0','0'],
+
+];
+document.getElementById('zhangfu').innerHTML = "";
+//inn - size: 5+6*width, pixels from top left to bottom right
+//width: width (in characters) of pixel sprite
+
+if (inn.value != "") {
+  inna = inn.replaceAll("\n","");
+} else {
+  console.log("hataye " + inn.value);
+}
+
+pixels[0] = inna.substring(0,width);
+pixels[1] = inna.substring(width,width*2);
+pixels[2] = inna.substring(width*2,width*3);
+pixels[3] = inna.substring(width*3,width*4);
+pixels[4] = inna.substring(width*4,width*5);
+pixels[5] = inna.substring(width*5,width*6);
+pixels[6] = inna.substring(width*6,width*7);
+ud = 0;
+lr = 0;
+for (i=0; i<7; i++) {//y axis
+	for (j=0; j<width; j++) {//x axis
+		if (checkedPixels[i][j] != 'E'){
+      checkedPixels[i][j] = 'E';
+      let breen = true;//not found anywhere else
+      //pixels[y][x]
+      if (pixels[i][j] == '1') {
+
+        for (k=j; k<width; k++) {
+      		    if (pixels[i][k] == '1') {
+                lr++;
+                    checkedPixels[i][k] = "E";
+                    } else {
+                k = width;
+              }
+      	}
+        if (lr <= 1) {
+            for (k=i; k<=6; k++) {
+      		if (pixels[k][j] == '1') {
+            ud++;
+                checkedPixels[k][j] = "E";
+                } else {
+            k = 99;
+          }
+      	  }
+        }
+      }
+      if (ud != 0 || lr != 0) {//originally if (ud != 0 && lr != 0)
+      if (ud == 0) {
+        ud = 1;
+      }
+        document.getElementById('zhangfu').innerHTML += "{'w':" + lr + ",'l':" + ud + ",'x':" + j + ",'y':" + i + "},<br>";//debug
+        output.push({"x":j,"y":i,"w":lr,"l":ud});
+        lr = 0;
+        ud = 0;
+      }
+    }
+	}
+}
+console.log(output);
+} 
+function StoreToChar(dummy,charizard) {
+  ProcessCheckboxes();
+  switch(charizard) {
+			case 0:char0 = output;break;
+      case 1:char1 = output;break;
+      case 2:char2 = output;break;
+      case 3:char3 = output;break;
+      case 4:char4 = output;break;
+      case 5:char5 = output;break;
+      case 6:char6 = output;break;
+      case 7:char7 = output;break;
+      case 8:char8 = output;break;
+      case 9:char9 = output;break;
+      case 57:char0 = output;char1 = output;char2 = output;char3 = output;char4 = output;char5 = output;char6 = output;char7 = output;char8 = output;char9 = output;break;
+}
+    output = [];
+}
+function Draw(char0,q) {
+      for (i=0; i<char0.length; i++) {
+      	ctx.fillRect(q+char0[i].x*10,char0[i].y*10,char0[i].w*10,char0[i].l*10);
+      }
+}
+function DrawIndividualNumber(n,q) {
+ctx.fillStyle = "#d0e0d0";
+ctx.fillRect(q,0,60,80);
+ctx.fillStyle = "#404040";
+switch(n) {
+			case "0":Draw(char0,q);break;
+      case "1":Draw(char1,q); break;
+      case "2":Draw(char2,q);break;
+      case "3":Draw(char3,q);break;
+      case "4":Draw(char4,q);break;
+      case "5":Draw(char5,q); break;
+      case "6":Draw(char6,q);break;
+      case "7":Draw(char7,q);break;
+      case "8":Draw(char8,q);break;
+      case "9":Draw(char9,q);break;
+      case "n":Draw(charHyphen,q);break;
+      case "-":Draw(charMinus,q);break;
+      case "+":Draw(charPlus,q);break;
+      case "CODE":Draw(charCODE,q);pos += 2;
+      break;
+}
+}
+function GenerateCheckboxes() {
+  document.getElementById("yod").innerHTML = "";
+  for (i=0; i<7; i++) {//y axis
+	for (j=0; j<5; j++) {//x axis
+  document.getElementById("yod").innerHTML += "<input type=checkbox id=\'chk-" + i + j + "\'>";
+  yid.push('chk-' + i + j);
+  console.log('chk-' + i + j);
+  }
+  document.getElementById("yod").innerHTML += "<br>";
+  }
+document.getElementById("yod").innerHTML += "<button onclick='ProcessCheckboxes()'>Submit</button>";
+document.getElementById("yod").innerHTML += "<button onclick='GenerateCheckboxes()'>Clear</button>";
+document.getElementById("yod").innerHTML += "<button onclick='ExportCharData()'>SAVE ALL</button>";
+}
+function ProcessCheckboxes() {
+  inna = "";
+  for (i=0; i<35; i++) {//y axis
+  if (document.getElementById(yid[i]).checked) {
+    inna += "1";
+  } else {
+    inna += "0";
+  }
+  }
+  console.log(inna);
+  PixelToRect(inna,5);
+}
+function ExportCharData() {
+  document.getElementById('zhangfu').innerHTML += ("<br>char0 = " + JSON.stringify(char0));
+  document.getElementById('zhangfu').innerHTML += ("<br>char1 = " + JSON.stringify(char1));
+  document.getElementById('zhangfu').innerHTML += ("<br>char2 = " + JSON.stringify(char2));
+  document.getElementById('zhangfu').innerHTML += ("<br>char3 = " + JSON.stringify(char3));
+  document.getElementById('zhangfu').innerHTML += ("<br>char4 = " + JSON.stringify(char4));
+  document.getElementById('zhangfu').innerHTML += ("<br>char5 = " + JSON.stringify(char5));
+  document.getElementById('zhangfu').innerHTML += ("<br>char6 = " + JSON.stringify(char6));
+  document.getElementById('zhangfu').innerHTML += ("<br>char7 = " + JSON.stringify(char7));
+  document.getElementById('zhangfu').innerHTML += ("<br>char8 = " + JSON.stringify(char8));
+  document.getElementById('zhangfu').innerHTML += ("<br>char9 = " + JSON.stringify(char9));
+}
+
+
+
+</script>

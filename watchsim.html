@@ -1,0 +1,105 @@
+ <meta charset="UTF-16">
+ <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        
+    }
+    .btn-adj {
+        background-color: #404048;
+        color: #ffffff;
+        top: 0;
+        left: 0;
+        width: 12.5vmin;
+        height: 50vmin;
+        position:fixed;
+    }
+    .btn-mode {
+        background-color: #404048;
+        color: #ffffff;
+        top: 50vmin;
+        left: 0;
+        width: 12.5vmin;
+        height: 50vmin;
+        position:fixed;
+    }
+    .btn-up {
+        background-color: #404048;
+        color: #ffffff;
+        top: 0vmin;
+        left: 87.5vmin;
+        width: 12.5vmin;
+        height: 50vmin;
+        position:fixed;
+    }
+    .btn-down {
+        background-color: #404048;
+        color: #ffffff;
+        top: 50vmin;
+        left: 87.5vmin;
+        width: 12.5vmin;
+        height: 50vmin;
+        position:fixed;
+    }
+    .casaa {
+border: 1px solid red; width: calc(100vmin - 2px); height:calc(100vmin - 2px);
+    }
+    .btn {
+      padding: 1% 1.5%;
+      font-size:20px;
+    }
+    input[type=checkbox] {
+    transform: scale(1.6);
+    }
+  </style>
+  <title>Watch Simulator</title>
+  </head> <body style="margin:0px;padding:0px;text-align: left;" onload="">
+<canvas height=1600 width=1600 id=canvas class="casaa"></canvas><br>
+<button class="btn-adj" onclick="btnPressed(1);">ADJUST</button>
+<button class="btn-mode" onclick="btnPressed(3);">MODE</button>
+<button class="btn-up" onclick="btnPressed(2);">START<br>/<br>UP</button>
+<button class="btn-down" onclick="btnPressed(4);">RESET<br>/<br>DOWN</button>
+
+<div hidden id="hadde"style="margin:0px;padding:0px;text-align: center;">
+<button class="btn" onclick="StoreToChar(0)">Store to Char: 0</button>
+<button class="btn" onclick="StoreToChar(1)">1</button>
+<button class="btn" onclick="StoreToChar(2)">2</button>
+<button class="btn" onclick="StoreToChar(3)">3</button>
+<button class="btn" onclick="StoreToChar(4)">4</button>
+<button class="btn" onclick="StoreToChar(5)">5</button>
+<button class="btn" onclick="StoreToChar(6)">6</button>
+<button class="btn" onclick="StoreToChar(7)">7</button>
+<button class="btn" onclick="StoreToChar(8)">8</button>
+<button class="btn" onclick="StoreToChar(9)">9</button>
+<br>
+<button class="btn" onclick="StoreToChar(10)">Store to BIG Char: 0</button>
+<button class="btn" onclick="StoreToChar(11)">1</button>
+<button class="btn" onclick="StoreToChar(12)">2</button>
+<button class="btn" onclick="StoreToChar(13)">3</button>
+<button class="btn" onclick="StoreToChar(14)">4</button>
+<button class="btn" onclick="StoreToChar(15)">5</button>
+<button class="btn" onclick="StoreToChar(16)">6</button>
+<button class="btn" onclick="StoreToChar(17)">7</button>
+<button class="btn" onclick="StoreToChar(18)">8</button>
+<button class="btn" onclick="StoreToChar(19)">9</button>
+<br>
+<button class="btn" onclick="StoreToChar(57)">STORE TO ALL</button>
+<br>
+<textarea hidden id="iki" cols=5 rows=7>
+</textarea>
+<div id="yod"></div>
+<p>make a pattern on the checkboxes and store your pattern to a number to see your custom dot matrix letter!</p>
+<p>OUTPUT:</p>
+<p id="zhangfu"></p>
+<button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button><br><br>
+</div>
+</body>
+<script src="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"></script>
+</body>
+<script src="watch.js"></script>

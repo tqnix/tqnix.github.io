@@ -1,0 +1,132 @@
+<head><link rel="icon" type="image/jpeg" href="coloro.jpeg"><title>osu! pattern trainer</title></head>
+<canvas id="canvas" style="box-sizing: border-box;
+       max-width: 100%; max-height: 100%; "></canvas>
+<script>
+circlesX = [];
+circlesY = [];
+mx = 0;
+my = 0;
+circlesize = 90;
+document.body.style.cursor = 'none';
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+ctx.canvas.width  = window.innerWidth;
+ ctx.canvas.height = window.innerHeight;
+ctx.fillStyle = "yellow";
+CirclePlacementGuide = true;
+document.addEventListener('mousedown', event => {
+    if (event.button == 0) {
+      circlesX.push(mx);
+    circlesY.push(my);
+    } else {
+CirclePlacementGuide = !CirclePlacementGuide;
+    }
+    draw(mx,my);
+});
+
+if (localStorage.savedcirclesX != null && localStorage.savedcirclesY != null) {
+	circlesX = JSON.parse(localStorage.savedcirclesX);
+  circlesY = JSON.parse(localStorage.savedcirclesY);
+	draw(0,0);
+} else {
+	circlesX = [];
+  circlesY = [];
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.code == "Digit1") {
+      localStorage.savedcirclesX = JSON.stringify(circlesX);
+      localStorage.savedcirclesY = JSON.stringify(circlesY);
+    } else if (event.code == "Digit2") {
+      if (localStorage.savedcirclesX != null && localStorage.savedcirclesY != null) {
+	  circlesX = JSON.parse(localStorage.savedcirclesX);
+    circlesY = JSON.parse(localStorage.savedcirclesY);
+}
+    } else if (event.code == "Digit3") {
+      circlesX = [];
+      circlesY = [];
+    } else {
+      for (i=0;i<circlesX.length;i++) {
+        if (collision(circlesX[i],circlesY[i],circlesize,mx,my,15)) {
+            //detect if circle clicked is not the first circle in array
+            console.log("joger");
+            circlesX.splice(i, 1);
+            circlesY.splice(i, 1);
+            break;
+        }
+    }
+    }2
+    draw(mx,my);
+});
+document.addEventListener('mousemove', event => {
+    mx = event.clientX;
+    my = event.clientY;
+    draw(mx,my);
+});
+function collision(p1x, p1y, r1, p2x, p2y, r2) {
+  var a;
+  var x;
+  var y;
+
+  a = r1 + r2;
+  x = p1x - p2x;
+  y = p1y - p2y;
+
+  if (a > Math.sqrt((x * x) + (y * y))) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function draw(mgx,mgy) {
+  //ctx.font = circlesize + "px sans-serif";
+  ctx.font = "32px sans-serif";
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    ctx.fillText("1: SAVE 2: LOAD 3: CLEAR",20,40);
+    ctx.fillText(JSON.stringify(circlesX),20,100);
+    ctx.fillText(JSON.stringify(circlesY),20,150);
+  for (i=0;i<circlesX.length;i++) {
+    if (!i) {
+        ctx.fillStyle = 'white';
+    } else {
+        ctx.fillStyle = 'gray';
+    }
+    ctx.beginPath();
+    ctx.arc(circlesX[i],circlesY[i],circlesize, 0, 2 * Math.PI, false);
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#FF4444';
+    ctx.stroke();
+    ctx.fillStyle = "black";
+    //ctx.fillText(i, circlesX[i]-10,circlesY[i]+16,circlesize);//debug
+    //ctx.fillRect(circlesX[i]-circlesize/2,circlesY[i]-circlesize/2,circlesize,circlesize);
+  }
+  //ctx.fillRect(event.clientX, 0, 3, canvas.height);
+  //ctx.fillRect(0, event.clientY, canvas.width, 3);
+    
+    if (CirclePlacementGuide) {
+      ctx.beginPath();
+    ctx.arc(mgx,mgy,circlesize, 0, 2 * Math.PI, false);
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#333300';
+    ctx.stroke();
+    } else {
+ctx.fillStyle = "orange";
+    ctx.beginPath();
+    ctx.arc(mgx,mgy,15, 0, 2 * Math.PI, false);
+    ctx.fill();
+    }
+    
+}
+function zoom(event) {
+  event.preventDefault();
+
+  circlesize += event.deltaY * 0.1;
+  draw(mx,my);
+  }
+
+const el = document.querySelector("body");
+el.onwheel = zoom;
+</script>

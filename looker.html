@@ -1,0 +1,247 @@
+<head><link rel="icon" type="image/jpeg" href="coloro.jpeg"><title>LOOKAHZ</title></head>
+<meta charset='unicode'>
+<html style="margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;">
+<body style="margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;">
+<canvas style="margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;" id="canvas"></canvas>
+</body>
+<script src="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"></script>
+<script>
+
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext("2d");
+ctx.canvas.width = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+cw = ctx.canvas.width;
+ch = ctx.canvas.height;
+ctx.lineWidth = 3;
+ctx.textAlign = "center";
+ctx.lineCap = "round";
+ctx.font = "12px sans-serif";
+
+var mx = 0;
+var my = 0;
+var maxRange = 100000;
+var maxRangeMd = 1;
+var circleToggle = false;
+var lineToggleShort = true;
+var lineToggle = false;
+var numberToggle = true;
+var looker = {x:0,y:0,d:0,c:"#000000",spins:0,spintrigger:false};//d = distance from mouse cursor position
+var lookerList = [];
+
+if (localStorage.savedlookers != null) {
+	lookerList = JSON.parse(localStorage.savedlookers);
+	draw();
+} else {
+	lookerList = [];
+}
+
+function touch2Mouse(e)
+{
+  var theTouch = e.changedTouches[0];
+  var mouseEv;
+
+  switch(e.type)
+  {
+    case "touchstart": mouseEv="mousedown"; break;  
+    case "touchend":   mouseEv="mouseup"; break;
+    case "touchmove":  mouseEv="mousemove"; break;
+    default: return;
+  }
+
+  var mouseEvent = document.createEvent("MouseEvent");
+  mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
+  theTouch.target.dispatchEvent(mouseEvent);
+
+  e.preventDefault();
+}
+document.getElementById("canvas").addEventListener("touchstart", touch2Mouse, true);
+document.getElementById("canvas").addEventListener("touchmove", touch2Mouse, true);
+document.getElementById("canvas").addEventListener("touchend", touch2Mouse, true);
+function btnCheck(xo,yo,xl,yl,func) {
+  if (mx > xo && mx < xo + xl && my > yo && my < yo + yl) {
+    ctx.strokeRect(xo,yo,xl,yl);
+    return 1;
+  }
+  return 0;
+}
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+function P2R(radius,radian){
+    return {
+        x:radius*Math.cos(radian),
+        y:radius*Math.sin(radian)
+    }
+}
+function GetMouseDirection(cece,isY) {
+  let dist = Math.min(Math.sqrt((mx - cece.x)**2 + (my - cece.y)**2),Math.min(window.innerWidth/24,window.innerHeight/24));
+  if (isY) {
+    return P2R(dist,-Math.atan2(mx - cece.x, my - cece.y)+Math.PI/2).y + cece.y;
+  } else {
+    return P2R(dist,-Math.atan2(mx - cece.x, my - cece.y)+Math.PI/2).x + cece.x;
+  }
+}
+function compareNumbers(a, b) {
+  return a - b;
+}
+function DeleteNearest() {
+  lookerList = lookerList.sort((a, b) => a.d - b.d);
+  lookerList.splice(0,1);
+}
+function draw() {
+ctx.clearRect(0,0,cw,ch);
+//ctx.fillText("Lookers: a very trippy line and circle playground. Click to place a looker. Press C to toggle circles, X to toggle lines, V to toggle cursor, and Z to delete all lookers.",cw/2,16);
+	if (circleToggle) {
+  	for (var i=0; i<lookerList.length; i++) {
+	  	ctx.beginPath();
+      ctx.strokeStyle = CDOLC(i);
+	    ctx.arc(lookerList[i].x,lookerList[i].y, lookerList[i].d, 0, 2 * Math.PI);
+	    ctx.stroke();
+		}
+  }
+  if (lineToggleShort) {
+		for (var i=0; i<lookerList.length; i++) {
+ 	 	
+ 	    ctx.beginPath();
+      ctx.strokeStyle = CDOLC(i);
+      ctx.arc(lookerList[i].x,lookerList[i].y, Math.min(Math.sqrt((mx - lookerList[i].x)**2 + (my - lookerList[i].y)**2),Math.min(window.innerWidth/20,window.innerHeight/20)), 0, 2 * Math.PI);
+	    ctx.stroke();
+      ctx.moveTo(lookerList[i].x,lookerList[i].y);
+	    ctx.lineTo(GetMouseDirection(lookerList[i],false),GetMouseDirection(lookerList[i],true));
+	    ctx.stroke();
+  	}
+  }
+  if (lineToggle) {
+		for (var i=0; i<lookerList.length; i++) {
+ 	 	
+ 	    ctx.beginPath();
+      ctx.strokeStyle = CDOLC(i);
+	    ctx.moveTo(lookerList[i].x,lookerList[i].y);
+	    ctx.lineTo(mx,my);
+	    ctx.stroke();
+  	}
+  }
+  for (var i=0; i<lookerList.length; i++) {
+  		ctx.beginPath();
+      ctx.strokeStyle = CDOLC(i);
+      ctx.fillStyle = lookerList[i].c;
+	    ctx.arc(lookerList[i].x,lookerList[i].y, 3, 0, 2 * Math.PI);
+	    ctx.fill();
+      if (numberToggle) {ctx.fillText(Math.floor(lookerList[i].d) + " | " + lookerList[i].spins, lookerList[i].x,lookerList[i].y-5);}
+  }
+  ctx.fillStyle = "beige";
+  ctx.fillRect(5,5,55,55);
+  ctx.fillRect(65,5,55,55);
+  ctx.fillRect(125,5,55,55);
+  ctx.fillRect(185,5,55,55);
+  ctx.fillRect(245,5,55,55);
+  ctx.fillRect(305,5,55,55);
+  ctx.fillRect(365,5,175,55);
+  ctx.fillRect(545,5,55,55);
+  ctx.fillStyle = "black";
+      ctx.fillText("Line",92,40);
+      ctx.fillText("Dir",152,40);
+      ctx.fillText("Info",212,40);
+  ctx.fillText("DEL ALL",272,40);
+  ctx.fillText("EXPORT",332,40);
+  ctx.fillText("DEL NEAR: RIGHT CLICK",452,40);
+  ctx.fillText("BACK",572,40);
+   ctx.fillText("Circle",32,40);
+}
+function rgbToHex(r, g, b) {
+  return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+}
+function CDOLC(index) {
+	let roj = (lookerList[index].d*256/maxRange);
+  if (roj>255) {
+  roj = 255;
+  }
+ return rgbToHex(roj,roj,roj);
+}
+
+
+ctx.fillStyle = "blue";
+ctx.strokeStyle = "red";
+document.addEventListener("mousemove",function() {
+for (var i=0; i<lookerList.length;i++) {
+		lookerList[i].d = Math.hypot(Math.abs(mx-lookerList[i].x),Math.abs(my-lookerList[i].y));
+    if (-Math.atan2(mx - lookerList[i].x, my - lookerList[i].y)+Math.PI/2 < 0) {
+      if (lookerList[i].spintrigger != 2) {lookerList[i].spintrigger = 1;}
+    } else {
+      lookerList[i].spintrigger = 0;
+    }
+    if (lookerList[i].spintrigger == 1) {
+      lookerList[i].spins++;
+      console.log(lookerList[i].x + " ceoi " + lookerList[i].spins);
+      lookerList[i].spintrigger = 2;
+    }
+	}
+mx = event.clientX;
+my = event.clientY;
+draw();
+});
+document.addEventListener("mousedown", (event) => {
+if (event.button == 0) {
+  if (btnCheck(5,5,55,55,0)) {
+  circleToggle = !circleToggle; draw();
+} else if (btnCheck(65,5,55,55,1)) {
+lineToggle = !lineToggle; draw();
+} else if (btnCheck(125,5,55,55,2)) {
+  lineToggleShort = !lineToggleShort; draw();
+} else if (btnCheck(185,5,55,55,2)) {
+  numberToggle = !numberToggle; draw();
+} else if (btnCheck(245,5,55,55,2)) {
+  lookerList = []; draw();
+} else if (btnCheck(545,5,55,55,2)) {
+  window.location.href = "index.html";
+} else if (btnCheck(305,5,55,55,2)) {
+  mx = 905;
+  my = 905;
+  setTimeout(() => { alert(JSON.stringify(lookerList)); localStorage.savedlookers = JSON.stringify(lookerList); }, 200);
+  
+} else {
+  lookerList.push({x:mx,y:my,d:30,spins:0,spintrigger:false,c:getRandomColor()});
+}
+}
+if (event.button == 2) {
+  lookerList = lookerList.sort((a, b) => a.d - b.d);
+  if (lookerList[0].d <= Math.min(window.innerWidth/24,window.innerHeight/24)) {
+    DeleteNearest(); draw();
+  }
+}
+});
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
+document.addEventListener("keydown",function() {
+switch(event.code) {
+case "KeyZ": circleToggle = !circleToggle; draw(); break;
+case "KeyX": lineToggle = !lineToggle; draw(); break;
+case "KeyC": lineToggleShort = !lineToggleShort; draw(); break;
+case "KeyV": numberToggle = !numberToggle; draw(); break;
+case "KeyB": lookerList = []; draw(); break;
+case "KeyE": alert("🍕:" + JSON.stringify(lookerList)); localStorage.savedlookers = JSON.stringify(lookerList); break;
+case "Digit0": if (document.getElementById("canvas").style.cursor == "none") {
+	document.getElementById("canvas").style.cursor = 'pointer';
+} else {
+	document.getElementById("canvas").style.cursor = 'none';
+} break;
+}
+}); 
+</script>
+</html>

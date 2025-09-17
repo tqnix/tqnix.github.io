@@ -1,0 +1,178 @@
+<meta charset=UTF-16>
+<html><head>
+  <title>Color Vomit Generator</title>
+  <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+    input {
+      width: 90%;
+    }
+    .dhaub {
+      width: 25vw;
+    }
+  </style>
+  </head><body>
+    <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button><br><br>
+<div style="display: inline-block; border: 1px solid white">
+  <p id="delayvaluedisp">AutoGenerate:</p>
+  <input type="range" class="dhaub" id="delay" min="50" max="1000" step="50" value="250">
+   <input type="checkbox" onclick="telefrag()" id="delay-chk" name="krass" value="rigball">
+</div>
+<div style="display: inline-block; border: 1px solid white">
+  <p id="sizevaluedisp">Canvas:</p>
+  <input type="range" class="dhaub" id="csize" min="1" max="100" step="1" value="25" onchange="adjSize()">
+</div>
+<div style="display: inline-block; border: 1px solid white">
+    <p id="dotvaluedisp">Pixel Size:</p>
+  <input type="range" class="dhaub" id="dsize" min="1" max="50" step="1" value="10" onchange="adjDotSize()">
+</div>
+
+<p></p>
+  <input type="range" class="dhaub" id="red-chk" name="krass" min="0" max="1" step="0.01" value="1" value="red-chk-success" onchange="adjColorAmplitude()">
+
+  <label for="red-chk" id="rvd">Red Layer</label><br>
+  <input type="range" class="dhaub" id="green-chk" name="krass" min="0" max="1" step="0.01" value="1" value="green-chk-success" onchange="adjColorAmplitude()">
+
+  <label for="green-chk" id="gvd">Green Layer</label><br>
+  <input type="range" class="dhaub" id="blue-chk" name="krass" min="0" max="1" step="0.01" value="1" value="blue-chk-success"onchange="adjColorAmplitude()">
+
+  <label for="blue-chk" id="bvd">Blue Layer</label><br>
+
+<br>
+
+  <button style="padding:10px 40%" onclick="db()">Generate!<br></button>
+    <button style="padding:10px 40%" id="btn-download">Save!<br></button>
+    <br><br>
+  <canvas id="canvas" width="1000" height="1000"></canvas>
+
+<script>
+  document.getElementById('btn-download').addEventListener("click", function(e) {
+
+    var dataURL = canvas.toDataURL("image/jpeg", 1.0);
+
+    var a = document.createElement('a');
+    a.href = dataURL;
+    a.download = "tqnixity-w3spaces-colormatic.jpeg";
+    document.body.appendChild(a);
+    a.click();
+});
+slib = document.getElementById("delay");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+var ref = parseFloat(document.getElementById("red-chk").value);
+var gef = parseFloat(document.getElementById("green-chk").value);
+var bef = parseFloat(document.getElementById("blue-chk").value);
+var size = parseInt(document.getElementById("csize").value);
+var timerintervalid = 0;
+var dotsize = parseInt(document.getElementById("dsize").value);
+var colormatis = [{r:0,g:0,b:0}];
+var outputColors = [];//for transposecolor
+function telefrag() {
+if (document.querySelector("#delay-chk").checked) {
+            timerintervalid = setInterval(db, slib.value);
+            document.getElementById("delayvaluedisp").innerText = "Delay: " + slib.value;
+  } else{
+  clearInterval(timerintervalid);
+  }
+}
+ctx.canvas.width  = size * dotsize;
+ ctx.canvas.height = size * dotsize;
+function adjSize() {
+	outputColors = [];
+ size = parseInt(document.getElementById("csize").value);
+  ctx.clearRect(0,0,10000,10000);
+  for (var i=0; i<size*2; i++) {
+	colormatis[i] = getRandomColor();
+	}
+  document.getElementById("sizevaluedisp").innerText = "Canvas Size: " + size;
+  ctx.canvas.width  = size * dotsize;
+ ctx.canvas.height = size * dotsize;
+}
+function adjColorAmplitude() {
+let rathesungod = parseFloat(document.getElementById("red-chk").value);
+let guff = parseFloat(document.getElementById("green-chk").value);
+let byoumoins = parseFloat(document.getElementById("blue-chk").value);
+ref = rathesungod / 1;
+gef = guff / 1;
+bef = byoumoins / 1;
+document.getElementById("rvd").innerText = "Red: " + ref;
+document.getElementById("gvd").innerText = "Green: " + gef;
+document.getElementById("bvd").innerText = "Blue: " + bef;
+}
+function adjDotSize() {
+ dotsize = parseInt(document.getElementById("dsize").value);
+ctx.clearRect(0,0,10000,10000);
+document.getElementById("dotvaluedisp").innerText = "Pixel Size: " + dotsize;
+ctx.canvas.width  = size * dotsize;
+ ctx.canvas.height = size * dotsize;
+}
+function rth(r, g, b) {
+  return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+}
+function htr(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+function TransposeColor(iteration) {
+    let rojo = 0;
+  let gra = 0;
+  let bleaux = 0;
+  for (var i=0;i<size;i++) {
+        if(iteration!=size) {
+        outputColors[i] = colormatis[i+size-1];
+        //rojo = htr(outputColors[i]).r;
+        //gra  = htr(outputColors[i]).g;
+        //bleaux = htr(outputColors[i]).b;
+        if (ref > 0) {
+            rojo = (outputColors[iteration].r/*divided by 2*/ + outputColors[i+0/*size*/].r/*divided by 2*/ )* ref;
+        }
+        if (gef > 0) {
+            gra = (outputColors[iteration].g/*divided by 2*/ + outputColors[i+0/*size*/].g/*divided by 2*/ )* gef;
+        }
+        if (bef > 0) {
+            bleaux = (outputColors[iteration].b/*divided by 2*/+ outputColors[i+0/*size*/].b/*divided by 2*/ )* bef;
+        }
+    }
+  outputColors[i] = {r: rojo%255,g: gra%255,b: bleaux%255};
+  }
+  
+}
+function getRandomColor() {
+  let color = {r:0,g:0,b:0};
+  color.r += Math.floor(Math.random() * 256);
+  color.g += Math.floor(Math.random() * 256);
+  color.b += Math.floor(Math.random() * 256);
+  return color;
+}
+for (var i=0; i<size*2; i++) {
+	colormatis[i] = getRandomColor();
+}
+function db() {//hella fucking laggy
+	colormatis[size+size-1] = getRandomColor();
+	colormatis.shift();
+    //console.log(colormatis.length);
+  for (var i=0; i<size; i++) {
+  	ctx.fillStyle = rth(colormatis[i%size].r,colormatis[i%size].g,colormatis[i%size].b);
+		ctx.fillRect(0,i*dotsize,dotsize,dotsize);
+    for (var j=size; j<size+size-1; j++) {
+    	TransposeColor(i);
+  		ctx.fillStyle = rth(outputColors[j-size].r,outputColors[j-size].g,outputColors[j-size].b);
+			ctx.fillRect(dotsize+(j*dotsize)-(size*dotsize),i*dotsize,dotsize,dotsize);
+ 	 	}
+  }
+}
+
+
+</script></body></html>

@@ -1,0 +1,129 @@
+ <head>
+   <meta charset="UTF-16">
+   <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+   <title>Hotkey Practice</title>
+  <link rel="stylesheet" href="styles.css">
+   <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+    </style> 
+ </head>
+ <button class="navbutton" onclick="window.location.href = 'index.html'">◀️BACK</button><br>
+ <h1>MINECRAFT HOTKEY PRACTICE PROOF OF CONCEPT</h1>
+<p id="rq">PRESS ANY KEY TO START</p>
+<p id="hotkey"></p>
+<p id="disp"></p>
+<span>Press BACKSPACE to clear debug log</span>
+<script>
+  keys = ["dummy","Digit1","Digit2","Digit3","Digit4","Digit5","Digit6","Digit7","Digit8","Digit9"];
+askbuffer = [1,1,1,1,1];
+ask = 3;
+size = 3;
+combo = 0;
+hcombo = 0;
+misses = 0;
+changebind_ask = 0; //is changing bind when not 0
+
+Reset();
+function ShowHotkeys() {
+  document.getElementById("hotkey").innerHTML = "";
+  for (i=1; i<=9; i++) {
+    document.getElementById("hotkey").innerHTML += i + ": <button onclick='ChangeBind(" + i + ")'>" + keys[i] + "</button> | ";
+  }
+  document.getElementById("hotkey").innerHTML += "<button onclick='ChangeSize()'>DIFFICULTY</button>";
+}
+function ChangeSize() {
+  size = prompt("# of hotbar slots? (2-9)");
+  if (size < 2 || size > 9) {
+    size = 2;
+  }
+}
+function ChangeBind(n) {
+  console.log(n);
+  changebind_ask = n;
+  keys[n] = "CHANGING";
+  ShowHotkeys();
+}
+function GenerateHotkey() {
+askbuffer.push(1 + Math.floor(Math.random() * size));
+document.getElementById("rq").innerHTML = askbuffer[0] + " " + askbuffer[1] + " " + askbuffer[2] + " " + askbuffer[3] + " " + askbuffer[4] + " | COMBO " + combo + " | HIGH " + hcombo + " | " + misses + " MISSES | " + size + " HOTKEYS";
+}
+function UpdateHighestCombo() {
+  if (combo >= hcombo) {
+      hcombo = combo;
+  }
+}
+function Reset() {
+  combo = 0;
+  hcombo = 0;
+  misses = 0;
+  DrawToDisp("Game RESET");
+  for(i=0; i<5; i++) {
+    askbuffer[i] = (1 + Math.floor(Math.random() * size));
+  }
+  ShowHotkeys();
+}
+function Lose() {
+  DrawToDisp("Game Over! Combo: " + combo);
+  combo = 0;
+  misses++;
+  GenerateHotkey();
+}
+function DrawToDisp(a) {
+  document.getElementById("disp").innerHTML += "<br>";
+  document.getElementById("disp").innerHTML += a;
+
+}
+function ClearDisp() {
+  document.getElementById("disp").innerHTML = "";
+}
+document.addEventListener("keydown",function() {
+console.log(event.code);
+if (changebind_ask == 0) {
+  if (event.code == "Backspace") {
+    ClearDisp();
+  }
+  else if (event.code == keys[askbuffer.shift()]) {
+    combo++;
+    DrawToDisp("COMBO: " + combo + " | KEYCODE: " + event.code);
+    UpdateHighestCombo();
+    GenerateHotkey();
+  } else {
+     Lose();
+  }
+}
+if (changebind_ask !== 0) {
+  keys[changebind_ask] = event.code;
+  DrawToDisp("KEYBIND " + changebind_ask + " CHANGED TO " + event.code);
+  changebind_ask = 0;
+  ShowHotkeys();
+}
+});
+/*
+document.addEventListener("mousedown",function() {
+  event.preventDefault();
+console.log(event.button);
+if (event.button != 0) {
+  if (changebind_ask == 0) {
+  if (event.button == keys[askbuffer.shift()]) {
+    combo++;
+    DrawToDisp(combo);
+    UpdateHighestCombo();
+    GenerateHotkey();
+  } else {
+     Lose();
+  }
+}
+if (changebind_ask !== 0) {
+  keys[changebind_ask] = event.button;
+  changebind_ask = 0;
+  ShowHotkeys();
+}
+}
+});*/
+</script>

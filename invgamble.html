@@ -1,0 +1,587 @@
+<meta charset='unicode'>
+<head>
+	<link rel="icon" type="image/jpeg" href="coloro.jpeg">
+	<title>INVENTORY GAMBLING</title>
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+	btn {
+		border: 2px solid white;
+		cursor: pointer;
+    }
+	.faan {
+		border: 1px solid white; cursor: pointer; font-size:2.5vmin;
+	}
+	.faan_da {
+		border: 1px solid white; cursor: pointer;font-size:4.5vmin;
+	}
+	.faan_inv{
+		border: none; cursor: pointer;font-size:2.5vmin;
+	}
+  </style>
+  </head>
+<div id=topbar style="display:inline-block;float:left;">
+	<button class="navbutton" onclick="window.location.href = 'index.html'">BACK TO HOMEPAGE</button><br><br>
+<a class="faan_da" onclick="OpenMenu(-1)">DIG MENU</a><br>
+<a class="faan" onclick="OpenMenu(0)">Craft</a><br>
+<a class="faan" onclick="OpenMenu(1)">Cook</a><br>
+<a class="faan" onclick="OpenMenu(2)">Reforge</a><br>
+<a class="faan" onclick="OpenMenu(3)">Dumpster Diving</a><br>
+<a class="faan" onclick="OpenMenu(4)">Save</a><br>
+<input type="text" id="ItemToRemoveInputBoxThingy2" placeholder="JSON text here">
+<button onclick="Import(document.getElementById('ItemToRemoveInputBoxThingy2').value)">Import</button><br>
+<a class="faan"" onclick="OpenMenu(99)">Item Menu</a><br>
+<button onclick="DeleteAllItemsOfType(document.getElementById('ItemToRemoveInputBoxThingy').value)">
+Remove All:
+</button>
+<input type="text" id="ItemToRemoveInputBoxThingy" placeholder="do ListItems() for item list">
+<p>--------------------------------------------</p>
+<div id=itemmenu class="faan"></div>
+</div>
+<p>
+Items:
+</p>
+<div id=inventoryDisp style="display:inline-block;">
+</div>
+<script src="https://github.com/douglascrockford/JSON-js/blob/master/json2.js"></script>
+<script>
+
+
+//todo: import custom items and recipes
+//add dragging support to reorganize inventory
+//add using items and make reforges do more
+
+
+IMD = document.getElementById("inventoryDisp");
+console.log(localStorage.savedtexes);
+if (localStorage.savedtexes != null) {
+   Import(localStorage.savedtexes);
+} else {
+	Inventory = [{type:"🍔food",count:64,extra_tags:"Click on items to drop/use them!"},
+{type:"🍫energy bar",count:99,extra_tags:""},
+{type:"🗑️trash",count:64,extra_tags:"🪙Rich"},
+];
+}
+ReloadInventory();
+GameItemProperties = [
+"",
+];
+GameItems = [
+"🪙money",//obtainable via digging
+"🧱brick",
+"🗑️trash",
+"🌳plant",
+"🪵wood",
+"🪨stone",
+"🍫energy bar",
+"💧water",
+"🥷steal",
+"🟫dirt",
+//craftable
+"🧵string",
+"🍔food",
+"⬛mystery",
+"✨Win!",
+"🏠house",
+"💰trash pile",
+"⛏️tool",
+];
+GameReforges = [
+	"😎Good",
+	"🗳️Approved",
+	"🪙Rich",
+	"🗳️Approved",
+	"🗑️Bad",
+	"📇Cumbersome",
+	"😈Evil",
+	"🅿️Poor",//you should be able to turn this into rich
+
+];
+TrashGamblingLootTable = 
+	[
+	"💧water",
+	"💧water",
+	"🌳plant",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🪙money",
+	"🧵string",
+	"⬛mystery",
+	"💧water",
+	"💧water",
+	"🌳plant",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🪙money",
+	"🧵string",
+	"⬛mystery",
+	"💧water",
+	"💧water",
+	"🌳plant",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🪙money",
+	"🧵string",
+	"⬛mystery",
+	"💧water",
+	"💧water",
+	"🌳plant",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🪙money",
+	"🧵string",
+	"⬛mystery",
+	"💧water",
+	"💧water",
+	"🌳plant",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🪙money",
+	"🧵string",
+	"⬛mystery",
+	"🪨stone",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🌳plant",
+	"🪨stone",
+	"🪙money",
+	"🧵string",
+	"⬛mystery",
+	"⛏️tool",
+	"⛏️tool",
+	"⛏️tool",
+	"⛏️tool",
+	"🧵string",
+	"🧵string",
+	"🪨stone",
+	"🧵string",
+	"🧵string",
+	"💰trash pile",
+	];
+const PotentialEnergyItems = ["🍫energy bar","🍔food","⛏️tool"];
+const PEIMagicCostModifier = [1,2,1];
+
+var Item = {type:"air",count:1,extra_tags:""};
+var recipeInst = {r1type:"",r1ct:1,r2type:"",r2ct:1,result:"",resultct:1,id:""};
+/*
+conditions:
+Items aren't evil
+Item 1 is approved
+Item 1 is rich
+
+
+
+*/
+recipes = [
+	{r1type:"🪙money",r1ct:1,
+	r2type:"💧water",r2ct:1,
+	result:"🍫energy bar",resultct:1,condition:"Items aren't evil"},
+
+	{r1type:"🧱brick",r1ct:50,
+	r2type:"🪙money",r2ct:10,
+	result:"🏠house",resultct:1,condition:"Item 1 is approved"},
+
+	{r1type:"🟫dirt",r1ct:1,
+	r2type:"🪙money",r2ct:1,
+	result:"🧱brick",resultct:2,condition:"Item 1 is approved"},
+
+	{r1type:"🌳plant",r1ct:1,
+	r2type:"💧water",r2ct:0.5,
+	result:"🍔food",resultct:4,condition:""},
+
+	{r1type:"🌳plant",r1ct:1,
+	r2type:"🪨stone",r2ct:1,
+	result:"🪵wood",resultct:3,condition:"Item 1 is approved"},
+
+	{r1type:"🌳plant",r1ct:1,
+	r2type:"⛏️tool",r2ct:1,
+	result:"🪵wood",resultct:6,condition:""},
+
+	{r1type:"🪙money",r1ct:0.25,
+	r2type:"⬛mystery",r2ct:1,
+	result:"⬛mystery",resultct:4,condition:"Items aren't evil"},
+
+	{r1type:"💰trash pile",r1ct:1,
+	r2type:"💰trash pile",r2ct:0,
+	result:"🗑️trash",resultct:222,condition:"Item 1 is approved"},
+	
+];
+cookingrecipes = [
+	{
+	ingredients:[
+	{type:"🪨stone",ct:1}
+	],
+	fuelcost:1,
+	result:"🥷steal",resultct:1
+	},
+	{
+	ingredients:[
+	{type:"🥷steal",ct:2}
+	],
+	fuelcost:1,
+	result:"🪙money",resultct:4
+	},
+	{
+	ingredients:[
+	{type:"🟫dirt",ct:1},
+	{type:"💧water",ct:2},
+	],
+	fuelcost:1,
+	result:"🧱brick",resultct:2
+	},
+	{
+	ingredients:[
+	{type:"🪵wood",ct:3},
+	{type:"🪨stone",ct:3},
+	{type:"🧵string",ct:4},
+	],
+	fuelcost:1,
+	result:"⛏️tool",resultct:10
+	},
+	{
+	ingredients:[
+	{type:"🪵wood",ct:3},
+	{type:"🥷steal",ct:3},
+	{type:"🧵string",ct:6},
+	],
+	fuelcost:1,
+	result:"⛏️tool",resultct:25
+	},
+];
+customrecipes = [
+	{
+	ingredients:
+	[
+	{type:"🪙money",ct:50},
+	{type:"🧵string",ct:25}
+	],
+	result:"🧧红包",
+	resultct:1
+	},
+];
+customitems = [
+	"🧧红包",
+];
+function ListItems() {
+	for (var i=0; i<GameItems.length; i++) {
+  console.log(i + " | " + GameItems[i]);
+  }
+}
+function SortInventory() {};
+function accessInventory(InventoryName) {};
+function OpenMenu(bnm) {//not a menu yet
+switch(bnm) {
+	case -1: 
+   document.getElementById("itemmenu").innerHTML = 'DIG:<br>';
+   document.getElementById("itemmenu").innerHTML += 'You can dig with:<br>1 energy bar<br>2 food<br>1 tool<br>'
+   document.getElementById("itemmenu").innerHTML += '<br><a class="faan" onclick="ARI(1,1,0)">dig (cost: 1🍫)</a><br><a class="faan" onclick="ARI(20,16,2)">dig (costs 16🍫 and 2🪙)</a><br>';
+  document.getElementById("itemmenu").innerHTML += '<br><a class="faan" onclick="ARI(75,100,-50)">dig (less output, -100🍫, +50🪙)</a><br><a class="faan" onclick="ARI(300,200,50)">dig (costs 200🍫 and 50🪙)</a><br>';
+  break;
+	case 0:
+		document.getElementById("itemmenu").innerHTML = 'RECIPES:<br>';
+		for (var i=0; i<recipes.length; i++) {
+			document.getElementById("itemmenu").innerHTML += "<a onclick='Craft(" + i +");'>" + recipes[i].resultct + " " + recipes[i].result.substring(0,2) + " = " + recipes[i].r1ct + " " + recipes[i].r1type.substring(0,2)  + " + " + recipes[i].r2ct + " " + recipes[i].r2type.substring(0,2) + "<br>If: " + recipes[i].condition +"</a><br><br>";
+		}
+		
+		  break;//craft
+  case 1: document.getElementById("itemmenu").innerHTML = 'COOKING:<br>'; 
+  for (var i=0; i<cookingrecipes.length; i++) {
+			document.getElementById("itemmenu").innerHTML += "<a onclick='NewCraft(" + i +");'>" + cookingrecipes[i].resultct + " " + cookingrecipes[i].result.substring(0,2) + " = </a>";
+			for (var j=0; j<cookingrecipes[i].ingredients.length; j++) {
+				document.getElementById("itemmenu").innerHTML += "<a onclick='NewCraft(" + i +");'>" + cookingrecipes[i].ingredients[j].ct + " " + cookingrecipes[i].ingredients[j].type.substring(0,2) + " + </a>";
+			}
+			document.getElementById("itemmenu").innerHTML += "<a onclick='NewCraft(" + i +");'>1 🪵</a><br><br>";
+	}
+  break;//cook
+  case 2: 
+  document.getElementById("itemmenu").innerHTML = 'REFORGING:<br>';
+  document.getElementById("itemmenu").innerHTML += "<br><a onclick='ReforgeRandom()'>Reforge All (1 money)</a>";
+  document.getElementById("itemmenu").innerHTML += "<br><a onclick='ReforgeClear()'>Clear All Reforges (5 money)</a>";
+  break;//reforge
+  case 3: 
+   document.getElementById("itemmenu").innerHTML = 'DUMPSTER DIVING:<br>';
+   document.getElementById("itemmenu").innerHTML += "<br><a onclick='TrashGambling(1)'>Trash Gambling (1 trash)</a>";
+   document.getElementById("itemmenu").innerHTML += "<br><a onclick='TrashGambling(10)'>Trash Gambling x10 (10 trash)</a>";
+   document.getElementById("itemmenu").innerHTML += "<br><a onclick='TrashGambling(50)'>Trash Gambling x50 (50 trash)</a>";
+  
+  break;
+  case 4: alert(JSON.stringify(Inventory)); localStorage.savedtexes = JSON.stringify(Inventory); break;//save debug
+  case 99: 
+	document.getElementById("itemmenu").innerHTML = 'CREATIVE MODE ITEM MENU<br><input type="number" id="hon" placeholder="number value pls (nonfunctional rn)"></input><br>';
+  for (var i=0; i<GameItems.length; i++) {
+			document.getElementById("itemmenu").innerHTML += "<a onclick=\'AddItemCI(" + i + ")\'>" + GameItems[i] + "</a><br>";
+		}
+	document.getElementById("itemmenu").innerHTML += '<br>CUSTOM ITEMS:<br><br>';
+  for (var i=0; i<customitems.length; i++) {
+			document.getElementById("itemmenu").innerHTML += "<a onclick=\'AddItemCIC(" + i + ")\'>" + customitems[i] + "</a><br>";
+		}
+		document.getElementById("itemmenu").innerHTML += "<a onclick='MegaDig(false)'><br>🧱SUPER DIG</a>";
+		document.getElementById("itemmenu").innerHTML += "<a onclick='MegaDig(true)'><br>🧱SUPER DIG(for loop)</a>";
+  
+  break;//creative item menu
+	}
+}
+function Import(texes) {
+	Inventory = JSON.parse(texes);
+	ReloadInventory();
+}
+function Craft(idk) {
+	if (CheckForItemsOfType(recipes[idk].r1type,recipes[idk].r1ct) && CheckForItemsOfType(recipes[idk].r2type,recipes[idk].r2ct)) {
+		switch (recipes[idk].condition) {
+		case "": 
+		ActuallyCraft(idk);
+		break;
+		case "Item 1 is approved":
+		if (CheckForItemsOfTypeAndTags(recipes[idk].r1type,recipes[idk].r1ct,"🗳️Approved")) {
+			ActuallyCraft(idk);
+		} else {
+			document.getElementById("itemmenu").innerHTML += "<br>COUNTERFEIT MONEY";
+		}
+		break;
+		case "Items aren't evil": 
+		if (!CheckForItemsOfTypeAndTags(recipes[idk].r1type,recipes[idk].r1ct,"😈Evil") && CheckForItemsOfType(recipes[idk].r1type,recipes[idk].r1ct) && !CheckForItemsOfTypeAndTags(recipes[idk].r2type,recipes[idk].r2ct,"😈Evil") && CheckForItemsOfType(recipes[idk].r2type,recipes[idk].r2ct)) {
+			ActuallyCraft(idk);
+		} else {
+			document.getElementById("itemmenu").innerHTML += "<br>UNCOOPERATIVE ITEM(S)";
+		}
+		break;
+		}
+	} else {
+	document.getElementById("itemmenu").innerHTML += "<br>INSUFFICIENT MATERIAL";
+}
+
+}
+function ActuallyCraft(dk) {
+	DeleteItemsOfType(recipes[dk].r1type,recipes[dk].r1ct);
+	DeleteItemsOfType(recipes[dk].r2type,recipes[dk].r2ct);
+			AddItem(recipes[dk].result,recipes[dk].resultct);
+		OpenMenu(0);//redraws the crafting menu to get rid of INSUFFICIENT MATERIAL warnings
+		document.getElementById("itemmenu").innerHTML += "<br>SUCCESSFULLY CRAFTED";
+}
+function NewCraft(dk) {
+	let ItemsChecked = 0;
+	for (var i=0; i<cookingrecipes[dk].ingredients.length; i++) {
+		if (CheckForItemsOfType(cookingrecipes[dk].ingredients[i].type,cookingrecipes[dk].ingredients[i].ct)) {
+			ItemsChecked++;
+		}
+	}
+	if (ItemsChecked == cookingrecipes[dk].ingredients.length) {
+		for (var i=0; i<cookingrecipes[dk].ingredients.length; i++) {
+			DeleteItemsOfType(cookingrecipes[dk].ingredients[i].type,cookingrecipes[dk].ingredients[i].ct);
+		}
+		DeleteItemsOfType("🪵wood",1);
+			AddItem(cookingrecipes[dk].result,cookingrecipes[dk].resultct);
+		OpenMenu(1);//redraws the crafting menu to get rid of INSUFFICIENT MATERIAL warnings
+		document.getElementById("itemmenu").innerHTML += "<br>SUCCESSFULLY COOKED";
+	} else {
+		document.getElementById("itemmenu").innerHTML += "<br>INSUFFICIENT MATERIAL";
+	}
+		
+}
+
+function ReforgeRandom() {
+	if (CheckForItemsOfType("🪙money",1)) {
+		DeleteItemsOfType("🪙money",1);
+		for (var i=0; i<Inventory.length; i++) {
+		if (Inventory[i].extra_tags == "") {
+			Inventory[i].extra_tags = GameReforges[Math.floor(Math.random()*6)];
+		}
+		OpenMenu(2);//redraws the reforge menu to get rid of INSUFFICIENT MATERIAL warnings
+	}
+	} else {
+		document.getElementById("itemmenu").innerHTML += "<br>INSUFFICIENT MONI";
+	}
+	
+	ReloadInventory();
+}
+function TrashGambling(ci) {
+	for (i=0; i<ci; i++) {
+		if (CheckForItemsOfType("🗑️trash",1) && Math.random() <= 0.5) {
+			DeleteItemsOfType("🗑️trash",1);
+			AddItem(TrashGamblingLootTable[Math.floor(Math.random()*TrashGamblingLootTable.length)],1);
+			OpenMenu(3);//redraws the reforge menu to get rid of INSUFFICIENT MATERIAL warnings
+		}else {
+			DeleteItemsOfType("🗑️trash",1);
+			document.getElementById("itemmenu").innerHTML += "<br>NAHHHHHHH";
+		}
+	}
+	
+	ReloadInventory();
+}
+
+function ReforgeClear() {
+	if (CheckForItemsOfType("🪙money",5)) {
+		DeleteItemsOfType("🪙money",5);
+		for (var i=0; i<Inventory.length; i++) {
+		Inventory[i].extra_tags = "";
+	}
+	} else {
+		document.getElementById("itemmenu").innerHTML += "<br>INSUFFICIENT CIN";
+	}
+	
+	ReloadInventory();
+}
+
+function AddItemCI(se) {
+		AddItem(GameItems[se],parseInt(document.getElementById('hon').value));
+}
+function AddItemCIC(se) {
+		AddItem(customitems[se],parseInt(document.getElementById('hon').value));
+}
+function MegaDig(se) {
+	if (se) {
+		for (i=0; i<parseInt(document.getElementById('hon').value); i++) {
+			ARI(1,1);
+		}
+	} else {
+		ARI(parseInt(document.getElementById('hon').value),parseInt(document.getElementById('hon').value));
+	}
+}
+function AddItem(itemRef,cunter) {
+	let itemaddedflag = false;
+	let duplicateitemdetectedflag = false;
+	//Inventory.push(itemRef);
+	for (var i=0; i<Inventory.length; i++) {
+		if (itemRef == Inventory[i].type) {
+			if (cunter <= 0) {
+				Inventory[i].count += 1;
+			} else {
+				Inventory[i].count += cunter;
+			}
+		  ReloadInventory();
+		  itemaddedflag = true;
+		  duplicateitemdetectedflag = true;
+		  return 0;
+		}
+		
+	}
+	if (cunter <= 0) {
+				Inventory.push({type:itemRef,count:1,extra_tags:""});
+	} else {
+				Inventory.push({type:itemRef,count:cunter,extra_tags:""});
+	}
+	console.log(cunter);
+	DrawInventory();
+	itemaddedflag = true;
+
+  //console.log("Added " + itemRef + "; Length: " + Inventory.length);
+}
+function DeleteItemStack(indec,updateFlag) {
+	//console.log("Removed " + Inventory[indec] + " at slot " + indec + "; Length: " + Inventory.length);
+	Inventory.splice(indec,1);
+  if (updateFlag) {
+  	ReloadInventory();
+  }
+}
+function DeleteItem(indec,dummything1234) {
+		Inventory[indec].count--;
+		if (Inventory[indec].count < 0.01) {
+			Inventory.splice(indec,1);
+}
+  		ReloadInventory();
+}
+function DeleteAllItemsOfType(itemRef) {
+	let RemovedItemCt = 0;
+  let RemovedItemIndexes = [];
+	for (var i=0; i<Inventory.length; i++) {
+  	if (Inventory[i].type.includes(itemRef)) {
+		DeleteItemStack(i,false);
+     		 i--;
+      RemovedItemIndexes.push(i);
+    }
+  }
+  console.log("Removed all " + RemovedItemCt + " " + itemRef + "s at isndexe " + RemovedItemIndexes + "; Length: " + Inventory.length);
+  ReloadInventory();
+  return RemovedItemCt;
+}
+
+function CheckForItemsOfType(itemRef,count) {
+	let RemovedItemCt = 0;
+	for (var i=0; i<Inventory.length; i++) {
+  	if (Inventory[i].type == itemRef && Inventory[i].count >= count) {
+      RemovedItemCt += Inventory[i].count;
+    }
+  }
+  return RemovedItemCt;
+}
+function CheckForItemsOfTypeAndTags(itemRef,count,tag) {
+	let RemovedItemCt = 0;
+	for (var i=0; i<Inventory.length; i++) {
+  	if (Inventory[i].type == itemRef && Inventory[i].count >= count && Inventory[i].extra_tags == tag) {
+      RemovedItemCt += Inventory[i].count;
+    }
+  }
+  return RemovedItemCt;
+}
+function DeleteItemsOfType(itemRef,count) {
+	let RemovedItemCt = 0;
+  let RemovedItemIndexes = [];
+	for (var i=0; i<Inventory.length; i++) {
+  	if (Inventory[i].type.includes(itemRef) && Inventory[i].count >= count) {
+      RemovedItemCt++;
+      RemovedItemIndexes.push(i);
+	  Inventory[i].count-=count;
+	  if (Inventory[i].count < 0.125) {
+		DeleteItemStack(i,false);
+      i--;
+	  }
+      
+    }
+  }
+  //console.log("Removed all " + RemovedItemCt + " " + itemRef + "s at isndexe " + RemovedItemIndexes + "; Length: " + Inventory.length);
+  ReloadInventory();
+  return RemovedItemCt;
+}
+function ARI(fois,magicCost,cing) {//Add Random Item (dig) fois: # of times to dig
+for (var i=0; i<PotentialEnergyItems.length; i++) {
+	let DigFlag = false;
+	if (CheckForItemsOfType(PotentialEnergyItems[i], PEIMagicCostModifier[i] * magicCost)) {
+		if (cing == 0) {
+			DeleteItemsOfType(PotentialEnergyItems[i], PEIMagicCostModifier[i] * magicCost);
+			AddItem(GameItems[Math.floor(Math.random()*10)],fois);
+			DigFlag = true;
+		} else if (cing > 0 && CheckForItemsOfType("🪙money", cing)) {
+			DeleteItemsOfType("🪙money", cing);
+			DeleteItemsOfType(PotentialEnergyItems[i], PEIMagicCostModifier[i] * magicCost);
+			AddItem(GameItems[Math.floor(Math.random()*10)],fois);
+			DigFlag = true;
+		} else if (cing < 0) {
+			AddItem("🪙money", cing*-1);
+			DeleteItemsOfType(PotentialEnergyItems[i], PEIMagicCostModifier[i] * magicCost);
+			AddItem(GameItems[Math.floor(Math.random()*10)],fois);
+			DigFlag = true;
+		}
+		
+	}
+	if(DigFlag) {return 0;}
+}
+}
+function ClearAll() {
+  console.log("Cleared " + Inventory.length + " items");
+	Inventory = [];
+  ReloadInventory();
+}
+function ReloadInventory() {
+IMD.innerHTML = "";
+	for (var i=0; i<Inventory.length; i++) {
+  IMD.innerHTML += "<a class='faan_inv' onclick='DeleteItem(" + i +",true)'>" + Inventory[i].count + " " + Inventory[i].type + " | " + Inventory[i].extra_tags +"</a><br>";
+  }
+}
+function DrawInventory() {
+	for (var i=Inventory.length-1; i<Inventory.length; i++) {
+  IMD.innerHTML += "<a class='faan_inv' onclick='DeleteItem(" + i +",true)'>" + Inventory[i].count + " " + Inventory[i].type + " | " + Inventory[i].extra_tags +"</a><br>";
+  }
+}
+
+</script>

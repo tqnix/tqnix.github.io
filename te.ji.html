@@ -1,0 +1,85 @@
+ <textarea id=input>
+TITLE STARTSTRING Example_Script FINISHSTRING.
+LOG_TO_OUTPUT START NEW FIXEDINTEGERINSTANCE START 1 FINISH INCREMENT FINISH.
+ </textarea>
+<br>
+<button>Save!</button>
+<button>Load!</button>
+<button onclick="parse_text()">Run!</button>
+<button>EARTH</button>
+<button>AIR</button>
+<button>FIRE</button>
+<button>WATER</button>
+<p>OUTPUT:<br>-------------------------------------------------------------</p>
+<div id=output></div>
+<script>var qz = "";
+function parse_text() {
+  document.getElementById("output").innerText = "";
+  qz = document.getElementById("input").value;
+   let bal = qz.split('.');
+    for (var i=0; i<bal.length; i++) {
+      parse_line(i);
+      document.getElementById("output").innerText += "\n" + "-------------------------\n";
+    }
+}
+function parse_line(c) {
+  let outputAsString = "";
+  let bal = qz.split('.');
+  let bal2 = bal[c].replace('.','').split(' ');
+    for (var i=0; i<bal2.length; i++) {
+      outputAsString += bal2[i] + " | ";
+    }
+  document.getElementById("output").innerText += outputAsString;
+  console.log(bal2);
+  return bal2;
+}
+function HandleError(lentil,token) {
+  let err
+  switch(lentil) {
+    case "GENERAL":
+      err = "An unspecified error has occurred";
+    break;
+    case "PLEAD_ERROR_NOT_ENOUGH":
+      err = "You did not say PLEASE enough times";
+    break;
+    case "PLEAD_ERROR_TOO_MUCH":
+      err = "You said PLEASE enough times";
+    break;
+  }
+  err += " | Location: Token" + token;
+}
+var the4horsemen = {//incremented by 1 whenever respective button is pressed
+  earth : 0,
+  air : 0,
+  water : 0,
+  fire : 0,
+  out : 0
+}
+function turn_that_shit_into_code(arraygoeshere) {
+  let pray_counter = 0;//pray counter is the number of "please"s in a certain line. Must be equal to func_counter for code to execute
+  let func_counter = 0;
+  for (var fjdsa = 0; fjdsa < arraygoeshere.length; fjdsa++) {
+    func_counter++;
+    switch(arraygoeshere[fjdsa]) {
+      case "INCREMENT": break;//++
+      case "DECREMENT": break;//--
+      case "INCREMENTBY": break;//+=
+      case "DECREMENTBY": break;//-=
+      case "LOG_TO_OUTPUT": break;//print or console.log
+      case "NEW": break;//new [thing](), must always precede fixed int or string
+      case "RUNIF": break;//function triggered when variable button is pressed
+      case "FIXEDINTEGERINSTANCE": break;//int
+      case "FIXEDSTRINGINSTANCE": break;//string
+      case "VARIABLEINSTANCE": break;//call one of the 4 predefined variables
+      case "PLEASE": break;//does nothing, pleases must be the same as func_counters
+      case "GET FUNC_COUNTER": break;//call func_counter
+      case "CONDITIONAL_GATE": break;//logic gates
+      case "START": break;//( or {
+      case "FINISH": break;//) or }
+      default:
+      break;
+      //. works as a ;
+    }
+  }
+}
+</script>

@@ -1,0 +1,472 @@
+ <meta charset="UTF-16">
+ <head>
+  <title>eえ饿</title>
+  <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+  <link rel="stylesheet" href="styles.css">
+   <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+    .button {
+      width: 100%;
+      height:5%;
+      font-size:20px;
+    }
+    </style> 
+ </head>
+ <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button><br><br>
+ the thing on w3 doesnt properly display unicode characters so check the jsfiddle: <a href="https://jsfiddle.net/zqe6ywbu">here</a>
+<h3>Enter text (latin characters)</h3>
+<div style="width:100%;margin:0;padding:0">
+
+<input type=text class="button" placeholder = "Enter text here!" id=dahao></input><br>
+<button class="button" onclick="ruu()">Run!</button>
+<button class="button" onclick="document.getElementById('dahao').value = ''; document.getElementById('ya').innerText = '';">Clear</button>
+</div>
+<h3>output</h3>
+<br>
+<bdo dir="ltr" id="ya"></bdo>
+
+<script>
+  inn = document.getElementById("dahao");
+  var cookdogging = "";
+outut = document.getElementById("ya");
+var charcount = 0;
+var oututut = [];
+function ruu() {
+  cookdogging = inn.value.toLowerCase();
+    cookdogging = cookdogging.replaceAll(',','');
+    cookdogging = cookdogging.replaceAll('.','');
+      cookdogging = cookdogging.replaceAll('?','');
+        cookdogging = cookdogging.replaceAll('-','');
+          cookdogging = cookdogging.replaceAll(':','');
+            if (cookdogging[cookdogging.length-1] != 'a' && cookdogging[cookdogging.length-1] != 'e' && cookdogging[cookdogging.length-1] != 'i' && cookdogging[cookdogging.length-1] != 'o' && cookdogging[cookdogging.length-1] != 'u') {
+              cookdogging += 'e';
+            }
+  plaintoarray();
+  arraytoromani();
+  arraytocypher();
+  arraytoyobi();
+  arraytomgoisai();
+}
+
+function plaintoarray() {
+  charcount = 0;
+  oututut = [];
+  for (var i=0; i<cookdogging.length; i+=2) {
+    if (cookdogging[i] == " ") {//handles spaces
+      oututut.push("_");
+      i--;
+      charcount--;
+    } else if (cookdogging[i] == "a" || cookdogging[i] == "e" || cookdogging[i] == "i" || cookdogging[i] == "o" || cookdogging[i] == "u") {//V syllables
+      oututut.push("*" + cookdogging[i]);
+      i--;
+    } else if (cookdogging[i+1] != "a" && cookdogging[i+1] != "e" && cookdogging[i+1] != "i" && cookdogging[i+1] != "o" && cookdogging[i+1] != "u") {//CCV syllable handling
+      var replacementvowel = "*";
+      for (var j = i; j<cookdogging.length; j++) {
+        if (cookdogging[j] == 'a' || cookdogging[j] == 'e' || cookdogging[j] == 'i' || cookdogging[j] == 'o' || cookdogging[j] == 'u') {
+            replacementvowel = cookdogging[j];
+          break;
+        }
+      }
+      if (replacementvowel.length > 1) {//handles undefined or null
+        replacementvowel = "*";
+      }
+      oututut.push(cookdogging[i] + replacementvowel);
+      i--;
+    } else {
+      oututut.push(cookdogging[i] + "" + cookdogging[i+1]);
+    }
+    charcount++;
+  }
+  console.log(oututut);
+}
+function arraytoromani() {
+  outut.innerText += "\n";
+  for (var i=0; i<oututut.length; i++) {
+    outut.innerText += oututut[i] + "-";
+    outut.innerText=outut.innerText.replace('*','');
+  }
+}
+function arraytocypher() {
+    outut.innerText += "\n";
+  for (var i=0; i<oututut.length; i++) {
+    switch (oututut[i]) {
+      case "*a": outut.innerText += "𐠀"; break;
+      case "*e": outut.innerText += "𐠁"; break;
+      case "*i": outut.innerText += "𐠂"; break;
+      case "*o": outut.innerText += "𐠃"; break;
+      case "*u": outut.innerText += "𐠄"; break;
+
+      case "wa": outut.innerText += "𐠲"; break;
+      case "we": outut.innerText += "𐠳"; break;
+      case "wi": outut.innerText += "𐠴"; break;
+      case "wo": outut.innerText += "𐠵"; break;
+      case "wu": outut.innerText += "𐠄"; break;
+
+      case "za": outut.innerText += "𐠼"; break;
+      case "zo": outut.innerText += "𐠿"; break;
+      case "ja": outut.innerText += "𐠅"; break;
+      case "jo": outut.innerText += "𐠈"; break;
+      case "ya": outut.innerText += "𐠂𐠅"; break;
+      case "yo": outut.innerText += "𐠂𐠈"; break;
+      case "xa": outut.innerText += "𐠂𐠷"; break;
+      case "xe": outut.innerText += "𐠂𐠸"; break;
+
+      case "ka": outut.innerText += "𐠊"; break;
+      case "ke": outut.innerText += "𐠋"; break;
+      case "ki": outut.innerText += "𐠌"; break;
+      case "ko": outut.innerText += "𐠍"; break;
+      case "ku": outut.innerText += "𐠎"; break;//dupe
+
+      case "ga": outut.innerText += "𐠊ﾞ"; break;
+      case "ge": outut.innerText += "𐠋ﾞ"; break;
+      case "gi": outut.innerText += "𐠌ﾞ"; break;
+      case "go": outut.innerText += "𐠍ﾞ"; break;
+      case "gu": outut.innerText += "𐠎ﾞ"; break;
+
+      case "la": outut.innerText += "𐠏"; break;
+      case "le": outut.innerText += "𐠐"; break;
+      case "li": outut.innerText += "𐠑"; break;
+      case "lo": outut.innerText += "𐠒"; break;
+      case "lu": outut.innerText += "𐠓"; break;
+
+      case "ma": outut.innerText += "𐠔"; break;
+      case "me": outut.innerText += "𐠕"; break;
+      case "mi": outut.innerText += "𐠖"; break;
+      case "mo": outut.innerText += "𐠗"; break;
+      case "mu": outut.innerText += "𐠘"; break;
+
+      case "na": outut.innerText += "𐠙"; break;
+      case "ne": outut.innerText += "𐠚"; break;
+      case "ni": outut.innerText += "𐠛"; break;
+      case "no": outut.innerText += "𐠜"; break;
+      case "nu": outut.innerText += "𐠝"; break;
+
+      case "pa": outut.innerText += "𐠞°"; break;
+      case "pe": outut.innerText += "𐠟°"; break;
+      case "pi": outut.innerText += "𐠠°"; break;
+      case "po": outut.innerText += "𐠡°"; break;
+      case "pu": outut.innerText += "𐠢°"; break;//dupe
+
+      case "ba": outut.innerText += "𐠞ﾞ"; break;
+      case "be": outut.innerText += "𐠟ﾞ"; break;
+      case "bi": outut.innerText += "𐠠ﾞ"; break;
+      case "bo": outut.innerText += "𐠡ﾞ"; break;
+      case "bu": outut.innerText += "𐠢ﾞ"; break;
+
+      case "ha": outut.innerText += "𐠞"; break;
+      case "he": outut.innerText += "𐠟"; break;
+      case "hi": outut.innerText += "𐠠"; break;
+      case "ho": outut.innerText += "𐠡"; break;
+      case "hu": outut.innerText += "𐠢"; break;//adapted from japanese
+
+      case "ra": outut.innerText += "𐠣"; break;
+      case "re": outut.innerText += "𐠤"; break;
+      case "ri": outut.innerText += "𐠥"; break;
+      case "ro": outut.innerText += "𐠦"; break;
+      case "ru": outut.innerText += "𐠧"; break;
+
+      case "sa": outut.innerText += "𐠨"; break;
+      case "se": outut.innerText += "𐠩"; break;
+      case "si": outut.innerText += "𐠪"; break;
+      case "so": outut.innerText += "𐠫"; break;
+      case "su": outut.innerText += "𐠬"; break;
+
+      case "ca": outut.innerText += "c𐠨"; break;
+      case "ce": outut.innerText += "c𐠩"; break;
+      case "ci": outut.innerText += "c𐠪"; break;
+      case "co": outut.innerText += "c𐠫"; break;
+      case "cu": outut.innerText += "c𐠬"; break;
+
+      case "ta": outut.innerText += "𐠭"; break;
+      case "te": outut.innerText += "𐠮"; break;
+      case "ti": outut.innerText += "𐠯"; break;
+      case "to": outut.innerText += "𐠰"; break;
+      case "tu": outut.innerText += "𐠱"; break;//dupe
+
+      case "da": outut.innerText += "𐠭ﾞ"; break;
+      case "de": outut.innerText += "𐠮ﾞ"; break;
+      case "di": outut.innerText += "𐠯ﾞ"; break;
+      case "do": outut.innerText += "𐠰ﾞ"; break;
+      case "du": outut.innerText += "𐠱ﾞ"; break;
+
+      default: outut.innerText += oututut[i];
+    outut.innerText=outut.innerText.replace('*','');break;
+    }
+  }
+}
+function arraytoyobi() {
+    outut.innerText += "\n";
+  for (var i=0; i<oututut.length; i++) {
+    switch (oututut[i]) {
+      case "*a": outut.innerText += "あ"; break;
+      case "*e": outut.innerText += "え"; break;
+      case "*i": outut.innerText += "い"; break;
+      case "*o": outut.innerText += "お"; break;
+      case "*u": outut.innerText += "う"; break;
+
+      case "wa": outut.innerText += "わ"; break;
+      case "we": outut.innerText += "ゑ"; break;
+      case "wi": outut.innerText += "ヰ"; break;
+      case "wo": outut.innerText += "を"; break;
+      case "wu": outut.innerText += "う"; break;
+
+      case "za": outut.innerText += "ざ"; break;
+      case "ze": outut.innerText += "ぜ"; break;
+      case "zi": outut.innerText += "じ"; break;
+      case "zo": outut.innerText += "ぞ"; break;
+      case "zu": outut.innerText += "ず"; break;
+
+      case "ja": outut.innerText += "じゃ"; break;
+      case "je": outut.innerText += "じぇ"; break;
+      case "ji": outut.innerText += "じ"; break;
+      case "jo": outut.innerText += "じょ"; break;
+      case "ju": outut.innerText += "じゅ"; break;
+
+      case "ya": outut.innerText += "や"; break;
+      case "ye": outut.innerText += "いえ"; break;
+      case "yi": outut.innerText += "い"; break;
+      case "yo": outut.innerText += "よ"; break;
+      case "yu": outut.innerText += "いう"; break;
+
+      case "ka": outut.innerText += "か"; break;
+      case "ke": outut.innerText += "け"; break;
+      case "ki": outut.innerText += "き"; break;
+      case "ko": outut.innerText += "こ"; break;
+      case "ku": outut.innerText += "く"; break;//dupe
+
+      case "ga": outut.innerText += "が"; break;
+      case "ge": outut.innerText += "げ"; break;
+      case "gi": outut.innerText += "ぎ"; break;
+      case "go": outut.innerText += "ご"; break;
+      case "gu": outut.innerText += "ぐ"; break;
+
+      case "la": outut.innerText += "ラ"; break;
+      case "le": outut.innerText += "レ"; break;
+      case "li": outut.innerText += "リ"; break;
+      case "lo": outut.innerText += "ロ"; break;
+      case "lu": outut.innerText += "ル"; break;
+
+      case "ma": outut.innerText += "ま"; break;
+      case "me": outut.innerText += "め"; break;
+      case "mi": outut.innerText += "み"; break;
+      case "mo": outut.innerText += "も"; break;
+      case "mu": outut.innerText += "む"; break;
+
+      case "na": outut.innerText += "な"; break;
+      case "ne": outut.innerText += "ね"; break;
+      case "ni": outut.innerText += "に"; break;
+      case "no": outut.innerText += "の"; break;
+      case "nu": outut.innerText += "ぬ"; break;
+
+      case "pa": outut.innerText += "ぱ"; break;
+      case "pe": outut.innerText += "ぺ"; break;
+      case "pi": outut.innerText += "ぴ"; break;
+      case "po": outut.innerText += "ぽ"; break;
+      case "pu": outut.innerText += "ぷ"; break;//dupe
+
+      case "ba": outut.innerText += "ば"; break;
+      case "be": outut.innerText += "べ"; break;
+      case "bi": outut.innerText += "び"; break;
+      case "bo": outut.innerText += "ぼ"; break;
+      case "bu": outut.innerText += "ぶ"; break;
+
+      case "ha": if (oututut[i-1] == "sa") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しゃ";} else if (oututut[i-1] == "ca") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちゃ";}  else {outut.innerText += "は";} break;
+      case "he": if (oututut[i-1] == "se") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しぇ";} else if (oututut[i-1] == "ce") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちぇ";} else {outut.innerText += "へ";} break;
+      case "hi": if (oututut[i-1] == "si") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しい";} else if (oututut[i-1] == "ci") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちい";} else {outut.innerText += "ひ";} break;
+      case "ho": if (oututut[i-1] == "so") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しょ";} else if (oututut[i-1] == "co") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちょ";} else {outut.innerText += "ほ";} break;
+      case "hu": if (oututut[i-1] == "su") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しゅ";} else if (oututut[i-1] == "cu") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちゅ";} else {outut.innerText += "ふ";} break;
+
+
+      case "ra": outut.innerText += "ら"; break;
+      case "re": outut.innerText += "れ"; break;
+      case "ri": outut.innerText += "り"; break;
+      case "ro": outut.innerText += "ろ"; break;
+      case "ru": outut.innerText += "る"; break;
+
+      case "sa": outut.innerText += "さ"; break;
+      case "se": outut.innerText += "せ"; break;
+      case "si": outut.innerText += "し"; break;
+      case "so": outut.innerText += "そ"; break;
+      case "su": outut.innerText += "す"; break;
+
+      case "ca": outut.innerText += "カ"; break;
+      case "ce": outut.innerText += "ケ"; break;
+      case "ci": outut.innerText += "キ"; break;
+      case "co": outut.innerText += "コ"; break;
+      case "cu": outut.innerText += "ク"; break;
+
+      case "ta": outut.innerText += "た"; break;
+      case "te": outut.innerText += "て"; break;
+      case "ti": outut.innerText += "ち"; break;
+      case "to": outut.innerText += "と"; break;
+      case "tu": outut.innerText += "つ"; break;//dupe
+
+      case "da": outut.innerText += "だ"; break;
+      case "de": outut.innerText += "で"; break;
+      case "di": outut.innerText += "ぢ"; break;
+      case "do": outut.innerText += "ど"; break;
+      case "du": outut.innerText += "づ"; break;
+
+      case "fa": outut.innerText += "ふぁ"; break;
+      case "fe": outut.innerText += "ふぇ"; break;
+      case "fi": outut.innerText += "ふぃ"; break;
+      case "fo": outut.innerText += "ふぉ"; break;
+      case "fu": outut.innerText += "ふ"; break;//adapted from japanese
+
+      case "qa": outut.innerText += "っか"; break;
+      case "qe": outut.innerText += "っけ"; break;
+      case "qi": outut.innerText += "っき"; break;
+      case "qo": outut.innerText += "っこ"; break;
+      case "qu": outut.innerText += "っく"; break;//adapted from japanese
+      case "_": outut.innerText += ""; break;
+      default: outut.innerText += oututut[i];
+    outut.innerText=outut.innerText.replace('*','');break;
+    }
+  }
+}
+function arraytomgoisai() {
+    outut.innerText += "\n";
+  for (var i=0; i<oututut.length; i++) {
+    switch (oututut[i]) {
+      case "*a": outut.innerText += "啊"; break;
+      case "*e": outut.innerText += "饿"; break;
+      case "*i": outut.innerText += "以"; break;
+      case "*o": outut.innerText += "哦"; break;
+      case "*u": outut.innerText += "物"; break;
+
+      case "ba": outut.innerText += "吧"; break;
+      case "be": outut.innerText += "倍"; break;
+      case "bi": outut.innerText += "笔"; break;
+      case "bo": outut.innerText += "波"; break;
+      case "bu": outut.innerText += "步"; break;
+
+      case "ca": outut.innerText += "餐"; break;
+      case "ce": outut.innerText += "册"; break;
+      case "ci": outut.innerText += "次"; break;
+      case "co": outut.innerText += "错"; break;
+      case "cu": outut.innerText += "粗"; break;
+
+      case "da": outut.innerText += "大"; break;
+      case "de": outut.innerText += "的"; break;
+      case "di": outut.innerText += "地"; break;
+      case "do": outut.innerText += "多"; break;
+      case "du": outut.innerText += "读"; break;
+
+      case "fa": outut.innerText += "发"; break;
+      case "fe": outut.innerText += "分"; break;
+      case "fi": outut.innerText += "非"; break;
+      case "fo": outut.innerText += "佛"; break;
+      case "fu": outut.innerText += "福"; break;
+
+      case "ga": outut.innerText += "告"; break;
+      case "ge": outut.innerText += "给"; break;
+      case "gi": outut.innerText += "几"; break;
+      case "go": outut.innerText += "过"; break;
+      case "gu": outut.innerText += "古"; break;
+
+      case "ha": if (oututut[i-1] == "za") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "诈";} else if (oututut[i-1] == "ca") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "茶";} else if (oututut[i-1] == "sa") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "沙";} else {outut.innerText += "哈";} break;
+      case "he": if (oututut[i-1] == "ze") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "这";} else if (oututut[i-1] == "ce") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "车";} else if (oututut[i-1] == "se") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "蛇";} else {outut.innerText += "盒";} break;
+      case "hi": if (oututut[i-1] == "si") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "屎";} else if (oututut[i-1] == "zi") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "纸";} else if (oututut[i-1] == "ci") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "吃";} else {outut.innerText += "黑";} break;
+      case "ho": outut.innerText += "活"; break;
+      case "hu": if (oututut[i-1] == "su") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "树";} else if (oututut[i-1] == "cu") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "初";} else if (oututut[i-1] == "zu") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "住";} else {outut.innerText += "虎";} break;
+
+      case "ja": outut.innerText += "家"; break;
+      case "je": outut.innerText += "绝"; break;
+      case "ji": outut.innerText += "鸡"; break;
+      case "jo": outut.innerText += "笑"; break;
+      case "ju": outut.innerText += "句"; break;
+
+      case "ka": outut.innerText += "卡"; break;
+      case "ke": outut.innerText += "可"; break;
+      case "ki": outut.innerText += "凯"; break;
+      case "ko": outut.innerText += "阔"; break;
+      case "ku": outut.innerText += "哭"; break;
+
+      case "la": outut.innerText += "辣"; break;
+      case "le": outut.innerText += "了"; break;
+      case "li": outut.innerText += "里"; break;
+      case "lo": outut.innerText += "龙"; break;
+      case "lu": outut.innerText += "路"; break;
+
+      case "ma": outut.innerText += "马"; break;
+      case "me": outut.innerText += "美"; break;
+      case "mi": outut.innerText += "米"; break;
+      case "mo": outut.innerText += "末"; break;
+      case "mu": outut.innerText += "母"; break;
+
+      case "na": outut.innerText += "那"; break;
+      case "ne": outut.innerText += "呢"; break;
+      case "ni": outut.innerText += "你"; break;
+      case "no": outut.innerText += "弄"; break;
+      case "nu": outut.innerText += "努"; break;
+
+      case "pa": outut.innerText += "怕"; break;
+      case "pe": outut.innerText += "培"; break;
+      case "pi": outut.innerText += "匹"; break;
+      case "po": outut.innerText += "破"; break;
+      case "pu": outut.innerText += "僕"; break;
+
+      case "qa": outut.innerText += "抢"; break;
+      case "qe": outut.innerText += "切"; break;
+      case "qi": outut.innerText += "齐"; break;
+      case "qu": outut.innerText += "去"; break;
+
+      case "ra": outut.innerText += "啦"; break;
+      case "re": outut.innerText += "热"; break;
+      case "ri": outut.innerText += "日"; break;
+      case "ro": outut.innerText += "肉"; break;
+      case "ru": outut.innerText += "如"; break;
+
+      case "sa": outut.innerText += "撒"; break;
+      case "se": outut.innerText += "色"; break;
+      case "si": outut.innerText += "死"; break;
+      case "so": outut.innerText += "所"; break;
+      case "su": outut.innerText += "速"; break;
+
+      case "ta": outut.innerText += "她"; break;
+      case "te": outut.innerText += "特"; break;
+      case "ti": outut.innerText += "提"; break;
+      case "to": outut.innerText += "头"; break;
+      case "tu": outut.innerText += "图"; break;
+
+      case "wa": outut.innerText += "哇"; break;
+      case "we": outut.innerText += "文"; break;
+      case "wi": outut.innerText += "为"; break;
+      case "wo": outut.innerText += "我"; break;
+      case "wu": outut.innerText += "无"; break;
+
+      case "va": outut.innerText += "哇"; break;
+      case "ve": outut.innerText += "文"; break;
+      case "vi": outut.innerText += "为"; break;
+      case "vo": outut.innerText += "我"; break;
+      case "vu": outut.innerText += "无"; break;
+
+      case "xa": outut.innerText += "下"; break;
+      case "xe": outut.innerText += "谢"; break;
+      case "xi": outut.innerText += "西"; break;
+      case "xu": outut.innerText += "许"; break;
+
+      case "ya": outut.innerText += "鸭"; break;
+      case "ye": outut.innerText += "叶"; break;
+      case "yi": outut.innerText += "意"; break;
+      case "yo": outut.innerText += "有"; break;
+      case "yu": outut.innerText += "鱼"; break;
+
+      case "za": outut.innerText += "砸"; break;
+      case "ze": outut.innerText += "泽"; break;
+      case "zi": outut.innerText += "字"; break;
+      case "zo": outut.innerText += "走"; break;
+      case "zu": outut.innerText += "足"; break;
+      case "_": outut.innerText += ""; break;
+      default: outut.innerText += oututut[i];
+    outut.innerText=outut.innerText.replace('*','');break;
+    }
+  }
+}
+</script>

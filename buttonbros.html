@@ -1,0 +1,527 @@
+ <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="button-bros.png">
+<title>Button Suite</title>
+<style>
+.button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  margin: 0px -2px;
+  text-align: center;
+  font-size: 14px;
+  transition-duration:0.2s;
+  cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.button:hover {
+  background-color: #3faf3f;
+  transition-duration: 0.2s;
+}
+.icycol {
+  background-color: #3faf3f;
+  transition-duration: 0.2s;
+}
+.inputbox {
+  border: 1px solid black;
+  padding: 3px 6px;
+  color: black;
+  background-color: white;
+}
+.inputbox:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.right {
+  float:right;
+}
+.notyet {
+  color: #7f7f7f;
+}
+.small {
+  padding: 6px 6px;
+}
+.jobr {
+  margin: -3px 0px;
+  padding: -15px;
+}
+.navbar-main {
+  background-color: #1d711d;
+  transition-duration: 0.2s;
+  z-index: 69;
+  width: 100%;
+position: relative;
+}
+.b {
+  position:absolute;
+  background-color: #cfcfaf3f;
+  transition-duration:0.2s;
+  }
+#selectioncircle {
+  --cursorX: 50vw;
+  --cursorY: 50vh;
+  --sizhe: 150vw;
+  background: none;
+  transition-duration: 0.2s;
+  }
+html {
+  padding: 0;
+  margin: 0;
+  transition-duration: 0.2s;
+}
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  transition-duration: 0.2s;
+}
+.dark {
+  color: white;
+  
+}
+.mengu {
+display:none;padding:1%;margin:1%;font-size:1.8vw;background-color:#ffffffcf;overflow:auto;border-radius:1vw;position:fixed;z-index:10;border:3px solid black;box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+img {
+  left: -1px;
+}
+</style>
+</head>
+<div class="navbar-main">
+<div id="layout-home">
+  <button class="button" id="tabEdit" onclick="ChangeMode('edit')">Edit</button>
+<button class="button" id="tabPreview" onclick="ChangeMode('preview')">Preview</button>
+<button class="button" id="tabSettings" onclick="ChangeMode('settings')">Settings</button>
+<button class="button" id="tabHelp" onclick="ChangeMode('help')">Help</button>
+
+<button class="button right small" onclick="ExportImage()">Export</button>
+<button class="button right small" onclick="document.getElementById('import-dialog').click();">Import</button>
+<button class="button right" onclick="UpdateCircleSize(1)">+</button>
+<button class="button right small" onclick="Center()">Size</button>
+<button class="button right" onclick="UpdateCircleSize(-1)">-</button>
+</div>
+
+<div hidden id="layout-gallery">
+  <button class="button" onclick="ChangeMode('settings')"> < BACK</button>
+  Background Color:
+<input class="button inputbox" type=color id="s_e1" onchange="s_bgColor()" value="#ffffff">
+<button class="button" onclick="document.body.style.backgroundColor = '#ffffff'">Reset</button>
+<button class="button right small" onclick="ExportImage()">Export</button>
+<button class="button right small" onclick="document.getElementById('import-dialog').click();">Import</button>
+</div>
+</div>
+<div id="mode-edit">
+  <img disabled hidden id="3" draggable=false class=b src="https://images.squarespace-cdn.com/content/v1/610c2d39c5bc137a998c9add/1628394765444-SUK0PRRKNM178F99M486/header.jpg" alt="Drag and drop an image here!" style="width: 100%">
+  <svg id="selectioncircle" class="b" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 100%">
+  <circle id="selectioncircle1" cx="50" cy="14" r="25" stroke="red" fill="transparent" stroke-width="0.25"/>
+  <circle id="selectioncircle2" cx="50" cy="14" r="0.25" fill="red"/>
+</svg>
+</div>
+<div class="mengu" id="mode-help">
+Welcome to the Button Brothers(CO) ButtonSuite!<br><br>
+The ButtonSuite is an app made to generate button designs more easily, with a preview showing you how your button will look like.<br><br>
+Controls:<br>
+Tap/Click: Move circle in Edit Mode<br>
+Hold: Drag circle in Edit Mode<br>
+-/+ | Q/E: Adjust selection circle diameter<br>
+WASD: Precision Movement<br>
+Z (press twice): Undo<br>
+1,2,3,4,5: Edit, Preview, Settings, Help, and Full Image View tabs respectively<br>
+8,9,0: Import, Export, and Center (selection circle) respectively<br>
+<br>
+Getting Started:<br>
+Press the "Import" button to open the import dialog, and import an image.<br>
+If some elements are cut off when you're in Edit or Preview Mode, or you only see 1 green bar onscreen, then zoom out, resize your browser window, or change your device or monitor to portrait/vertical mode.<br>
+The current mode you are in and the circle size and position are displayed at the bottom right.<br>
+To change the mode/tab you are in, click one of the buttons at the top left.<br>
+<br>
+Using the ButtonSuite:<br>
+Move the circle with your cursor and adjust the size using the buttons on the top right, and go to Preview Mode to see what the button will look like.<br>
+You can back to Edit Mode to edit the selection circle placement with the full image again.<br>
+You can also use WASD or the buttons on the bottom right to finely adjust the circle position by 1 image pixel, or press the "0" button onscreen to move the selection circle to the center of the screen.<br>
+It's also possible to undo circle movement, precision circle movement, changing the background or selection circle color, and circle size change with Z.<br>
+<br>
+Once you're happy with how your button looks, click/tap "Export" to export your button as a photo. Note that any whitespace/transparency will be replaced by the background color.<br>
+(Afterwards, please make sure to put it in the order form, or email us through our business email: buttonbros.ldhss@gmail.com)<br>
+If you would like the change the background or selection circle color, go to the Settings tab, where you can find a bunch of other customization options, such as turning on/off the crosshair, or changing the selection circle's color.<br>
+<br>
+NOTE: The button visualizer is still in development!<br>
+If there are any bugs or you would like a feature to be implemented, please let me know at kqi1@ocdsb.ca<br><br>
+Known issues:<br><br>
+Default image doesn't load sometimes<br>
+Preview cutout is slightly bigger thans selection circle (this is intentional!)<br>
+Undoing an "I'm feeling lucky" operation only undoes size and position one at a time<br>
+</div>
+
+<div class="mengu" id="mode-settings">
+Background Color:<br>
+<button class="button inputbox" onclick="ChangeMode('gallery')">Change</button> 
+<button class="button inputbox" onclick="document.body.style.backgroundColor = '#ffffff'">Reset</button>
+<br>
+Selection Circle Color:<br>
+<input class="button inputbox" type=color id="s_e2" onchange="s_scColor()" value="#ff0000">
+<button class="button inputbox" onclick="scColor = '#ff0000'">Reset</button>
+<br>
+Move Image: (nonfunctional)<br>
+<input class="button" type=checkbox><br>
+Lighting Effects: (nonfunctional)<br>
+<input class="button" type=checkbox id="s0001"><br>
+Square Cropping:<br>
+<input class="button" type=checkbox id="s0002" onclick="s_toggleLegacyCropping()"><br>
+Matte button mode:<br>
+<input class="button" type=checkbox id="s0003" onclick="s_toggleMatte()"><br>
+Disable Alignment Dot:<br>
+<input class="button" type=checkbox id="s0004"><br><br>
+<button class="button inputbox" onclick="ChangeMode('gallery')">Full Image View</button><br><br>
+<button class="button inputbox" id="load-defaults-button" onclick="LoadInitialImage()">Load Default Image</button><br><br>
+<button id="navbutton" class="button inputbox" onclick="window.location.href = 'index.html'">Back to homepage</button>
+<input hidden type="file" id="import-dialog" accept="image/png, image/jpeg, image/webp, image/bmp">
+</div>
+<canvas style="width: 100%" id=canvas></canvas>
+<div id="bar2" class="navbar-main">
+<button class="button" onclick="imfeelinglucky()">I'm feeling lucky</button>
+<button class="button" onclick="Undo()">Undo</button>
+<button class="button right" onclick="scx = scx + window.innerWidth/canvas.width; updateAll();">></button>
+<button class="button right" onclick="scx = scx - window.innerWidth/canvas.width; updateAll();"><</button>
+<button class="button right" onclick="Center();">0</button>
+<button class="button right" onclick="scy = scy + window.innerWidth/canvas.height; updateAll();">v</button>
+<button class="button right" onclick="scy = scy - window.innerWidth/canvas.height; updateAll();">^</button>
+<span class="button right small" id="sizething">50% x:0 y:0</span>
+</div>
+
+<script>
+   const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const importdialog = document.getElementById("import-dialog");
+const mask = document.getElementById('mask');
+const selectioncircle = document.getElementById("selectioncircle");
+const selectioncircle1 = document.getElementById("selectioncircle1");
+const modeEditElement = document.getElementById("mode-edit");
+const modeHelpElement = document.getElementById("mode-help");
+const modeSettingsElement = document.getElementById("mode-settings");
+const modeEditBarElement = document.getElementById("bar2");
+const Settings_bgColorInput = document.getElementById("s_e1");
+const Settings_scColorInput = document.getElementById("s_e2");
+const LayoutHome = document.getElementById("layout-home");
+const LayoutGallery = document.getElementById("layout-gallery");
+point = selectioncircle.createSVGPoint();
+const mode_tabs = [document.getElementById("tabEdit"),document.getElementById("tabPreview"),document.getElementById("tabSettings"),document.getElementById("tabHelp"),document.getElementById("tabSettings")];
+var scpointlist = [{x:10,y:10,type:"pos"}];
+ctx.canvas.width  = 1000;
+ctx.canvas.height = 1000;
+mx = 0;
+my = 0;
+scx = 10;
+scy = 10;
+cs = 50;
+prevBGcolor = "#ffffff";
+prevSCcolor = "#ff0000";
+FLEnabled = 0;
+sizething_mode_disp = 0;
+CroppingStyle = "circle";
+IsMouseDown = false;
+ButtonStyle = "default";
+scColor = "#ff0000";
+var ldh = new Image();
+document.getElementById("load-defaults-button").click();
+ChangeMode("preview");
+ChangeMode("edit");//this is a very hacky fix, but it gets the job done ;)
+selectioncircle.addEventListener('mousedown', event => {
+  IsMouseDown = true;
+  if (FLEnabled) {
+    updateFL();
+  }
+  if (sizething_mode_disp < 2) {
+      GetMousePos();
+  }
+  if (my>=0) {
+    updateAll();
+  } 
+});
+selectioncircle.addEventListener('mouseup', event => {
+  IsMouseDown = false;
+  scpointlist.push({x:scx,y:scy,type:"move"});
+  if (scpointlist[scpointlist.length-1].x == scpointlist[scpointlist.length-2].x && scpointlist[scpointlist.length-1].y == scpointlist[scpointlist.length-2].y) {
+  console.log("dupes detected");
+  scpointlist.pop();
+  }
+if (FLEnabled) {
+    updateFL();
+  }
+});
+selectioncircle.addEventListener('mousemove', event => {
+    if (sizething_mode_disp < 2) {
+      GetMousePos();
+    }
+    UpdateSizeThing();
+    if (FLEnabled) {
+    updateFL();
+    }
+    if (IsMouseDown && my > 0) {
+    DrawSelectionCircle();
+    }
+});
+addEventListener("keydown", (event) => {
+    switch(event.key) {
+      case "w": scpointlist.push({x:scx,y:scy,type:"move"}); scy = scy - window.innerWidth/canvas.height; break;
+      case "s": scpointlist.push({x:scx,y:scy,type:"move"});scy = scy + window.innerWidth/canvas.height; break;
+      case "a": scpointlist.push({x:scx,y:scy,type:"move"});scx = scx - window.innerWidth/canvas.width; break;
+      case "d": scpointlist.push({x:scx,y:scy,type:"move"});scx = scx + window.innerWidth/canvas.width; break;
+      case "q": UpdateCircleSize(-1); break;
+      case "e": UpdateCircleSize(1); break;
+      case "z": Undo(); break;
+      case "1": ChangeMode("edit"); break;
+      case "2": ChangeMode("preview"); break;
+      case "3": ChangeMode("settings"); break;
+      case "4": ChangeMode("help"); break;
+      case "8": document.getElementById("import-dialog").click(); break;
+      case "9": ExportImage(); break;
+      case "0": Center(); break;
+    }
+    updateAll();
+});
+function touch2Mouse(e)
+{
+  var theTouch = e.changedTouches[0];
+  var mouseEv;
+  switch(e.type)
+  {
+    case "touchstart": mouseEv="mousedown"; break;  
+    case "touchend":   mouseEv="mouseup"; break;
+    case "touchmove":  mouseEv="mousemove"; break;
+    default: return;
+  }
+  var mouseEvent = document.createEvent("MouseEvent");
+  mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
+  theTouch.target.dispatchEvent(mouseEvent);
+  e.preventDefault();
+}
+selectioncircle.addEventListener("touchstart", touch2Mouse, true);
+selectioncircle.addEventListener("touchmove", touch2Mouse, true);
+selectioncircle.addEventListener("touchend", touch2Mouse, true);
+importdialog.addEventListener("change", () => {
+	ImportImage();
+});
+function GetMousePos() {
+			mx = event.clientX;
+			my = event.clientY - modeEditElement.getBoundingClientRect().top;
+      if (IsMouseDown && my >= 0 && modeEditElement.style.display != "none") {
+      scy = my;
+      scx = mx;
+      }
+}
+function UpdateCircleSize(amount) {
+scpointlist.push({x:cs,y:-1,type:"size"});
+if (cs < 30) {
+	cs+=amount*2;
+} else if (cs > 30) {
+	cs+=amount*5;
+} else {
+	if (amount>0) {
+  	cs += 5;
+  } else {
+  	cs -= 2;
+  }
+}
+scpointlist[scpointlist.length-1].y = cs;
+  if (scpointlist[scpointlist.length-1].x == scpointlist[scpointlist.length-2].x && scpointlist[scpointlist.length-1].type == scpointlist[scpointlist.length-2].type) {
+  scpointlist.pop();
+  }
+updateAll();
+}
+function Undo(){
+  switch(scpointlist[scpointlist.length-1].type) {
+    case "move":
+         scx = scpointlist[scpointlist.length-1].x;
+         scy = scpointlist[scpointlist.length-1].y;
+         scpointlist.pop();
+    break;
+    case "size":
+        cs = scpointlist[scpointlist.length-1].x;
+         scpointlist.pop();
+    break;
+    case "pos":
+         scx = scpointlist[scpointlist.length-1].x;
+         scy = scpointlist[scpointlist.length-1].y;
+    break;
+    case "bgcolor":
+         document.body.style.backgroundColor = scpointlist[scpointlist.length-1].x;
+         scpointlist.pop();
+    break;
+    case "sccolor":
+         scColor = scpointlist[scpointlist.length-1].x;
+         if (scpointlist[scpointlist.length-1].x = undefined) {
+         	scColor = "ff0000";
+         }
+         scpointlist.pop();
+         
+    break;
+  }
+      updateAll();
+      console.log(scpointlist);
+}
+function imfeelinglucky() {
+scpointlist.push({x:cs,y:-1,type:"size"});
+cs = 30+Math.floor(Math.random() * 5) * 20;
+scx = Math.random()*(cs/2+selectioncircle.getBoundingClientRect().width-cs);
+scy = Math.random()*(cs/2+selectioncircle.getBoundingClientRect().height-cs);
+scpointlist[scpointlist.length-1].y = cs;
+scpointlist.push({x:scx,y:scy,type:"move"});
+updateAll();
+}
+function Center() {
+  scy = window.innerWidth/2;
+  scx = window.innerWidth/2;
+  scpointlist.push({x:scx,y:scy,type:"move"});
+  if (scpointlist[scpointlist.length-1].x == scpointlist[scpointlist.length-2].x && scpointlist[scpointlist.length-1].y == scpointlist[scpointlist.length-2].y) {
+  console.log("dupes detected");
+  scpointlist.pop();
+  }
+updateAll();
+}
+function DrawSelectionCircle() {
+  if (!document.getElementById("s0004").checked) {
+    selectioncircle.innerHTML = '<circle cx="'+scx/window.innerWidth*100+'" cy="'+scy/window.innerWidth*100+'" r="'+(cs/2)+'" stroke="'+scColor+'" fill="transparent" stroke-width="0.25"/><circle id="selectioncircle2" cx="'+scx/window.innerWidth*100+'" cy="'+scy/window.innerWidth*100+'" r="0.25" fill="'+scColor+'"/>';
+  } else {
+    selectioncircle.innerHTML = '<circle cx="'+scx/window.innerWidth*100+'" cy="'+scy/window.innerWidth*100+'" r="'+(cs/2)+'" stroke="'+scColor+'" fill="transparent" stroke-width="0.25"/>';
+  }
+}
+function UpdateSizeThing() {
+document.getElementById("sizething").innerHTML = "Size: "+cs+"% | x:"+Math.trunc(scx/window.innerWidth*canvas.width)+" y:"+Math.trunc(scy/window.innerWidth*canvas.height);
+}
+function updateFL() {
+  selectioncircle.style.setProperty('--cursorX', 'calc(' + scx + 'px)');
+  selectioncircle.style.setProperty('--cursorY', 'calc(' + scy + 'px)');
+  selectioncircle.style.setProperty('--sizhe', 'calc(' + (cs/1.95) + 'vw)');
+}
+function updateAll() {
+    DrawSelectionCircle();
+    UpdateSizeThing();
+    updateFL();
+}
+function HideAllDivs() {
+  modeHelpElement.style.display = "none";
+  modeSettingsElement.style.display = "none";
+  modeEditBarElement.style.display = "none";
+  LayoutHome.style.display = "none";
+  LayoutGallery.style.display = "none";
+  canvas.style.display = "block";
+  modeEditElement.style.display = "block";
+}
+function ChangeMode(mode) {
+//modes: edit, preview, settings, help
+HideAllDivs();
+for (i=0; i<=3; i++) {
+      mode_tabs[sizething_mode_disp].style = "";
+      mode_tabs[sizething_mode_disp].style.className = "button";
+}
+	switch (mode) {
+    case "edit": 
+      sizething_mode_disp = 0;
+      LayoutHome.style.display = "block";
+    	modeEditBarElement.style.display = "block";
+    	
+      FLEnabled = 0;
+      selectioncircle.style.background = "none";
+    break;
+    case "preview": 
+      LayoutHome.style.display = "block";
+      sizething_mode_disp = 1;
+    	modeEditBarElement.style.display = "block";
+    	
+      FLEnabled = 1;
+      if (ButtonStyle == "default") {
+        selectioncircle.style.background = "radial-gradient(circle var(--sizhe) at var(--cursorX) var(--cursorY), rgba(255, 255, 192, .05) 0%, rgba(0, 0, 0, .5) 75%, rgba(0, 0, 0, .95) 100%)";
+      } else if (ButtonStyle == "matte") {
+        selectioncircle.style.background = "radial-gradient(circle var(--sizhe) at var(--cursorX) var(--cursorY), rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .35) 85%, rgba(0, 0, 0, .95) 100%)";
+      }
+    break;
+    case "gallery":canvas.style.display = "block";selectioncircle.style.background = "none";modeEditElement.style.display = "none";LayoutGallery.style.display = "block"; sizething_mode_disp = 4; break;
+    case "help": modeHelpElement.style.display = "block";LayoutHome.style.display = "block";sizething_mode_disp = 3;break;
+    case "settings":modeSettingsElement.style.display = "block";LayoutHome.style.display = "block";modeEditBarElement.style.display = "block";sizething_mode_disp = 2;break;
+	}
+  updateAll();
+  console.log(sizething_mode_disp);
+  mode_tabs[sizething_mode_disp].style.backgroundColor = "#3faf3f";
+}
+function CalcCanvasResolution(c) {
+    c.canvas.width = Math.max(ldh.width,ldh.height);
+    c.canvas.height = Math.max(ldh.width,ldh.height);
+}
+function s_bgColor() {
+scpointlist.push({x:prevBGcolor,y:-1,type:"bgcolor"});
+prevBGcolor = Settings_bgColorInput.value;
+document.body.style.backgroundColor = Settings_bgColorInput.value;
+}
+function s_scColor() {
+scpointlist.push({x:prevSCcolor,y:-1,type:"sccolor"});
+prevSCcolor = Settings_scColorInput.value;
+scColor = Settings_scColorInput.value;
+
+}
+function s_toggleMatte() {
+  if (document.getElementById("s0003").checked) {ButtonStyle = "matte"};
+  if (!document.getElementById("s0003").checked) {ButtonStyle = "default"};
+  if (ButtonStyle == "default") {
+        selectioncircle.style.background = "radial-gradient(circle var(--sizhe) at var(--cursorX) var(--cursorY), rgba(255, 255, 192, .05) 0%, rgba(0, 0, 0, .7) 80%, rgba(0, 0, 0, .95) 100%)";
+      } else if (ButtonStyle == "matte") {
+        selectioncircle.style.background = "radial-gradient(circle var(--sizhe) at var(--cursorX) var(--cursorY), rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 85%, rgba(0, 0, 0, .95) 100%)";
+      }
+      console.log(document.getElementById("s0002").checked);
+}
+function s_toggleLegacyCropping() {
+  if (document.getElementById("s0002").checked) {CroppingStyle = "square"};
+  if (!document.getElementById("s0002").checked) {CroppingStyle = "circle"};
+}
+function ImportImage() {
+ const reader = new FileReader();
+    reader.onload = (e) => {
+      ldh.src = e.target.result;
+    CalcCanvasResolution(ctx);
+  ctx.drawImage(ldh, ctx.canvas.width/2-ldh.width/2, ctx.canvas.height/2-ldh.height/2);
+    };
+    reader.readAsDataURL(document.getElementById("import-dialog").files[0]);
+  
+}
+
+function ExportImage() {
+let date = new Date();
+let excanvas = document.createElement('canvas');
+let exctx = excanvas.getContext("2d");
+    exctx.canvas.width = ctx.canvas.width*cs/100;
+    exctx.canvas.height = ctx.canvas.height*cs/100;
+exctx.rect(0,0,9999,9999);
+exctx.fillStyle = Settings_bgColorInput.value; exctx.fill();
+exctx.drawImage(ctx.canvas,-scx/selectioncircle.getBoundingClientRect().width*canvas.width+exctx.canvas.width/2,-scy/selectioncircle.getBoundingClientRect().height*canvas.height+exctx.canvas.height/2);
+if (CroppingStyle == "circle") {
+  exctx.globalCompositeOperation='destination-in';
+  exctx.beginPath();
+  exctx.arc(exctx.canvas.width/2,exctx.canvas.height/2,exctx.canvas.height/2,0,Math.PI*2);
+  exctx.closePath();
+  exctx.fill();
+}
+let dataURL = excanvas.toDataURL("image/png", 1.0);
+    let a = document.createElement('a');
+    a.href = dataURL;
+    a.download = "button-bros-" + date.getFullYear() + "-" +(date.getMonth() + 1) + date.getDate() + ".png";
+    document.body.appendChild(a);
+    a.click();
+}
+function LoadInitialImage() {
+ldh.src = "data:image/png;base64,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";
+ctx.canvas.height = 1000;
+ctx.canvas.width = 1000;
+ctx.drawImage(ldh,0,0);
+}
+importdialog.addEventListener('change', event => {
+    ImportImage();
+});
+</script>

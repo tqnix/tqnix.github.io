@@ -1,0 +1,69 @@
+  <head>
+   <meta charset="UTF-16">
+   <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+   <title>Notification maker</title>
+  <link rel="stylesheet" href="styles.css">
+   <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+    .button {
+      width: 100%;
+      height:5%;
+      font-size:20px;
+    }
+    .button-half {
+      width: 32%;
+      height:5%;
+      font-size:20px;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+    </style> 
+ </head>
+ <button class="navbutton" onclick="window.location.href = 'index.html'">◀️BACK</button><br>
+ <h1>NOTIFICATION MAKER</h1>
+<input type=text class="button" id="tit" placeholder="TITLE"></input>
+<input type=text class="button" id="conte" placeholder="CONTENT"></input>
+<input type=text class="button" id="li" placeholder="(Optional) A link to the photography"></input>
+<p>Images will be cropped into a circle. Use <a href="buttonbros.html">this</a> to crop them. Also don't forget to turn on square cropping</p>
+<button class="button-half" onclick="GenerateNotifications()">GENERATE 1</button>
+<button class="button-half" onclick="CloseNotifications()">CLOSE</button>
+<button class="button-half" onclick="EnableNotifications()">ENABLE</button>
+<br><br>
+<input type=text class="button-half" id="tim" placeholder="# of notifications (DANGEROUS)"></input>
+<button class="button-half" onclick="GenerateNotificationsMany()">GENERATE THAT MANY</button>
+
+<p id="a"></p>
+ 
+ <script>
+  ACEtest = "If you can access this then something is seriously wrong";
+    function EnableNotifications() {
+        text = document.getElementById("a");
+Notification.requestPermission().then((result) => {
+  text.innerText = result;
+});
+    }
+    function GenerateNotifications() {
+        let img = document.getElementById("li").value;
+        let text = document.getElementById("conte").value;
+        const notification = new Notification(document.getElementById("tit").value, { body: text, icon: img });
+    }
+    function GenerateNotificationsMany() {
+      let b = parseInt(document.getElementById("tim").value);
+        for(i=0; i<b; i++) {
+          let img = document.getElementById("li").value;
+        let text = document.getElementById("conte").value;
+        const notification = new Notification(document.getElementById("tit").value, { body: text, icon: img });
+    
+        }
+    }
+    function CloseNotifications() {
+            notification.close();
+    }
+ </script>

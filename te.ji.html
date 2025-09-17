@@ -3,17 +3,26 @@ TITLE STARTSTRING Example_Script FINISHSTRING.
 LOG_TO_OUTPUT START NEW FIXEDINTEGERINSTANCE START 1 FINISH INCREMENT FINISH.
  </textarea>
 <br>
-<button>Save!</button>
-<button>Load!</button>
+<button onclick="save()">Save!</button>
+<button onclick="load()">Load!</button>
 <button onclick="parse_text()">Run!</button>
-<button>EARTH</button>
-<button>AIR</button>
-<button>FIRE</button>
-<button>WATER</button>
+<button onclick="the4horsemen.earth++">EARTH</button>
+<button onclick="the4horsemen.air++">AIR</button>
+<button onclick="the4horsemen.fire++">FIRE</button>
+<button onclick="the4horsemen.water++">WATER</button>
 <p>OUTPUT:<br>-------------------------------------------------------------</p>
 <div id=output></div>
-<script>var qz = "";
+<script>
+ function save() {
+  localStorage.savedcode = document.getElementById("output").innerText;
+ }
+ function load() {
+   document.getElementById("output").innerText = localStorage.savedcode;
+ }
+ var qz = "";
+ 
 function parse_text() {
+ localStorage.savedcode = document.getElementById("output").innerText;
   document.getElementById("output").innerText = "";
   qz = document.getElementById("input").value;
    let bal = qz.split('.');
@@ -31,6 +40,7 @@ function parse_line(c) {
     }
   document.getElementById("output").innerText += outputAsString;
   console.log(bal2);
+ 
   return bal2;
 }
 function HandleError(lentil,token) {
@@ -82,4 +92,5 @@ function turn_that_shit_into_code(arraygoeshere) {
     }
   }
 }
+
 </script>

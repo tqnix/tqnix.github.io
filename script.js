@@ -1,0 +1,565 @@
+view_plaintext = false;
+function activate() {
+  document.getElementById("tianxue").innerHTML = "";
+  if (input_text.length < 1) {
+    for (var i=0; i<seecret_items.length; i++) {
+      //console.log("<a href=" + seecret_items[i].link + ".html>" + seecret_items[i].na + "</a>");
+      DrawListItems(i);
+    }
+  } else {
+    for (var i=0; i<seecret_items.length; i++) {
+      //console.log("<a href=" + seecret_items[i].link + ".html>" + seecret_items[i].na + "</a>");
+        if (seecret_items[i].na.toLowerCase().includes(input_text.toLowerCase())) {
+         DrawListItems(i);
+        }
+      }
+  }
+  document.getElementById("search").innerHTML = ProcessPlaceholders("Search: %input");
+}
+
+function DrawListItems(i) {
+let tanjou = "<div class=\"case_container";
+if (seecret_items[i].e > 0) {
+  tanjou += " grun";
+}
+tanjou += "\"><a class='smalltext' href=" + seecret_items[i].link + ">";
+if (!view_plaintext) {
+  
+  if (seecret_items[i].e == 1) {
+    tanjou += '<iframe src="https://www.desmos.com/calculator/ekcghefhjz?embed" height="320"></iframe><br>';
+  } else if (seecret_items[i].e == 2) {
+    tanjou += '<iframe src="https://www.desmos.com/3d/atwan2gwul" height="640"></iframe><br>';
+  } else {
+    //tanjou +="<img src='https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg' height='320' class='case_image'></img>";
+    tanjou += '<iframe src="' + seecret_items[i].link + '" height="640"></iframe><br>';
+  }
+}
+tanjou += seecret_items[i].na + "</a></div>\n";
+
+document.getElementById("tianxue").innerHTML += tanjou;
+  
+}
+
+function luck() {
+  window.location.href = seecret_items[Math.floor(Math.random()*13)].link + ".html";
+}
+
+seecret_items = [
+  //{link:"dragging",na:"UI dragging implementation"},
+  {link:"ateji.html",na:"Translator (but badddddddddd)", e:0},
+  {link:"buttonbros.html",na:"Button Brothers Circle Cropper", e:0},
+  {link:"colormatis-patched.html",na:"Color Vomit Generator", e:0},
+  {link:"drau.html",na:"drawing app", e:0},
+  {link:"watchsim.html",na:"Dot-matrix pixel format (press R)", e:0},
+  {link:"hotkeypractice.html",na:"Hotkey switching practice", e:0},
+  {link:"invgamble.html",na:"WIP Inventory gambling", e:0},
+  {link:"looker.html",na:"dot sandbox", e:0},
+  {link:"notification.html",na:"Basic Notification Maker", e:0},
+  {link:"osu-pattern-trainer.html",na:"osu! pattern practicing tool", e:0},
+  {link:"shoppe.html",na:"this page's css style guide?", e:0},
+  {link:"spinbutton.html",na:"spinny button", e:0},
+  //{link:"tenji",na:"VERY VERY WIP annoying programming language"},
+  {link:"watchsim.html",na:"WIP digital watch simulator", e:0},
+  {link:"https://www.desmos.com/calculator/ekcghefhjz",na:"desmos line tool", e:1},
+  {link:"https://www.desmos.com/3d/atwan2gwul",na:"desmos 3d graphing test", e:2},
+  ];
+splash_texts = [
+  "skill issue",
+  "%input-free!",
+  "%input issue x%jn",
+  "hi",
+  "ONG FR FR",
+  "\"muckers\"",
+  "Pro Tip: You can use the console to edit stuff",
+  "%h",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub",
+  "%dhaub -%f%",
+  "%dhaub -%f%",
+  "%dhaub -%f%",
+  "%dhaub -%f%",
+  "%dhaub -%f%",
+
+  
+];
+famous_peoples = [
+  "This website",
+  "That other website",
+  "Youtube",
+  "The average Frenchman",
+  "The French language",
+  "Tqnixity",
+  "Tqnixity's girlfriend",
+  "Tqnixity the one and only",
+  "Steve",
+  "illiterate ABC香蕉竹升",
+  "Tqnixity's nonexistent cat",
+  "Dogmeat Ltd.",
+  "Dream",
+  "Technoblade",
+  "Technoblade (never dies!)",
+  "ABC defG (VCT MVP)",
+  "Anonymous",
+  "Donald Trump",
+  "Steve Jobs",
+  "Karl Marx",
+  "w3schools",
+  "Diddy",
+  "Sean \"Diddy\" Combs",
+  "Jeffrey Epstein",
+  "David Baszucki",
+  "Jackie Chan",
+  "John Xing",
+  "John Cena",
+  "Xi Jinping",
+  "Winnie the Pooh",
+  "Peppa Pig",
+  "Greg George",
+  "Hiroshima Nagasaki",
+  "Omen",
+  "ohman",
+  "Tqnixity's piano",
+  "Tqnixity's 15th piano",
+  "Martin Luther King",
+  "generic feminist",
+  "Local neighbourhood Karen",
+  "Greg Washington",
+  "ghDhaeighnyieaieieighaelle Kqghaeioughieie",
+  "Jimmy \"MrBeast\" Donaldson",
+  "Indian Times",
+  "South China News",
+  "CCTV Channel 15",
+  "Vladimir Putin",
+  "Susan Wojcikizkkjzcki",
+  "New York Times",
+  "MOJANG",
+  "The Verge",
+  "CBC",
+  "Alien #7531 from Mars",
+  "Albert Einstein",
+  "Socrates",
+  "Plato",
+  "Queen Elizabeth II",
+  "[person here]",
+  "Yamete Wokudasai",
+  "Mao Zedong",
+  "Adolf Charles (1556)",
+  "John Stevenson",
+  "Kate Dickens",
+  "Bob Smith",
+  "Schrodinger",
+  "Hangtian Rijie",
+  "Jaewa Park",
+  "Sum Ting Wong",
+  "Bang Ding Ow",
+  "James Charles",
+  "Buster Chaplin",
+  "Loser Lane",
+  "Youckeugh",
+  "Jyioughckaeouhgh Yuca",
+  "Streetsville Mass Shooter",
+  "Henry Henry",
+  "Dickens Dickens",
+  "the number 25",
+  "Ender Dragon",
+  "Piglin Brute",
+  "Villager News",
+  "Villager #9",
+  "Pillager",
+  "Johnny Appleseed",
+  "Happy Ghast",
+  "George Orwell's book",
+  "The average adult male",
+  "The average adult female",
+  "The average person",
+  "The average child",
+  "The average house",
+  "The average car",
+  "The average nerd",
+  "The average autistic person",
+  "The average quadriplegic",
+  "The average NERDDDDDD",
+  "Minecraft's tier ranking system",
+  "The concept of Kansas",
+  "Tqnixity's medical record",
+  "The average desk",
+  "The average smartphone",
+  "My pet T-Rex",
+  "Everyone",
+  "Nobody",
+  "Darkness",
+  "THE LIGHT",
+  "The 4 elements",
+  "Life's biggest question",
+  "He asked if it",
+  "Pro Tip: it",
+  "Pro Tip: this",
+  "Pro Tip: Tqnixity",
+  "Pro Tip: ",
+  "Greta Thunberg",
+  "The local Titanoboa",
+  "My pet clanker",
+  "Clankers",
+  "ChatGPT",
+  "The meaning of life",
+  "The local HOA",
+  "The local Titanoboa",
+  "My pet Ender Dragon",
+  "My pet Happy Ghast",
+  "Obesity",
+  "All humor ",
+]
+dhaub_initial = [
+  "%f% is",
+  "%f% is not",
+  "%f%:",
+  "%f% is",
+  "%f% is not",
+  "%f%:",
+  "%f% is",
+  "%f% is not",
+  "%f%:",
+  "%f% is",
+  "%f% is not",
+  "%f%:",
+  "%f% is",
+  "%f% is not",
+  "%f%:",
+  "%f% is",
+  "%f% is not",
+  "%f%:",
+  "We are",
+  "They are",
+  "You are",
+  "Your name is:",
+  "%t: ",
+  "%t is",
+  "%t is not",
+  "%t: ",
+  "%t is",
+  "%t is not",
+  "%t: ",
+  "%t is",
+  "%t is not",
+  "%input is",
+  "%input is not",
+  "%input: ",
+  "Tqnixity is",
+  "Tqnixity is not",
+  "This website is",
+  "Tqnixity is",
+  "Tqnixity is not",
+  "This website is",
+  "Tqnixity is",
+  "This website is",
+  "W3SPACES is",
+  "Tqnixity is addicted to being",
+  "Tqnixity is addicted to being",
+  "Tqnixity's nonexistent cat is",
+  "Tqnixity's rank is",
+  "OMEN is",
+  "It's",
+  "Tqnixity's friends are",
+  "Tqnixity's osu! profile is",
+  "早上好，现在我有",
+  "Employee password:",
+  "Credit card number:",
+  "This video is",
+  "This car is",
+  "My mouse is",
+  "The concept of time is",
+  "2012:",
+  "1996:",
+  "2020:",
+  "1942:",
+  "1885:",
+  "1669:",
+  "2055:",
+  "Mission Impossible:",
+  "Garfield:",
+  "Spider-Man:",
+  "This oak tree is",
+  "Tqnixity's calculator addiction is",
+  "My pet t-rex is",
+  "My pet megalodon is",
+  "My pet titanoboa is",
+  "My pet velociraptor is",
+  "My pet neanderthal is",
+  "Giant spiders: ",
+  "I am",
+  "Bitcoin wallet:",
+  "Enter current time:",
+  "Username:",
+  "%f%'s dumbest moment was",
+  "%f%'s dumbest moment was",
+  "%f%'s life goal was",
+  "%f%'s life goal was",
+  "%f%'s greatest achievement was",
+  "%f%'s greatest achievement was",
+  "Expiration date:",
+  "Tqnixity's brian is",
+  "The average obese person is",
+  "The average clanker is",
+  "My pet clanker is",
+  "The average clanker is not",
+  "Clankers:",
+  "All clankers are",
+  "The Chinese: ",
+  "The average furry is",
+  "The average alpha-male podcaster is",
+  "Humor in the future:",
+  "All humor in the future will be:",
+
+];
+dhaub_final = [
+  "a 1.5^{2}\ <x+yy+zz\ <2^{2}\left\{0>xyz\right\}",
+  "within a %input",
+  "%input-less",
+  "%inputful",
+  "making %input",
+  "in spain without the a",
+  "censored",
+  "banned",
+  "shadowbanned by the algorithm",
+  "an algorithm",
+  "secretly an AI",
+  "the harbinger of the Apocalypse",
+  "a ticking time bomb",
+  "a pot of gold",
+  "collecting clankers",
+  "playing osu!",
+  "attempting to play the piano",
+  "a CLANKER",
+  "%input",
+  "collecting watches",
+  "an avid collector of dust",
+  "going to marry their high school",
+  "surrounded by friends",
+  "worldwide",
+  "globally applauded",
+  "suicidal",
+  "collecting calculators",
+  "dead :)",
+  "a clone of %f%",
+  "a clone of Tqnixity",
+  "gonna die in %d20 days",
+  "in %input condition",
+  "in critical condition",
+  "%jn years old",
+  "%jn meters tall",
+  "%jn kilos h e a v y",
+  "depressed",
+  "dense",
+  "borderline autistic",
+  "playing %input on the piano",
+  "successful",
+  "successfully %input",
+  "on drugs",
+  "on %input",
+  "doing exercise and drinking water",
+  "eating healthy",
+  "eating %input",
+  "eating \"healthy\"",
+  "in bronze 1",
+  "systematically ruining their life",
+  "ruining his sleep schedule",
+  "a moron",
+  "a %input",
+  "%input",
+  "THE GOAT",
+  "eating sugar",
+  "a %d20/20 coder",
+  "having %d20/20 luck",
+  "wanting you to try %featured",
+  "a %input issue",
+  "the personification of a skill issue",
+  "in your walls",
+  "under your floorboards",
+  "literally the smartest thing alive",
+  "smarter than Tqnixity himself",
+  "seeing you on this website for the %vth time",
+  "a 6'5 200lb jacked ripped taekwondo black belt",
+  "finna go like uh move from w3 to %input",
+  "basically nonbinary from his girl ahh build",
+  "*clears throat* no further explanation required",
+  "a list of random doohickeys over %jn months",
+  "TV compatible",
+  "Nintendo 64 compatible",
+  "Smartwatch compatible",
+  "New York Times Square Billboard compatible",
+  "bad for only allowing 20 files :/",
+  "a %featured",
+  //"...一杯冰淇淋。我很喜欢冰淇淋，但是速度与激情九比冰淇淋我最喜欢。所以...现在是音乐时间。一，二，三，准备！",
+  "%jn seconds long",
+  "free!",
+  "Grandmaster III",
+  "RADIANT",
+  "Champion II",
+  "voting",
+  "attempting to vote",
+  "not able to vote yet",
+  "collecting VP (Vote Points)",
+  "mispeleing \"Vote\" as \"Vore\"",
+  "on fentttt",
+  "an ally of Xi Jinping",
+  "a fucking animal",
+  "RAWWWWWWWWWWWW",
+  "so raw that I can still hear it telling bruv to fuck off",
+  "being eaten alive",
+  "a horror movie",
+  "in a horror movie",
+  "in the Nether",
+  "beating the enderdragon sub-5",
+  "in the Aether",
+  "DISGUSTAING",
+  "t r i g g e r e d",
+  "w i d e j o y",
+  "running his first sub-7 mile, ever (which is really slow!)",
+  "so slow that a chronic vaper could outrun bro",
+  "slower than a computer from DELL",
+  "[valorant reference blocker]",
+  "faster than Sonic",
+  "faster than light somehow",
+  "above average speed",
+  "the slowest kid in class",
+  "autistically bad at sports",
+  "autistically bad at everything",
+  "autistically good at everything",
+  "autistic",
+  "possibly on drugs to be this bad",
+  "straight up impossible",
+  "NBA material",
+  "WNBA material",
+  "playing hockey",
+  "playing poker",
+  "gambling his life away",
+  "using the Luigi cheatcode",
+  "making bank from gambling",
+  "spending 30 minutes anxiously thinking about what to bet on",
+  "making investments, but really poorly",
+  "IMAGE MATERIALLLLLL",
+  "deaf",
+  "blind",
+  "tasteless",
+  "using the metric system",
+  "in a very important meeting about [topic]",
+  "cooking :fire:",
+  "literally dead",
+  "still alive",
+  "lying about cake",
+  "randomly generated",
+  "grown in red gatorade",
+  "listening to masculine whitegirl playlist"
+
+];
+input_text = "";
+
+splash_showing = (Math.floor(Math.random()*splash_texts.length));
+toaster = 25;
+user_adjustable = 8;
+randomness_for_today = (Math.floor(Math.random()*20));
+rigby_a = Math.floor(Math.random()*dhaub_initial.length);
+rigby_b = Math.floor(Math.random()*dhaub_final.length);
+rigby_c = Math.floor(Math.random()*famous_peoples.length);
+
+addEventListener("keydown", (event) => {
+		switch(event.key) {
+      case "Backspace": input_text = input_text.substring(0, input_text.length - 1); break;
+      case "ArrowUp": splash_showing++; document.getElementById("title_bottomtext").innerText = ProcessPlaceholders(splash_texts[splash_showing],true); break;
+      case "ArrowDown": splash_showing--; document.getElementById("title_bottomtext").innerText = ProcessPlaceholders(splash_texts[splash_showing],true); break;
+      case "ArrowLeft": user_adjustable--; break;
+      case "ArrowRight": user_adjustable++; break;
+      case "Insert": reroll(); break;
+      default: 
+      if (event.key.length == 1) {
+      input_text += event.key; 
+      }
+      break;
+    }
+    activate();
+     document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
+});
+
+function aintit() {
+  add();
+  document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
+  activate();
+}
+function ProcessPlaceholders(j,n) {
+dongus = new Date();
+if (input_text == "") {
+  j = j.replace("%input","<a href='https://www.wikihow.com/Use-a-Computer-Keyboard' style='color: #7f7f7f;'>Enter text</a>");
+} else {
+  j = j.replace("%input","<a style='color: skyblue;'>" + input_text + "</a>");
+}
+j = j.replace("%d20",(((randomness_for_today + user_adjustable)%20)+1).toString());
+j = j.replace("%f%",famous_peoples[rigby_c]);
+j = j.replace("%t","Poverty Land");
+j = j.replace("%v",toaster);
+j = j.replace("%h",adjust_number_of_letter_h());
+j = j.replace("%jn","<a style='color: skyblue;'>" + user_adjustable.toString() + "</a>");
+j = j.replace("%featured","<a href=" + seecret_items[Math.floor(Math.random()*seecret_items.length)].link + ".html>" + seecret_items[Math.floor(Math.random()*seecret_items.length)].na + "</a>");
+if (n) {
+  j = j.replace("%dhaub",ProcessPlaceholders(dhaub_initial[rigby_a],false) + " " + ProcessPlaceholders( dhaub_final[rigby_b],false));
+}
+return j;
+}
+function reroll() {
+   rigby_a = Math.floor(Math.random()*dhaub_initial.length);
+  rigby_b = Math.floor(Math.random()*dhaub_final.length);
+  rigby_c = Math.floor(Math.random()*famous_peoples.length);
+  splash_showing = (Math.floor(Math.random()*splash_texts.length));
+  document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
+}
+
+function adjust_number_of_letter_h() {
+let hhh = "";
+for (i=0; i<user_adjustable; i++) {
+  hhh += "h";
+}
+return hhh;
+}
+
+function add() {
+  if (localStorage.eecountervalue == null) {
+    localStorage.eecountervalue = 0;
+  } else {
+    toaster = localStorage.eecountervalue;
+  }
+  toaster++;
+  localStorage.eecountervalue = toaster;
+    
+}
+
+window.addEventListener('mousedown', function() {
+  mouseIsDown = true;
+  idTimeout = setTimeout(function() {
+    if(mouseIsDown) {
+      localStorage.eecountervalue = -1;
+      
+    }
+  }, 2000);
+});
+
+window.addEventListener('mouseup', function() {
+  clearTimeout(idTimeout);
+  
+  mouseIsDown = false;
+});

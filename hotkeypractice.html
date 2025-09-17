@@ -17,30 +17,60 @@
  <h1>MINECRAFT HOTKEY PRACTICE PROOF OF CONCEPT</h1>
 <p id="rq">PRESS ANY KEY TO START</p>
 <p id="hotkey"></p>
+<div id="time">
+<label for="time-selector">Time:</label>
+<select id="time-selector" name="ha">
+  <option value="9999999999999">Untimed</option>
+  <option value="5">5 seconds</option>
+  <option value="15">15 seconds</option>
+  <option value="60">60 seconds</option>
+  <option value="180">3 minutes</option>
+  
+</select>
+<progress id="time-display" max=1 value=1></progress>
+</div>
 <p id="disp"></p>
+
 <span>Press BACKSPACE to clear debug log</span>
 <script>
   keys = ["dummy","Digit1","Digit2","Digit3","Digit4","Digit5","Digit6","Digit7","Digit8","Digit9"];
-askbuffer = [1,1,1,1,1];
+askbuffer = [1,1,1,1,1,1,1,1,1,1,1];
 ask = 3;
 size = 3;
 combo = 0;
 hcombo = 0;
 misses = 0;
 changebind_ask = 0; //is changing bind when not 0
-
+timer = 0;
+timer_start = 0;
+timer_start_flag = false;
+end_message_flag = false;
+timedisp = document.getElementById("time-display");
+function Update() {
+  
+  if (timer_start_flag) {
+    timedisp.value = (Date.now() - timer_start)/(1000*parseInt(document.getElementById("time-selector").value));
+    end_message_flag = false;
+  }
+  if (!end_message_flag && (Date.now() - timer_start)/(1000*parseInt(document.getElementById("time-selector").value)) > 1 && document.getElementById("time-selector").value < 1000000) {
+    DrawToDisp("Finished! Combo: " + combo);
+    timer_start_flag = false;
+    combo = 0;
+    end_message_flag = true;
+  }
+}
 Reset();
 function ShowHotkeys() {
   document.getElementById("hotkey").innerHTML = "";
   for (i=1; i<=9; i++) {
     document.getElementById("hotkey").innerHTML += i + ": <button onclick='ChangeBind(" + i + ")'>" + keys[i] + "</button> | ";
   }
-  document.getElementById("hotkey").innerHTML += "<button onclick='ChangeSize()'>DIFFICULTY</button>";
+  document.getElementById("hotkey").innerHTML += "<button onclick='ChangeSize()'>DIFFICULTY</button><button onclick='Reset()'>Reset</button>";
 }
 function ChangeSize() {
   size = prompt("# of hotbar slots? (2-9)");
-  if (size < 2 || size > 9) {
-    size = 2;
+  if (size < 1 || size > 9) {
+    size = 1;
   }
 }
 function ChangeBind(n) {
@@ -51,7 +81,20 @@ function ChangeBind(n) {
 }
 function GenerateHotkey() {
 askbuffer.push(1 + Math.floor(Math.random() * size));
-document.getElementById("rq").innerHTML = askbuffer[0] + " " + askbuffer[1] + " " + askbuffer[2] + " " + askbuffer[3] + " " + askbuffer[4] + " | COMBO " + combo + " | HIGH " + hcombo + " | " + misses + " MISSES | " + size + " HOTKEYS";
+DrawPlayfield();
+document.getElementById("rq").innerHTML += "<br><br> COMBO " + combo + " | HIGH " + hcombo + " | <br><br>" + misses + " MISSES | " + size + " HOTKEYS";
+
+}
+function DrawPlayfield() {
+  document.getElementById("rq").innerHTML = "";
+for (i=0; i<5; i++) {
+  document.getElementById("rq").innerHTML += "<span style='font-size:24px'>" + askbuffer[i] + "</span> ";
+}
+document.getElementById("rq").innerHTML += "<span style='font-size:36px'>" + askbuffer[5] + "</span> ";
+for (i=6; i<11; i++) {
+  document.getElementById("rq").innerHTML += "<span style='font-size:24px'>" + askbuffer[i] + "</span> ";
+}
+
 }
 function UpdateHighestCombo() {
   if (combo >= hcombo) {
@@ -59,20 +102,21 @@ function UpdateHighestCombo() {
   }
 }
 function Reset() {
+  timer_start_flag = false;
+  timer_start = 0;
+  timer = 0;
   combo = 0;
-  hcombo = 0;
-  misses = 0;
   DrawToDisp("Game RESET");
-  for(i=0; i<5; i++) {
+  for(i=0; i<11; i++) {
     askbuffer[i] = (1 + Math.floor(Math.random() * size));
   }
   ShowHotkeys();
+  GenerateHotkey();
 }
 function Lose() {
   DrawToDisp("Game Over! Combo: " + combo);
   combo = 0;
   misses++;
-  GenerateHotkey();
 }
 function DrawToDisp(a) {
   document.getElementById("disp").innerHTML += "<br>";
@@ -88,9 +132,14 @@ if (changebind_ask == 0) {
   if (event.code == "Backspace") {
     ClearDisp();
   }
-  else if (event.code == keys[askbuffer.shift()]) {
+  else if (event.code == keys[askbuffer[5]]) {
+    if (!timer_start_flag) {
+      timer_start = Date.now();
+      timer_start_flag = true;
+    }
+    askbuffer.shift();
     combo++;
-    DrawToDisp("COMBO: " + combo + " | KEYCODE: " + event.code);
+    //DrawToDisp("COMBO: " + combo + " | KEYCODE: " + event.code);
     UpdateHighestCombo();
     GenerateHotkey();
   } else {
@@ -104,6 +153,7 @@ if (changebind_ask !== 0) {
   ShowHotkeys();
 }
 });
+setInterval(function() {Update();},20);
 /*
 document.addEventListener("mousedown",function() {
   event.preventDefault();

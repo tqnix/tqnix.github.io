@@ -28,6 +28,9 @@
 <script>
     //this is temporary
     view_plaintext = false;
+	if (window.innerWidth < 900) {
+		view_plaintext = true;
+	}
 function activate() {
   document.getElementById("tianxue").innerHTML = "";
   if (input_text.length < 1) {

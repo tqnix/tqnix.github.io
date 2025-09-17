@@ -1,0 +1,133 @@
+.navbutton {
+    background-color: royalblue;
+    color: beige;
+    border: none;
+    border-radius: 0.8vw;
+    font-size: 2vmax;
+  margin: 0px 0.3vw;
+  display: inline;
+  padding: 8px 0.6vmax;
+    font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  z-index: 2;
+  transition-duration: 200ms;
+}
+.navbutton:hover {
+    background-color: skyblue;
+}
+.navbutton:active {
+    background-color: royalblue;
+}
+.navbutton-clear {
+    background-color: transparent;
+    color: beige;
+    border: none;
+    border-radius: 0.8vw;
+    font-size: 2vmax;
+  margin: 0px 0.3vw;
+  display: inline;
+  padding: 8px 0.75vw;
+    font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+
+  z-index:2;
+}
+#info {
+  width: 6969%
+}
+.fullwidth {
+  width: calc(100vmin - 20px);
+}
+.nameplate {
+  float: left;
+    background-color: white;
+    color: beige;
+    border: none;
+    border-radius: 4%;
+    font-size: 3.2vmin;
+  margin: 0px 6px;
+  display: inline-flexbox;
+  padding: 5vw;
+    font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: bold;
+  font-weight: 600;
+}
+#navbar {
+    position: fixed;
+    right: 12px;
+    top: 16px;
+    padding:0;
+
+}
+body {
+  text-align: center;
+    background-color: #202224;
+    background-image: "";
+    color: beige;
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+    font-size:2.5vmax;
+  padding:0;
+  margin:0;
+}
+iframe {
+  background-color: white;
+  font-size: 1vmax;
+  height: 33vw;
+  width: 100%;
+  transition: opacity .2s linear;
+}
+iframe:hover {
+  cursor: pointer;
+}
+a {
+  color: rgb(80, 124, 255);
+}
+.main {
+    margin: 0;
+    left: 0;
+    right: 0;
+}
+.header {
+  background-color: #101214;
+}
+.salesbar-container {
+  width: 100%;
+}
+.salesbar {
+    margin: auto;
+  width: 80%;
+  height: 4vh;
+  border-radius: 1vh;
+  background-color: gainsboro;
+  z-index:1;
+}
+.salestext {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.bigtext {
+  font-size:4.5vh;
+  font-weight: bold;
+}
+.smalltext {
+  font-size: 1.8vw;
+}
+.case_container {
+  width: 30vw;
+  border: 0.25vw solid beige;
+  border-radius: 0.8vw;
+  padding-bottom: 6px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: inline-block;
+  //z-index: -2000;
+}
+.grun {
+  border: 0.25vw solid lightgreen;
+}
+

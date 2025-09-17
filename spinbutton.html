@@ -1,0 +1,138 @@
+
+ <meta charset="UTF-16">
+<head>
+  <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+  <title>Spinning Button</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+  </style>
+  </head>
+<body onload="restoresavedtext();" style="text-align: center; overflow-y: hidden; overflow-x: hidden;">
+<div style="text-align:left;"><button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button>
+<input type=text id=satyrday placeholder="<< head"></input>
+<button id="entb" onclick="addtextfrominputbox()">-></button>
+<button id="bacb" onclick="backspace()"><</button>
+<button id="clrb" onclick="cleartext()">_</button>
+<span id="inctextdismaly">
+</span>
+</div>
+
+
+<button style="margin-top: 40vh" onclick="reverd()" id="fifty">use your keyboard or the input box above</button>
+  <script>
+  pbox = document.getElementById("satyrday");
+  ent = document.getElementById("entb");
+  bac = document.getElementById("bacb");
+  clr = document.getElementById("clrb");
+  f = document.getElementById("fifty");
+  
+angle = 0;
+increment = 0;
+reverdFlag = false;
+XDirFlag = 0;
+YDirFlag = 0;
+AccelerationTimer1 = 0;
+AccelerationTimer2 = 0;
+var player = {
+xpos : 0,
+ypos : 0,
+thr : 0,
+rot : -90
+};
+const speed = 8;
+function b() {
+  f.style.transform = "rotate(" + angle + "deg) scale(3,3)";
+  ent.style.transform = "rotate(" + angle + "deg)";
+  bac.style.transform = "rotate(" + angle + "deg)";
+  clr.style.transform = "rotate(" + angle + "deg)";
+    //console.log(YDirFlag);
+    AccelerationTimer1+=XDirFlag*2;
+    AccelerationTimer2+=YDirFlag*2;
+    if (AccelerationTimer1 > 0) {AccelerationTimer1--};
+    if (AccelerationTimer1 < 0) {AccelerationTimer1++};
+    if (AccelerationTimer2 > 0) {AccelerationTimer2--};
+    if (AccelerationTimer2 < 0) {AccelerationTimer2++};
+    if (AccelerationTimer1 > 7) {AccelerationTimer1 = 7};
+    if (AccelerationTimer1 < -7) {AccelerationTimer1 = -7};
+    if (AccelerationTimer2 > 20) {AccelerationTimer2 = 20};
+    if (AccelerationTimer2 < -20) {AccelerationTimer2 = -20};
+player.rot += speed*AccelerationTimer1/14;
+player.thr = speed*AccelerationTimer2/20;
+
+  let rad = player.rot * (Math.PI / 180);
+  player.xpos += Math.sin(rad) * player.thr;
+  player.ypos -= Math.cos(rad) * player.thr;
+  pbox.style.transform = "translate(" + player.xpos + "px," + player.ypos + "px) rotate(" + (90+player.rot) + "deg)";
+ // document.getElementById("fifty").style.transform = "translateX(" + angle + "px)";
+}
+setInterval(function() {
+b();
+if(reverdFlag){angle+=increment;}else{angle-=increment;}
+},25);
+
+function reverd() {
+  reverdFlag = !reverdFlag;
+}
+addEventListener("keydown", (event) => {
+if (!document.querySelector("#satyrday:focus")) {
+		switch(event.key) {
+      case "Backspace": backspace(); break;
+      case "Enter": addtextfrominputbox(); break;
+      case "ArrowUp": YDirFlag = 1;  break;
+      case "ArrowDown": YDirFlag = -1; break;
+      case "ArrowLeft": XDirFlag = -1; break;
+      case "ArrowRight": XDirFlag = 1; break;
+      default: 
+      if (event.key.length == 1) {
+      f.innerHTML += event.key; 
+      }
+      break;
+    }
+    updatebuttonspinspeed();
+    
+  //document.getElementById("fifty").innerHTML += event.code;
+}
+});
+
+addEventListener("keyup", (event) => {
+		switch(event.key) {
+      case "ArrowUp": YDirFlag = 0; break;
+      case "ArrowDown": YDirFlag = 0;  break;
+      case "ArrowLeft": XDirFlag = 0;  break;
+      case "ArrowRight": XDirFlag = 0;  break;
+    }
+});
+function cleartext() {
+	f.innerHTML = "";
+	updatebuttonspinspeed();
+}
+function addtextfrominputbox() {
+	f.innerHTML += satyrday.value;
+	updatebuttonspinspeed();
+}
+function backspace() {
+	f.innerHTML = f.innerHTML.substring(0, f.innerHTML.length - 1);
+	updatebuttonspinspeed();
+}
+function restoresavedtext() {
+if (localStorage.savedtext != null) {
+   f.innerHTML = localStorage.savedtext;
+} else {
+  f.innerHTML = "type or use the inputbox above!";
+}
+updatebuttonspinspeed();
+}
+function updatebuttonspinspeed() {
+	document.getElementById("inctextdismaly").innerHTML = f.innerHTML.length%30 + "/30 | " + f.innerHTML;
+	increment = (f.innerHTML.length%30)/3;
+  localStorage.savedtext = f.innerHTML;
+}
+  </script>
+<body>

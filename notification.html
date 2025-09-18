@@ -1,7 +1,7 @@
   <head>
    <meta charset="UTF-16">
    <link rel="icon" type="image/jpeg" href="coloro.jpeg">
-   <title>Notification maker</title>
+   <title id="titoru">Notification maker</title>
   <link rel="stylesheet" href="styles.css">
    <style>
     body {
@@ -32,14 +32,15 @@
 <input type=text class="button" id="conte" placeholder="CONTENT"></input>
 <input type=text class="button" id="li" placeholder="PHOTO LINK"></input>
 <input type=text class="button" id="yoko" placeholder="FAVICON LINK"></input>
+<input type=text class="button" id="kyoukaisakashu" placeholder="PAGE TITLE"></input>
 <p></p>
 <button class="button-half" onclick="GenerateNotifications()">GENERATE 1</button>
 <button class="button-half" onclick="CloseNotifications()">CLOSE</button>
 <button class="button-half" onclick="EnableNotifications()">ENABLE</button>
 <br><br>
 <input type=text class="button-half" id="tim" placeholder="# of notifications (DANGEROUS)"></input>
-<button class="button-half" onclick="GenerateNotificationsMany()">GENERATE THAT MANY</button>
-<button class="button-half" onclick="ChangeFavicon()">GENERATE THAT MANY</button>
+<button class="button-half" onclick="GenerateNotificationsMany()">GENERATE THAT MANY</button><br>
+<button class="button-half" onclick="ChangeFavicon()">Chg favicon</button><button class="button-half" onclick="ChangeFavicon()">Chg title</button>
 
 <p id="a"></p>
  
@@ -77,5 +78,9 @@ if (!link) {
 }
 link.href = document.getElementById("yoko").value;
    }
+   function ChangeTitle() {
+     document.getElementById("titoru").innerText = document.getElementById("kyoukaisakashu").value;
+   }
 
  </script>
+

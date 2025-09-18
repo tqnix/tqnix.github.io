@@ -16,6 +16,11 @@
       height:5%;
       font-size:20px;
     }
+    .button-half {
+      width: 50%;
+      height:5%;
+      font-size:20px;
+    }
     </style> 
  </head>
  <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button><br><br>
@@ -26,15 +31,33 @@
 <input type=text class="button" placeholder = "Enter text here!" id=dahao></input><br>
 <button class="button" onclick="ruu()">Run!</button>
 <button class="button" onclick="document.getElementById('dahao').value = ''; document.getElementById('ya').innerText = '';">Clear</button>
+<button class="button" onclick="document.getElementById('dahao').value = localStorage.savedtranslation1; document.getElementById('ya').innerText = localStorage.savedtranslation2">Load!</button>
+Final vowel
+<select id="final" name="ha">
+  <option value="a">A</option>
+  <option value="e">E</option>
+  <option value="i">I</option>
+  <option value="o">O</option>
+  <option value="u">U</option>
+</select>
+<!--Follow final vowel of next syllable
+<input type=checkbox id="final-follow-previous-syllable"></input>-->
+Language
+<select id="langsel" name="ha">
+  <option value="text">Plain Text</option>
+  <option value="cypriot">Cypriot Syllabary</option>
+  <option value="japan">Bad Japanese</option>
+  <option value="china">Bad Chinese</option>
+</select>
 </div>
 <h3>output</h3>
-<br>
 <bdo dir="ltr" id="ya"></bdo>
 
 <script>
   inn = document.getElementById("dahao");
-  var cookdogging = "";
+  var cookdogging = localStorage.savedtranslation1;
 outut = document.getElementById("ya");
+document.getElementById('dahao').value = localStorage.savedtranslation1; document.getElementById('ya').innerText = localStorage.savedtranslation2;
 var charcount = 0;
 var oututut = [];
 function ruu() {
@@ -45,13 +68,21 @@ function ruu() {
         cookdogging = cookdogging.replaceAll('-','');
           cookdogging = cookdogging.replaceAll(':','');
             if (cookdogging[cookdogging.length-1] != 'a' && cookdogging[cookdogging.length-1] != 'e' && cookdogging[cookdogging.length-1] != 'i' && cookdogging[cookdogging.length-1] != 'o' && cookdogging[cookdogging.length-1] != 'u') {
-              cookdogging += 'e';
+              cookdogging += document.getElementById("final").value;
             }
   plaintoarray();
-  arraytoromani();
-  arraytocypher();
-  arraytoyobi();
-  arraytomgoisai();
+  switch(document.getElementById("langsel").value) {
+    case "text":  arraytoromani();break;
+    case "cypriot": 
+  arraytocypher();break;
+    case "japan":
+  arraytoyobi();break;
+    case "china": 
+  arraytomgoisai(); break;
+  default: console.log(document.getElementById("langsel").value); break;
+    //case "france": break; (add random accent markers)
+  }
+  localStorage.savedtranslation1 = document.getElementById('dahao').value;
 }
 
 function plaintoarray() {
@@ -90,7 +121,7 @@ function arraytoromani() {
   for (var i=0; i<oututut.length; i++) {
     outut.innerText += oututut[i] + "-";
     outut.innerText=outut.innerText.replace('*','');
-  }
+  }localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 function arraytocypher() {
     outut.innerText += "\n";
@@ -198,7 +229,7 @@ function arraytocypher() {
       default: outut.innerText += oututut[i];
     outut.innerText=outut.innerText.replace('*','');break;
     }
-  }
+  }localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 function arraytoyobi() {
     outut.innerText += "\n";
@@ -221,6 +252,12 @@ function arraytoyobi() {
       case "zi": outut.innerText += "じ"; break;
       case "zo": outut.innerText += "ぞ"; break;
       case "zu": outut.innerText += "ず"; break;
+
+      case "xa": outut.innerText += "っざ"; break;
+      case "xe": outut.innerText += "っぜ"; break;
+      case "xi": outut.innerText += "っじ"; break;
+      case "xo": outut.innerText += "っぞ"; break;
+      case "xu": outut.innerText += "っず"; break;
 
       case "ja": outut.innerText += "じゃ"; break;
       case "je": outut.innerText += "じぇ"; break;
@@ -276,6 +313,12 @@ function arraytoyobi() {
       case "bo": outut.innerText += "ぼ"; break;
       case "bu": outut.innerText += "ぶ"; break;
 
+      case "va": outut.innerText += "ワ"; break;
+      case "ve": outut.innerText += "ベ"; break;
+      case "vi": outut.innerText += "ビ"; break;
+      case "vo": outut.innerText += "ボ"; break;
+      case "vu": outut.innerText += "ブ"; break;
+
       case "ha": if (oututut[i-1] == "sa") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しゃ";} else if (oututut[i-1] == "ca") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちゃ";}  else {outut.innerText += "は";} break;
       case "he": if (oututut[i-1] == "se") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しぇ";} else if (oututut[i-1] == "ce") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちぇ";} else {outut.innerText += "へ";} break;
       case "hi": if (oututut[i-1] == "si") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "しい";} else if (oututut[i-1] == "ci") {outut.innerText = outut.innerText.slice(0,-1); outut.innerText += "ちい";} else {outut.innerText += "ひ";} break;
@@ -328,7 +371,7 @@ function arraytoyobi() {
       default: outut.innerText += oututut[i];
     outut.innerText=outut.innerText.replace('*','');break;
     }
-  }
+  }localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 function arraytomgoisai() {
     outut.innerText += "\n";
@@ -468,5 +511,12 @@ function arraytomgoisai() {
     outut.innerText=outut.innerText.replace('*','');break;
     }
   }
+  localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 </script>
+
+
+
+
+
+

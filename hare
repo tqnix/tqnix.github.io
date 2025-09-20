@@ -1,0 +1,226 @@
+<head>
+   <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+   <title>Hotkey Practice</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+    }
+  </style>
+    
+ </head>
+<button class="navbutton" onclick="window.location.href = 'index.html'">◀️BACK</button><br>
+ <h1>UNNAMED CODING LANGUAGE</h1>
+<p id="rq">documentation: NAHHHHHH (btw the example uses all the functions)</p>
+<textarea id=input rows=10 cols=50>
+INIT GOTO 192 64 VAR test 45.
+PEN UP.
+MOVE 1.
+PEN DOWN.
+TURN test.
+MOVE 5.
+PEN UP.
+MOVE 1.
+INC test -1.
+ </textarea>
+<br>
+<button onclick="save()">Save!</button>
+<button onclick="load()">Load!</button>
+<button onclick="parse_text()">Iteration</button>
+<button onclick="init(); func_odometer = 0;">RESET</button><br>
+<canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
+<p>OUTPUT:<br>-------------------------------------------------------------</p>
+<div id=output></div>
+<script>
+  const canvas = document.getElementById("art");
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "#d8e0d0";
+ctx.fillRect(0,0,256,256);
+var pen = {
+  x:128,y:128,th:0,down:true,style:"black"
+}
+var the = [
+  {page:"test",word:0},
+  {page:"func-ct",word:0},
+];
+var qz = "";
+var func_odometer = 0;
+function save() {
+  localStorage.savedcode = document.getElementById("output").innerText;
+ }
+ function load() {
+   document.getElementById("output").innerText = localStorage.savedcode;
+ }
+function parse_text() {
+ localStorage.savedcode = document.getElementById("output").innerText;
+  document.getElementById("output").innerText = "";
+  qz = document.getElementById("input").value;
+   bal = qz.replaceAll("\n","").split('.');
+   
+    for (var i=0; i<bal.length; i++) {
+    bal2 = bal[i].replace('.','').split(' ');
+      turn_that_shit_into_code(parse_line());
+      //document.getElementById("output").innerText += "\n" + "-------------------------\n";
+    }
+}
+function parse_line() {
+  let outputAsString = "";
+    for (var i=0; i<bal2.length; i++) {
+      outputAsString += bal2[i] + " | ";
+    }
+  //document.getElementById("output").innerText += outputAsString;
+  //console.log(bal2);
+ 
+  return bal2;
+}
+function HandleError(lentil,token) {
+  let err
+  switch(lentil) {
+    case "GENERAL":
+      err = "An unspecified error has occurred";
+    break;
+  }
+  err += " | Location: Token" + token;
+}
+function turn_that_shit_into_code(arraygoeshere) {
+  for (var fjdsa = 0; fjdsa < arraygoeshere.length; fjdsa++) {
+      drau();
+      fakevar("func-ct",1,"inc");
+      func_odometer++;
+    switch(arraygoeshere[fjdsa]) {
+      case "INIT":
+        if (func_odometer > 1) {
+          fjdsa = 10000;
+        } 
+      break;
+      case "MOVE": 
+        move(mafs(arraygoeshere[fjdsa+1]));
+        document.getElementById("output").innerText +=("\nMoved " + mafs(arraygoeshere[fjdsa+1]));
+      break;
+      case "TURN": 
+        turn(mafs(arraygoeshere[fjdsa+1]));
+        document.getElementById("output").innerText +=("\nTurned " + mafs(arraygoeshere[fjdsa+1]) + " deg.");
+      break;
+      case "PEN": //subfunction (PEN STYLE, PEN LINE, PEN UP, PEN DOWN, ETC)
+        rin(arraygoeshere[fjdsa+1]);
+        document.getElementById("output").innerText +=("\nPEN " + arraygoeshere[fjdsa+1] + " DONE");
+      break;
+      case "GOTO": 
+        goto(mafs(arraygoeshere[fjdsa+1]),mafs(arraygoeshere[fjdsa+2]));
+        document.getElementById("output").innerText += ("\nWent to x" + mafs(arraygoeshere[fjdsa+1]) + ", y" + mafs(arraygoeshere[fjdsa+2]));
+      break;
+      case "RESET":
+      init();
+        document.getElementById("output").innerText += ("\nReset Canvas");
+      break;
+      case "VAR":
+      fakevar(arraygoeshere[fjdsa+1],mafs(arraygoeshere[fjdsa+2]),"is");
+        document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " +arraygoeshere[fjdsa+2]);
+      break;
+      case "INC":
+      fakevar(arraygoeshere[fjdsa+1],mafs(arraygoeshere[fjdsa+2]),"inc");
+        document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " has been increased by " + arraygoeshere[fjdsa+2] + " and now is " + getvar(arraygoeshere[fjdsa+1]));
+      break;
+      case "GET":
+      getvar(arraygoeshere[fjdsa+1]);
+        document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is " + getvar(arraygoeshere[fjdsa+1]));
+      break;
+      case "HELP":
+      
+      break;
+      case "THEN": //search for REPEAT, IF, or ELSE (ELSE searches for IF)
+      
+      break;
+      default:
+      break;
+      //. works as a ;
+    }
+  }
+}
+function drau() {
+if (pen.down) {
+  if (pen.style == "white") {
+    ctx.strokeColor = "#d8e0d0";
+  } else if (pen.style == "black") {
+    ctx.strokeColor = "#404048";
+  }
+  ctx.lineTo(pen.x,pen.y);
+  ctx.stroke();
+}
+ctx.beginPath();
+  ctx.moveTo(pen.x,pen.y);
+}
+function getvar(pa) {
+for (i=0; i<the.length; i++) {
+  if (the[i].page == pa) {
+    return the[i].word;
+  }
+}
+return "Unable to find";
+}
+function getvarindex(pa) {
+for (i=0; i<the.length; i++) {
+  if (the[i].page == pa) {
+    return i;
+  }
+}
+return "Unable to find";
+}
+function fakevar(pa,o,yn) {
+  if (getvar(pa) == "Unable to find") {
+    the.push({page:pa,word:o});
+  } else {
+    if (yn = "inc") {
+      the[getvarindex(pa)].word += o;
+    } else {
+      the[getvarindex(pa)].word = o;
+    }
+  }
+  return getvar(pa);
+}
+function mafs(func) {
+  let regex = /[A-Za-z]+/i;
+  if (regex.test(func)) {
+    console.log("var");
+    return getvar(func);
+  } else {
+    return parseInt(func);
+  }
+}
+//Functions to make my programming language work
+function init() {
+  pen.fillStyle = "#d8e0d0";
+  ctx.fillRect(0,0,256,256);
+ pen = {
+  x:128,y:128,th:0,down:false,style:"black"
+}
+the = [
+  {page:"test",word:0},
+];
+}
+function move(px) {
+  drau();//temp
+pen.x -= px * Math.sin(pen.th);
+pen.y -= px * Math.cos(pen.th);
+}
+function turn(d) {
+  pen.th += -1/180*Math.PI*d;
+}
+function goto(a,b) {
+  pen.x = a;
+  pen.y = b;
+}
+function then() {
+
+}
+function rin(g) {
+  switch (g) {
+    case "UP": pen.down = false; break;
+    case "DOWN": pen.down = true; break;
+  }
+}
+</script>

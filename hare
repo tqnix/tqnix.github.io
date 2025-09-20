@@ -1,6 +1,6 @@
 <head>
    <link rel="icon" type="image/jpeg" href="coloro.jpeg">
-   <title>Hotkey Practice</title>
+   <title>RIPOFF TURTLE</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
@@ -50,10 +50,10 @@ var the = [
 var qz = "";
 var func_odometer = 0;
 function save() {
-  localStorage.savedcode = document.getElementById("output").innerText;
+  localStorage.savedcode2 = document.getElementById("input").value;
  }
  function load() {
-   document.getElementById("output").innerText = localStorage.savedcode;
+   document.getElementById("input").value = localStorage.savedcode2;
  }
 function parse_text() {
  localStorage.savedcode = document.getElementById("output").innerText;

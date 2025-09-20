@@ -17,7 +17,9 @@
  <h1>UNNAMED CODING LANGUAGE</h1>
 <p id="rq">documentation: NAHHHHHH (btw the example uses all the functions)</p>
 <textarea id=input rows=10 cols=50>
-INIT GOTO 192 64 VAR test 45.
+INIT 
+GOTO 192 64 
+VAR test 45.
 PEN UP.
 MOVE 1.
 PEN DOWN.
@@ -26,6 +28,7 @@ MOVE 5.
 PEN UP.
 MOVE 1.
 INC test -1.
+PRINT howdy.
  </textarea>
 <br>
 <button onclick="save()">Save!</button>
@@ -78,7 +81,7 @@ function parse_line() {
   return bal2;
 }
 function HandleError(lentil,token) {
-  let err
+  let err = "";
   switch(lentil) {
     case "GENERAL":
       err = "An unspecified error has occurred";
@@ -134,6 +137,9 @@ function turn_that_shit_into_code(arraygoeshere) {
       break;
       case "THEN": //search for REPEAT, IF, or ELSE (ELSE searches for IF)
       
+      break;
+      case "PRINT":
+         document.getElementById("output").innerText += (arraygoeshere[fjdsa+1]);
       break;
       default:
       break;

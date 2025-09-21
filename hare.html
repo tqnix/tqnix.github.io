@@ -1,6 +1,6 @@
 <link rel="icon" type="image/jpeg" href="coloro.jpeg">
    <link rel="icon" type="image/jpeg" href="coloro.jpeg">
-   <title>Hotkey Practice</title>
+   <title>Hare (RIPOFF TURTLE)</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
@@ -29,10 +29,14 @@ INC test -1.
 PRINT howdy.
  </textarea>
 <br>
+
 <button onclick="save()">Save!</button>
 <button onclick="load()">Load!</button>
-<button onclick="parse_text()">Iteration</button>
-<button onclick="init(); func_odometer = 0;">RESET</button><br>
+<button onclick="toggle_output()">Toggle Output</button>
+<button onclick="init(); func_odometer = 0;">RESET</button>
+<button onclick="parse_text()">RUN</button>
+<button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
+<br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
 <p>OUTPUT:<br>-------------------------------------------------------------</p>
 <div id=output></div>
@@ -122,9 +126,18 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
         goto(mafs(arraygoeshere[fjdsa+1]),mafs(arraygoeshere[fjdsa+2]));
         document.getElementById("output").innerText += ("\nWent to x" + mafs(arraygoeshere[fjdsa+1]) + ", y" + mafs(arraygoeshere[fjdsa+2]));
       break;
+      case "ANGLE": 
+        angle(mafs(arraygoeshere[fjdsa+1]));
+        document.getElementById("output").innerText +=("\nTurned " + mafs(arraygoeshere[fjdsa+1]) + " deg.");
+      break;
       case "RESET":
       init();
-        document.getElementById("output").innerText += ("\nReset Canvas");
+        document.getElementById("output").innerText += ("\nReset!");
+      break;
+      case "CLEAR":
+      pen.fillStyle = "#d8e0d0";
+        ctx.fillRect(0,0,256,256);
+        document.getElementById("output").innerText += ("\nCanvas Cleared!");
       break;
       case "VAR":
       fakevar(arraygoeshere[fjdsa+1],mafs(arraygoeshere[fjdsa+2]),"is");
@@ -150,6 +163,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
             case "=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
             case "<": if (mafs(leto[1]) >= mafs(leto[3])) {fjdsa = 10000;} break;
             case "!=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
+            case "lim": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {fjdsa = 10000;} break;
           }
         } else if (leto[0] == "WHILE") {
 
@@ -161,12 +175,16 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
             case "=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
             case ">": if (mafs(leto[1]) > mafs(leto[3])) {fjdsa = 10000;} break;
             case "!=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
+            case "lim": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {fjdsa = 10000;} break;
           }
         }
       }
       break;
       case "PRINT":
       document.getElementById("output").innerText += ("\n" + arraygoeshere[fjdsa+1]);
+      break;
+      case "PRINTMAFS":
+      document.getElementById("output").innerText += ("\n" + mafs(arraygoeshere[fjdsa+1]));
       break;
       case "WAIT": //fucked
       waitflag = mafs(arraygoeshere[fjdsa+1]);
@@ -220,14 +238,18 @@ function fakevar(pa,o,yn) {
   return getvar(pa);
 }
 function mafs(func) {
+  let kayasaki = func;
   let regex = /[A-Za-z]+/i;
-  if (regex.test(func)) {
+  if (func.includes("(")) {
+    for (i=0; i<the.length; i++) {
+      kayasaki = kayasaki.replaceAll(the[i].page, "getvar(\"" +the[i].page+ "\")");
+      console.log(kayasaki);
+    }
+    return eval(kayasaki);//unsafe af but who cares
+  } else if (regex.test(func)) {
     return getvar(func);
-  } else if (func.includes("(")) {
-    return eval(func);//unsafe af but who cares
-    console.log("func");
   } else {
-    return parseInt(func);
+    return parseFloat(func);
   }
 }
 //Functions to make my programming language work
@@ -235,10 +257,13 @@ function init() {
   pen.fillStyle = "#d8e0d0";
   ctx.fillRect(0,0,256,256);
  pen = {
-  x:128,y:128,th:0,down:false,style:"black"
+  x:128,y:128,th:0,down:false
 }
 the = [
   {page:"test",word:0},
+   {page:"px",word:0},
+    {page:"py",word:0},
+     {page:"func-ct",word:0},
 ];
 waitflag = 0;
 thing_counter = 0;
@@ -250,6 +275,9 @@ pen.y -= px * Math.cos(pen.th);
 }
 function turn(d) {
   pen.th += -1/180*Math.PI*d;
+}
+function angle(d) {
+  pen.th = -1/180*Math.PI*d;
 }
 function goto(a,b) {
   pen.x = a;
@@ -264,5 +292,12 @@ function rin(g) {
     case "BLACK": ctx.strokeColor = "#404048"; break;
     default: ctx.lineWidth = mafs(g); break;
   }
+}
+function toggle_output() {
+   if (document.getElementById("output").style.display == "block") {
+      document.getElementById("output").style.display = "none";
+   } else {
+      document.getElementById("output").style.display = "block";
+   }
 }
 </script>

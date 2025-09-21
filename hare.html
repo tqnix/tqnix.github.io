@@ -1,6 +1,6 @@
-<head>
+<link rel="icon" type="image/jpeg" href="coloro.jpeg">
    <link rel="icon" type="image/jpeg" href="coloro.jpeg">
-   <title>RIPOFF TURTLE</title>
+   <title>Hotkey Practice</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
@@ -12,10 +12,7 @@
     }
   </style>
     
- </head>
-<button class="navbutton" onclick="window.location.href = 'index.html'">◀️BACK</button><br>
- <h1>UNNAMED CODING LANGUAGE</h1>
-<p id="rq">documentation: NAHHHHHH (btw the example uses all the functions)</p>
+ 
 <textarea id=input rows=10 cols=50>
 INIT 
 GOTO 192 64 
@@ -24,7 +21,8 @@ PEN UP.
 MOVE 1.
 PEN DOWN.
 TURN test.
-MOVE 5.
+REPEAT 5.
+THEN MOVE 1.
 PEN UP.
 MOVE 1.
 INC test -1.
@@ -44,7 +42,7 @@ const ctx = canvas.getContext("2d");
 ctx.fillStyle = "#d8e0d0";
 ctx.fillRect(0,0,256,256);
 var pen = {
-  x:128,y:128,th:0,down:true,style:"black"
+  x:128,y:128,th:0,down:true,//style:"black"
 }
 var the = [
   {page:"test",word:0},
@@ -52,6 +50,8 @@ var the = [
 ];
 var qz = "";
 var func_odometer = 0;
+var waitflag = 100;
+var thing_counter = 0;
 function save() {
   localStorage.savedcode2 = document.getElementById("input").value;
  }
@@ -66,22 +66,22 @@ function parse_text() {
    
     for (var i=0; i<bal.length; i++) {
     bal2 = bal[i].replace('.','').split(' ');
-      turn_that_shit_into_code(parse_line());
+      turn_that_shit_into_code(parse_line(i),i);
       //document.getElementById("output").innerText += "\n" + "-------------------------\n";
     }
 }
-function parse_line() {
+function parse_line(f) {
   let outputAsString = "";
     for (var i=0; i<bal2.length; i++) {
       outputAsString += bal2[i] + " | ";
     }
   //document.getElementById("output").innerText += outputAsString;
   //console.log(bal2);
- 
-  return bal2;
+ let b = bal[f].replace('.','').split(' ');
+  return b;
 }
 function HandleError(lentil,token) {
-  let err = "";
+  let err;
   switch(lentil) {
     case "GENERAL":
       err = "An unspecified error has occurred";
@@ -89,11 +89,17 @@ function HandleError(lentil,token) {
   }
   err += " | Location: Token" + token;
 }
-function turn_that_shit_into_code(arraygoeshere) {
+async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of code
   for (var fjdsa = 0; fjdsa < arraygoeshere.length; fjdsa++) {
-      drau();
       fakevar("func-ct",1,"inc");
+      fakevar("px",pen.x,"is");
+      fakevar("py",pen.y,"is");
       func_odometer++;
+      if (waitflag) {
+        await new Promise(r => setTimeout(r, waitflag));
+        //console.log("books");
+        waitflag = 0;
+      }
     switch(arraygoeshere[fjdsa]) {
       case "INIT":
         if (func_odometer > 1) {
@@ -133,27 +139,52 @@ function turn_that_shit_into_code(arraygoeshere) {
         document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is " + getvar(arraygoeshere[fjdsa+1]));
       break;
       case "HELP":
-      
+      document.getElementById("output").innerText += "\nHelp is bad for the environment";
       break;
       case "THEN": //search for REPEAT, IF, or ELSE (ELSE searches for IF)
-      
+      for (i=j; i>=0; i--) {
+        let leto = parse_line(i);
+        if (leto[0] == "IF") {
+          switch (leto[2]) {
+            case ">": if (mafs(leto[1]) <= mafs(leto[3])) {fjdsa = 10000;} break;
+            case "=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
+            case "<": if (mafs(leto[1]) >= mafs(leto[3])) {fjdsa = 10000;} break;
+            case "!=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
+          }
+        } else if (leto[0] == "WHILE") {
+
+        } else if (leto[0] == "REPEAT") {
+          thing_counter = mafs(leto[1])-1;
+        } else if (leto[0] == "UNLESS") {
+          switch (leto[2]) {
+            case "<": if (mafs(leto[1]) < mafs(leto[3])) {fjdsa = 10000;} break;
+            case "=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
+            case ">": if (mafs(leto[1]) > mafs(leto[3])) {fjdsa = 10000;} break;
+            case "!=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
+          }
+        }
+      }
       break;
       case "PRINT":
-         document.getElementById("output").innerText += (arraygoeshere[fjdsa+1]);
+      document.getElementById("output").innerText += ("\n" + arraygoeshere[fjdsa+1]);
+      break;
+      case "WAIT": //fucked
+      waitflag = mafs(arraygoeshere[fjdsa+1]);
+      document.getElementById("output").innerText += ("\nSleeping for " + arraygoeshere[fjdsa+1]);
       break;
       default:
       break;
       //. works as a ;
     }
+    if (fjdsa == arraygoeshere.length -1 && thing_counter > 0) {
+      fjdsa = 0;
+      thing_counter -= 1;
+    }
   }
+  drau();
 }
 function drau() {
 if (pen.down) {
-  if (pen.style == "white") {
-    ctx.strokeColor = "#d8e0d0";
-  } else if (pen.style == "black") {
-    ctx.strokeColor = "#404048";
-  }
   ctx.lineTo(pen.x,pen.y);
   ctx.stroke();
 }
@@ -180,7 +211,7 @@ function fakevar(pa,o,yn) {
   if (getvar(pa) == "Unable to find") {
     the.push({page:pa,word:o});
   } else {
-    if (yn = "inc") {
+    if (yn == "inc") {
       the[getvarindex(pa)].word += o;
     } else {
       the[getvarindex(pa)].word = o;
@@ -191,8 +222,10 @@ function fakevar(pa,o,yn) {
 function mafs(func) {
   let regex = /[A-Za-z]+/i;
   if (regex.test(func)) {
-    console.log("var");
     return getvar(func);
+  } else if (func.includes("(")) {
+    return eval(func);//unsafe af but who cares
+    console.log("func");
   } else {
     return parseInt(func);
   }
@@ -207,6 +240,8 @@ function init() {
 the = [
   {page:"test",word:0},
 ];
+waitflag = 0;
+thing_counter = 0;
 }
 function move(px) {
   drau();//temp
@@ -220,13 +255,14 @@ function goto(a,b) {
   pen.x = a;
   pen.y = b;
 }
-function then() {
-
-}
 function rin(g) {
   switch (g) {
     case "UP": pen.down = false; break;
     case "DOWN": pen.down = true; break;
+    case "TOGGLE": pen.down = !pen.down; break;
+    case "WHITE": ctx.strokeColor = "#d8e0d0"; break;
+    case "BLACK": ctx.strokeColor = "#404048"; break;
+    default: ctx.lineWidth = mafs(g); break;
   }
 }
 </script>

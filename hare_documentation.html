@@ -1,0 +1,79 @@
+HARE DOCUMENTATION:
+
+Info ya need to know beforehand:
+- Press RUN to iterate a program. Pressing RUN will not reset any values.
+- Press RESET to actually reset values.
+- All sequences end with a period (.)
+- You can have multiple functions within a sequence. This could come in useful when dealing with INIT or IF/REPEAT/UNLESS keywords. 
+	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
+- Numbers can be either numbers, variables, or expressions (any expression in JS will work as of now, will likely change this soon)
+- All variables are floating point
+- The canvas is 256 x 256
+- Pointer location can be accessed with px and py
+- You do not need to have quotation marks when inputting strings or variable names.
+
+INIT (sequence)
+- Any sequence with an INIT before it will only run on the first iteration.
+
+MOVE [number]
+- Moves the pointer by that amount of pixels.
+
+TURN [number in degrees]
+- Turns the pointer by that many degrees.
+
+PEN
+- Controls various aspects about the pen
+	- PEN UP: Stops drawing
+	- PEN DOWN: Starts drawing
+	- PEN WHITE: Pen erases instead
+	- PEN BLACK: Pen writes as usual
+	- PEN [number] adjusts width of pen
+
+GOTO [x, y]
+- Goes to a point defined by the coordinates
+
+ANGLE [number in degrees]
+- Orients the pointer to a fixed rotation in degrees.
+
+RESET
+- Restarts the program. Sets iterations to 0 and reinitializes all values.
+
+CLEAR
+- Clears the screen.
+
+VAR [variable name, number]
+- Defines a variable, or sets it to a certain value.
+- Variables should be ideally not too long and be in letters only.
+
+INC [variable name, number]
+- Increments a variable by a certain amount. (Use negative numbers to decrement)
+- see VAR for more info.
+
+GET [variable name]
+- Prints out the current value of a variable. Mainly used for debugging purposes.
+
+HELP
+- Does nothing, since asking for help is bad for the environment as we all know
+
+IF [number] [comparison] [number]
+- If the comparison is true, the nearest sequence preceded by a THEN is executed.
+
+UNLESS [number] [comparison] [number]
+- If the comparison is false, the nearest sequence preceded by a THEN is executed.
+
+REPEAT [number]
+- Repeats the nearest sequence preceded by a THEN is executed.
+
+*Currently, IF, UNLESS, and REPEAT statements cannot be nested.
+
+THEN (statement)
+- Searches for the nearest IF, UNLESS, or REPEAT, and does stuff accordingly.
+
+PRINT [text]
+- Prints text.
+
+PRINTMAFS [number]
+- Prints a number.
+
+WAIT [number]
+- Waits for that amount of milliseconds. Currently very buggy.

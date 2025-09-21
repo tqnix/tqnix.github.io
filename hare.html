@@ -10,6 +10,16 @@
         font-size:18px;
         padding:1.5%;
     }
+    .gau {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      right: 0px;
+      top: 0px;
+      position: absolute;
+      pointer-events: none;
+    }
   </style>
     
  
@@ -33,15 +43,19 @@ PRINT howdy.
 <button onclick="save()">Save!</button>
 <button onclick="load()">Load!</button>
 <button onclick="toggle_output()">Toggle Output</button>
-<button onclick="init(); func_odometer = 0;">RESET</button>
+<button onclick="toggle_pointer()">Toggle Pointer</button><button onclick="delayflag = !delayflag">Toggle Delay</button><br>
+<button onclick="init(); drau(); func_odometer = 0;">RESET</button>
 <button onclick="parse_text()">RUN</button>
 <button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
 <button onclick="window.open('index.html')">Back to homepage</button>
 <br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
+<canvas height=256 width=256 id=artf style="border: 1px solid white"></canvas>
 <p>OUTPUT:<br>-------------------------------------------------------------</p>
 <div id=output></div>
 <script>
+  const canvas2 = document.getElementById("artf");
+  const ctx2 = canvas2.getContext("2d");
   const canvas = document.getElementById("art");
 const ctx = canvas.getContext("2d");
 ctx.fillStyle = "#d8e0d0";
@@ -56,6 +70,7 @@ var the = [
 var qz = "";
 var func_odometer = 0;
 var waitflag = 100;
+var delayflag = false;
 var thing_counter = 0;
 function save() {
   localStorage.savedcode2 = document.getElementById("input").value;
@@ -197,10 +212,17 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       fjdsa = 0;
       thing_counter -= 1;
     }
+    if (delayflag) {await sleep(100);}
   }
   drau();
 }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms || 1000));
+}
 function drau() {
+  ctx2.clearRect(0,0,256,256);
+  ctx2.fillStyle = "#404048";
+  ctx2.fillRect(pen.x-5,pen.y-5,10,10);
 if (pen.down) {
   ctx.lineTo(pen.x,pen.y);
   ctx.stroke();
@@ -297,6 +319,13 @@ function toggle_output() {
       document.getElementById("output").style.display = "none";
    } else {
       document.getElementById("output").style.display = "block";
+   }
+}
+function toggle_pointer() {
+   if (document.getElementById("artf").style.display == "block") {
+      document.getElementById("artf").style.display = "none";
+   } else {
+      document.getElementById("artf").style.display = "block";
    }
 }
 </script>

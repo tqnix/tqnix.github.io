@@ -36,6 +36,7 @@ PRINT howdy.
 <button onclick="init(); func_odometer = 0;">RESET</button>
 <button onclick="parse_text()">RUN</button>
 <button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
+<button onclick="window.open('index.html')">Back to homepage</button>
 <br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
 <p>OUTPUT:<br>-------------------------------------------------------------</p>
@@ -163,10 +164,8 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
             case "=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
             case "<": if (mafs(leto[1]) >= mafs(leto[3])) {fjdsa = 10000;} break;
             case "!=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
-            case "lim": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {fjdsa = 10000;} break;
+            case "lim": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {fjdsa = 10000;} break;
           }
-        } else if (leto[0] == "WHILE") {
-
         } else if (leto[0] == "REPEAT") {
           thing_counter = mafs(leto[1])-1;
         } else if (leto[0] == "UNLESS") {
@@ -175,7 +174,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
             case "=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
             case ">": if (mafs(leto[1]) > mafs(leto[3])) {fjdsa = 10000;} break;
             case "!=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
-            case "lim": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {fjdsa = 10000;} break;
+            case "lim": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {fjdsa = 10000;} break;
           }
         }
       }

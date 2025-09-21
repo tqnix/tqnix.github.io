@@ -1,79 +1,80 @@
-HARE DOCUMENTATION:
-
-Info ya need to know beforehand:
-- Press RUN to iterate a program. Pressing RUN will not reset any values.
-- Press RESET to actually reset values.
-- All sequences end with a period (.)
-- You can have multiple functions within a sequence. This could come in useful when dealing with INIT or IF/REPEAT/UNLESS keywords. 
-	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
-- Numbers can be either numbers, variables, or expressions (any expression in JS will work as of now, will likely change this soon)
-- All variables are floating point
-- The canvas is 256 x 256
-- Pointer location can be accessed with px and py
-- You do not need to have quotation marks when inputting strings or variable names.
-
-INIT (sequence)
-- Any sequence with an INIT before it will only run on the first iteration.
-
-MOVE [number]
-- Moves the pointer by that amount of pixels.
-
-TURN [number in degrees]
-- Turns the pointer by that many degrees.
-
-PEN
-- Controls various aspects about the pen
-	- PEN UP: Stops drawing
-	- PEN DOWN: Starts drawing
-	- PEN WHITE: Pen erases instead
-	- PEN BLACK: Pen writes as usual
-	- PEN [number] adjusts width of pen
-
-GOTO [x, y]
-- Goes to a point defined by the coordinates
-
-ANGLE [number in degrees]
-- Orients the pointer to a fixed rotation in degrees.
-
-RESET
-- Restarts the program. Sets iterations to 0 and reinitializes all values.
-
-CLEAR
-- Clears the screen.
-
-VAR [variable name, number]
-- Defines a variable, or sets it to a certain value.
-- Variables should be ideally not too long and be in letters only.
-
-INC [variable name, number]
-- Increments a variable by a certain amount. (Use negative numbers to decrement)
-- see VAR for more info.
-
-GET [variable name]
-- Prints out the current value of a variable. Mainly used for debugging purposes.
-
-HELP
-- Does nothing, since asking for help is bad for the environment as we all know
-
-IF [number] [comparison] [number]
-- If the comparison is true, the nearest sequence preceded by a THEN is executed.
-
-UNLESS [number] [comparison] [number]
-- If the comparison is false, the nearest sequence preceded by a THEN is executed.
-
-REPEAT [number]
-- Repeats the nearest sequence preceded by a THEN is executed.
-
-*Currently, IF, UNLESS, and REPEAT statements cannot be nested.
-
-THEN (statement)
-- Searches for the nearest IF, UNLESS, or REPEAT, and does stuff accordingly.
-
-PRINT [text]
-- Prints text.
-
-PRINTMAFS [number]
-- Prints a number.
-
-WAIT [number]
-- Waits for that amount of milliseconds. Currently very buggy.
+<br>HARE DOCUMENTATION:
+<br>
+<br>Info ya need to know beforehand:
+<br>- Press RUN to iterate a program. Pressing RUN will not reset any values.
+<br>- Press RESET to actually reset values.
+<br>- All sequences end with a period (.)
+<br>- You can have multiple functions within a sequence. This could come in useful when dealing with INIT or IF/REPEAT/UNLESS keywords.
+<br>	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
+<br>- Numbers can be either numbers, variables, or expressions (any expression in JS will work as of now, will likely change this soon)
+<br>- All variables are floating point
+<br>- The canvas is 256 x 256
+<br>- Pointer location can be accessed with px and py
+<br>- You do not need to have quotation marks when inputting strings or variable names.
+<br>
+<br>INIT (sequence)
+<br>- Any sequence with an INIT before it will only run on the first iteration.
+<br>
+<br>MOVE [number]
+<br>- Moves the pointer by that amount of pixels.
+<br>
+<br>TURN [number in degrees]
+<br>- Turns the pointer by that many degrees.
+<br>
+<br>PEN
+<br>- Controls various aspects about the pen
+<br>	- PEN UP: Stops drawing
+<br>	- PEN DOWN: Starts drawing
+<br>	- PEN WHITE: Pen erases instead
+<br>	- PEN BLACK: Pen writes as usual
+<br>	- PEN [number] adjusts width of pen
+<br>
+<br>GOTO [x, y]
+<br>- Goes to a point defined by the coordinates
+<br>
+<br>ANGLE [number in degrees]
+<br>- Orients the pointer to a fixed rotation in degrees.
+<br>
+<br>RESET
+<br>- Restarts the program. Sets iterations to 0 and reinitializes all values.
+<br>
+<br>CLEAR
+<br>- Clears the screen.
+<br>
+<br>VAR [variable name, number]
+<br>- Defines a variable, or sets it to a certain value.
+<br>- Variables should be ideally not too long and be in letters only.
+<br>
+<br>INC [variable name, number]
+<br>- Increments a variable by a certain amount. (Use negative numbers to decrement)
+<br>- see VAR for more info.
+<br>
+<br>GET [variable name]
+<br>- Prints out the current value of a variable. Mainly used for debugging purposes.
+<br>
+<br>HELP
+<br>- Does nothing, since asking for help is bad for the environment as we all know
+<br>
+<br>IF [number] [comparison] [number]
+<br>- If the comparison is true, the nearest sequence preceded by a THEN is executed.
+<br>
+<br>UNLESS [number] [comparison] [number]
+<br>- If the comparison is false, the nearest sequence preceded by a THEN is executed.
+<br>
+<br>REPEAT [number]
+<br>- Repeats the nearest sequence preceded by a THEN is executed.
+<br>
+<br>*Currently, IF, UNLESS, and REPEAT statements cannot be nested.
+<br>
+<br>THEN (statement)
+<br>- Searches for the nearest IF, UNLESS, or REPEAT, and does stuff accordingly.
+<br>
+<br>PRINT [text]
+<br>- Prints text.
+<br>
+<br>PRINTMAFS [number]
+<br>- Prints a number.
+<br>
+<br>WAIT [number]
+<br>- Waits for that amount of milliseconds. Currently very buggy.
+<br>

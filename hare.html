@@ -42,10 +42,15 @@ PRINT howdy.
 
 <button onclick="save()">Save!</button>
 <button onclick="load()">Load!</button>
+<br>
 <button onclick="toggle_output()">Toggle Output</button>
 <button onclick="toggle_pointer()">Toggle Pointer</button><button onclick="delayflag = !delayflag">Toggle Delay</button><br>
-<button onclick="init(); drau(); func_odometer = 0;">RESET</button>
-<button onclick="parse_text()">RUN</button>
+<button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0;">RESET</button>
+<button style="font-size: 28px;" onclick="parse_text()">RUN</button><br>
+<input type=text id=heoi placeholder="something in ms"></input>
+<button onclick="setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
+<button onclick="clearInterval(parse_text)">STOP Auto Iterate</button>
+<br>
 <button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
 <button onclick="window.open('index.html')">Back to homepage</button>
 <br>
@@ -114,6 +119,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       fakevar("func-ct",1,"inc");
       fakevar("px",pen.x,"is");
       fakevar("py",pen.y,"is");
+     fakevar("pd",((pen.th*180/Math.PI*-1)%360).toFixed(1),"is");
       func_odometer++;
       if (waitflag) {
         await new Promise(r => setTimeout(r, waitflag));

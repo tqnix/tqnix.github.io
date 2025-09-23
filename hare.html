@@ -116,10 +116,11 @@ function HandleError(lentil,token) {
 }
 async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of code
   for (var fjdsa = 0; fjdsa < arraygoeshere.length; fjdsa++) {
+
       fakevar("func-ct",1,"inc");
       fakevar("px",pen.x,"is");
       fakevar("py",pen.y,"is");
-     fakevar("pd",((pen.th*180/Math.PI*-1)%360).toFixed(1),"is");
+     fakevar("pd",parseFloat(((pen.th*180/Math.PI*-1)%360).toFixed(1)),"is");
       func_odometer++;
       if (waitflag) {
         await new Promise(r => setTimeout(r, waitflag));

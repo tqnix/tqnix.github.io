@@ -83,7 +83,7 @@ iframe {
 }
 iframe:hover {
   cursor: pointer;
-    box-shadow: 0 12px 16px 0 rgba(1,1,1,0.24),0 17px 50px 0 rgba(1,1,1,0.19);
+    
 }
 a {
   color: rgb(80, 124, 255);
@@ -127,6 +127,9 @@ a {
   margin-bottom: 3px;
   display: inline-block;
   //z-index: -2000;
+}
+.case_container:hover {
+    box-shadow: 0 12px 16px 0 rgba(255,255,127,0.24),0 17px 50px 0 rgba(255,255,127,0.19);
 }
 .grun {
   border: 0.25vw solid lightgreen;

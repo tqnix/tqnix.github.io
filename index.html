@@ -12,11 +12,11 @@
     <img src="coloro.jpeg" style="position: absolute;left: 12px;top: 16px;" id="nomplat" class="nameplate"></img>
         <div id="navbar">
             <button class="navbutton" onclick="luck()">i am lucky</button>
-            <button class="navbutton" onclick="view_plaintext = !view_plaintext; activate();">toggle images</button><br>
+            <button class="navbutton" onclick="view_plaintext = !view_plaintext; DealWithLocalStorage('send'); activate();">toggle images</button><br>
         </div>
 	<br>
     <p class="bigtext">Welcome to</p>
-    <img class="fullwidth" src="ei.png"></img>
+    <img class="fullwidth" src="ei.png"></img><br><br>
     <button class="navbutton clear" id="title_bottomtext" onclick="reroll()">uh oh the js isnt loading please dont panic</button><br><br>
     <div class="header"><span class="bigtext">thingies:</span><br>
         <span id="search"></span>
@@ -26,11 +26,26 @@
 
 </body>
 <script>
-    //this is temporary
     view_plaintext = false;
-	if (window.innerWidth < 900) {
-		view_plaintext = true;
+	
+	DealWithLocalStorage("get");
+
+function DealWithLocalStorage(j) {
+	if (localStorage.writeview != null) {
+		view_plaintext = localStorage.writeview;
 	}
+	if (j == "send") {
+		if (view_plaintext == false) {
+			localStorage.writeview = "false";
+		} else if (view_plaintext == true) {
+			localStorage.writeview = "true";
+		}
+	} else if (j = "send") {
+		if (localStorage.writeview == "false") {
+			view_plaintext = false;
+		}
+	}
+}
 function activate() {
   document.getElementById("tianxue").innerHTML = "";
   if (input_text.length < 1) {
@@ -82,7 +97,6 @@ seecret_items = [
   //{link:"dragging",na:"UI dragging implementation"},
   {link:"ateji.html",na:"Translator (but badddddddddd)", e:0},
   {link:"buttonbros.html",na:"school project Circle Cropper", e:0},
-	{link:"colormatis",na:"old Color Vomit Generator", e:0},
   {link:"colormatis-patched.html",na:"Color Vomit Generator", e:0},
   {link:"drau.html",na:"drawing app", e:0},
   {link:"dotmatrix.html",na:"Dot-matrix pixel format (press R)", e:0},
@@ -92,12 +106,11 @@ seecret_items = [
   {link:"looker.html",na:"dot sandbox", e:0},
   {link:"notification.html",na:"Basic Notification Maker", e:0},
   {link:"osu-pattern-trainer.html",na:"osu! pattern practicing tool", e:0},
-  {link:"EaglercraftX_1.8_u40_Offline_Signed.html",na:"literal minecraft", e:-1},
   {link:"spinbutton.html",na:"spinny button", e:0},
-  {link:"te.ji.html",na:"word separator", e:0},
   {link:"watchsim.html",na:"WIP digital watch simulator", e:0},
   {link:"https://www.desmos.com/calculator/ekcghefhjz",na:"desmos line tool", e:1},
   {link:"https://www.desmos.com/3d/atwan2gwul",na:"desmos 3d graphing test", e:2},
+  {link:"colormatis",na:"old Color Vomit Generator", e:0},
   ];
 splash_texts = [
   "skill issue",

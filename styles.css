@@ -15,24 +15,17 @@
 }
 .navbutton:hover {
     background-color: skyblue;
+    -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 
+    box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73);
 }
 .navbutton:active {
     background-color: royalblue;
+    -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 
+    box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73);
 }
-.navbutton-clear {
+.clear {
     background-color: transparent;
     color: beige;
-    border: none;
-    border-radius: 0.8vw;
-    font-size: 2vmax;
-  margin: 0px 0.3vw;
-  display: inline;
-  padding: 8px 0.75vw;
-    font-family: "Noto Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-
-  z-index:2;
 }
 #info {
   width: 6969%
@@ -65,7 +58,9 @@
 body {
   text-align: center;
     background-color: #202224;
-    background-image: "";
+    background-image:    url(images/bg/code_dark.jpg);
+    background-size:     cover;        
+    background-repeat:   no-repeat;
     color: beige;
   font-family: "Noto Sans", sans-serif;
   font-optical-sizing: auto;
@@ -126,10 +121,12 @@ a {
   margin-top: 3px;
   margin-bottom: 3px;
   display: inline-block;
+    transition-duration: 200ms;
   //z-index: -2000;
 }
 .case_container:hover {
-    box-shadow: 0 12px 16px 0 rgba(255,255,127,0.24),0 17px 50px 0 rgba(255,255,127,0.19);
+    -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 
+    box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73);
 }
 .grun {
   border: 0.25vw solid lightgreen;

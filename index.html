@@ -40,8 +40,8 @@ function DealWithLocalStorage(j) {
 		} else if (view_plaintext == true) {
 			localStorage.writeview = "true";
 		}
-	} else if (j = "send") {
-		if (localStorage.writeview == "false") {
+	} else if (j == "get") {
+		if (localStorage.writeview == "false" || window.innerWidth <= 959) {
 			view_plaintext = false;
 		}
 	}

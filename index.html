@@ -12,7 +12,7 @@
     <img src="coloro.jpeg" style="position: absolute;left: 12px;top: 16px;" id="nomplat" class="nameplate"></img>
         <div id="navbar">
             <button class="navbutton" onclick="luck()">i am lucky</button>
-            <button class="navbutton" onclick="view_plaintext = !view_plaintext; DealWithLocalStorage('send'); activate();">toggle images</button><br>
+            <button class="navbutton" onclick="view_plaintext = !view_plaintext; DealWithLocalStorage('send');">toggle images</button><br>
         </div>
 	<br>
     <p class="bigtext">Welcome to</p>
@@ -27,13 +27,22 @@
 </body>
 <script>
     view_plaintext = false;
-	
-	DealWithLocalStorage("get");
 
-function DealWithLocalStorage(j) {
-	if (localStorage.writeview != null) {
-		view_plaintext = localStorage.writeview;
+function aintit() {
+  add();
+  document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
+  if (localStorage.writeview != null) {
+		if (localStorage.writeview == "false") {
+			view_plaintext = false;
+		}
+		if (localStorage.writeview == "true") {
+			view_plaintext = true;
+		}
 	}
+  activate();
+}
+	
+function DealWithLocalStorage(j) {
 	if (j == "send") {
 		if (view_plaintext == false) {
 			localStorage.writeview = "false";
@@ -41,10 +50,14 @@ function DealWithLocalStorage(j) {
 			localStorage.writeview = "true";
 		}
 	} else if (j == "get") {
-		if (localStorage.writeview == "false" || window.innerWidth <= 959) {
+		if (localStorage.writeview == "false") {
 			view_plaintext = false;
 		}
+		if (localStorage.writeview == "true" || window.innerWidth <= 959) {
+			view_plaintext = true;
+		}
 	}
+	activate();
 }
 function activate() {
   document.getElementById("tianxue").innerHTML = "";
@@ -617,12 +630,6 @@ addEventListener("keydown", (event) => {
     activate();
      document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
 });
-
-function aintit() {
-  add();
-  document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
-  activate();
-}
 function ProcessPlaceholders(j,n) {
 dongus = new Date();
 if (input_text == "") {

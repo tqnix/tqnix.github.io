@@ -119,12 +119,8 @@ function ActuallyDraw(char0,q,b) {
       }
 }
 function btnPressed(btn) {
-    if (btn == 1) {
-        DoWhateverButton1Does();
-    }
-    if (btn == 2) {
-        DoWhateverButton2Does();
-    }
+    if (btn == 1) {Screenshot from 2025-10-01 14-05-52DoWhateverButton1Does();}
+    if (btn == 2) {DoWhateverButton2Does();}
     if (btn == 3) {SwitchModes();}
     if (btn == 4) { DoWhateverButton4Does(); }
     ctx.fillStyle = "#d8e0d0";
@@ -499,8 +495,8 @@ function RespondToKeyCodes(event) {
         document.getElementById("hadde").style.display = "none";
     } else {
         document.getElementById("hadde").style.display = "inline-block";
+		GenerateCheckboxes();
     }
-            GenerateCheckboxes();
     } else if (event.code == "Digit0") {
         scrolltest[counter_pos] = 0;
     }
@@ -596,8 +592,8 @@ if (charizard == 57) {
 } else {
     indexingshouldhopefullyworkwiththis[charizard] = output;
     output = [];
-    console.log(charizard);
-    console.log(output);
+    //console.log(charizard);
+    //console.log(output);
 }
 
 }
@@ -607,7 +603,7 @@ function GenerateCheckboxes() {
 	for (j=0; j<5; j++) {//x axis
   document.getElementById("yod").innerHTML += "<input type=checkbox id=\'chk-" + i + j + "\'>";
   yid.push('chk-' + i + j);
-  console.log('chk-' + i + j);
+  //console.log('chk-' + i + j);
   }
   document.getElementById("yod").innerHTML += "<br>";
   }
@@ -624,11 +620,12 @@ function ProcessCheckboxes() {
     inna += "0";
   }
   }
-  console.log(inna);
+  //console.log(inna);
   PixelToRect(inna,5);
 }
 function ExportCharData() {
     for (i=0; i<20; i++) {
     document.getElementById('zhangfu').innerHTML += ("<br>indexingshouldhopefullyworkwiththis[" + i + "] = " + JSON.stringify(indexingshouldhopefullyworkwiththis[i]));
   }
+
 }

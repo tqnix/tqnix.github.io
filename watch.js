@@ -119,7 +119,7 @@ function ActuallyDraw(char0,q,b) {
       }
 }
 function btnPressed(btn) {
-    if (btn == 1) {Screenshot from 2025-10-01 14-05-52DoWhateverButton1Does();}
+    if (btn == 1) {DoWhateverButton1Does();}
     if (btn == 2) {DoWhateverButton2Does();}
     if (btn == 3) {SwitchModes();}
     if (btn == 4) { DoWhateverButton4Does(); }
@@ -629,3 +629,4 @@ function ExportCharData() {
   }
 
 }
+

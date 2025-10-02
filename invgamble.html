@@ -5,7 +5,12 @@
   <style>
     body {
         font-family: Arial;
-        background-color: #303036;
+        background-color: #202224;
+    background-image:    url(code_dark.jpg);
+    background-attachment: fixed;
+    background-size:     cover;        
+    background-repeat:   no-repeat;
+  font-family: "Noto Sans", sans-serif;
         color: #ffffcd;
         font-size:18px;
         padding:1.5%;
@@ -583,5 +588,6 @@ function DrawInventory() {
   IMD.innerHTML += "<a class='faan_inv' onclick='DeleteItem(" + i +",true)'>" + Inventory[i].count + " " + Inventory[i].type + " | " + Inventory[i].extra_tags +"</a><br>";
   }
 }
+
 
 </script>

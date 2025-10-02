@@ -9,6 +9,8 @@
         background-color: #303036;
         color: #ffffcd;
         font-size:18px;
+		content-align: left;
+		text-align: left;
     }
 	  canvas {
 		  background-color: white;
@@ -25,7 +27,7 @@
 <button onclick="skylearn()">color menu</button><button onclick="phil('#ffffff')">clear</button><button id="navbutton" onclick="window.location.href = 'index.html'">Back to homepage</button><input class="button inputbox" type=color id="s_e1" onchange="changecolorstrM()" value="#ffffff">
 </div>
 
-<div id="tianxue" style="position: absolute; width: 100%; height: 100%; display: none; background-color: #ffffcd7f; color: #000000">
+<div id="tianxue" style="position: absolute; width: 100%; height: 100%; display: none; background-color: #ffffcd7f; text-align: center; content-align: center; color: #000000">
 <br>
   <input id="lsizetf" class=colorbutton type="text" placeholder="横大小"><button onclick="changelsize();">Apply</button>
 <br>
@@ -261,3 +263,4 @@ function ImportImage() {
 }
 
 </script>
+

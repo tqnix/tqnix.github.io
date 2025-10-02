@@ -26,6 +26,11 @@
 .clear {
     background-color: transparent;
     color: beige;
+    border-radius: 0.8vw;
+}
+.clear:hover {
+    background-color: transparent;
+    outline: 0.35vw solid royalblue;
 }
 #info {
   width: 6969%
@@ -59,6 +64,7 @@ body {
   text-align: center;
     background-color: #202224;
     background-image:    url(images/bg/code_dark.jpg);
+    background-attachment: fixed;
     background-size:     cover;        
     background-repeat:   no-repeat;
     color: beige;

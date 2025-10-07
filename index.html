@@ -618,7 +618,8 @@ rigby_d = Math.floor(Math.random()*seecret_items.length);
 
 addEventListener("keydown", (event) => {
 		switch(event.key) {
-      case "Backspace": input_text = input_text.substring(0, input_text.length - 1); break;
+      case "Backspace": input_text = input_text.substring(0, input_text.length - 1);activate(); break;
+	  case "Delete": input_text = ""; activate(); break;
       case "ArrowUp": splash_showing++; document.getElementById("title_bottomtext").innerText = ProcessPlaceholders(splash_texts[splash_showing],true); break;
       case "ArrowDown": splash_showing--; document.getElementById("title_bottomtext").innerText = ProcessPlaceholders(splash_texts[splash_showing],true); break;
       case "ArrowLeft": user_adjustable--; break;

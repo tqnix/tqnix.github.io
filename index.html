@@ -614,7 +614,7 @@ randomness_for_today = (Math.floor(Math.random()*20));
 rigby_a = Math.floor(Math.random()*dhaub_initial.length);
 rigby_b = Math.floor(Math.random()*dhaub_final.length);
 rigby_c = Math.floor(Math.random()*famous_peoples.length);
-rigby_d = Math.floor(Math.random()*seecret_items[i].length);
+rigby_d = Math.floor(Math.random()*seecret_items.length);
 
 addEventListener("keydown", (event) => {
 		switch(event.key) {
@@ -657,7 +657,7 @@ function reroll() {
    rigby_a = Math.floor(Math.random()*dhaub_initial.length);
   rigby_b = Math.floor(Math.random()*dhaub_final.length);
   rigby_c = Math.floor(Math.random()*famous_peoples.length);
-  rigby_d = Math.floor(Math.random()*seecret_items[i].length);
+  rigby_d = Math.floor(Math.random()*seecret_items.length);
   splash_showing = (Math.floor(Math.random()*splash_texts.length));
   document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
 }

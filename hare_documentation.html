@@ -10,6 +10,7 @@
         color: #ffffcd;
         font-size:18px;
         padding:1.5%;
+        text-align: left;
     }
     </style> 
  </head>
@@ -19,7 +20,7 @@
 <br>Info ya need to know beforehand:
 <br>- Press RUN to iterate a program. Pressing RUN will not reset any values.
 <br>- Press RESET to actually reset values.
-<br>- All sequences end with a period (.)
+<br>- All sequences end with a period (.) or a semicolon (;).
 <br>- You can have multiple functions within a sequence. This could come in useful when dealing with INIT or IF/REPEAT/UNLESS keywords.
 <br>	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
 <br>- Numbers can be either numbers, variables, or expressions (any expression in JS will work as of now, will likely change this soon)
@@ -27,6 +28,7 @@
 <br>- The canvas is 256 x 256
 <br>- Pointer location can be accessed with px and py
 <br>- You do not need to have quotation marks when inputting strings or variable names.
+<br>- Calling a variable as part of an expression or IF statement sometimes crashes the app
 <br>
 <br><h1>VARIABLES</h1>
 <br>
@@ -50,6 +52,7 @@
 <br>- Controls various aspects about the pen
 <br>	- PEN UP: Stops drawing
 <br>	- PEN DOWN: Starts drawing
+<br>  - PEN TOGGLE: Toggles between pen up and down
 <br>	- PEN [number] adjusts width of pen
 <br>
 <br>GOTO [x, y]
@@ -101,3 +104,12 @@
 <br>WAIT [number]
 <br>- Waits for that amount of milliseconds. Currently very buggy.
 <br>
+<br>ASK [variable name]
+<br>- Opens a popup asking for a variable value
+<br>- Type "please stop" to stop program
+<br>
+<br>POINTER 
+<br>- Controls various aspects about the pointer
+<br>	- POINTER ON: Turns pointer on
+<br>	- POINTER OFF: Turns pointer off
+<br>  - PEN TOGGLE: Toggles pointer

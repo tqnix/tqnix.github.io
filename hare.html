@@ -9,6 +9,7 @@
         color: #ffffcd;
         font-size:18px;
         padding:1.5%;
+        text-align: left;
     }
     .gau {
       margin: 0;
@@ -22,7 +23,8 @@
     }
   </style>
     
- 
+ <button class="navbutton" onclick="window.open('index.html')">◀️Back</button><br>
+ <h1>HARE (turtle ripoff)</h1>
 <textarea id=input rows=10 cols=50>
 INIT 
 GOTO 192 64 
@@ -39,20 +41,21 @@ INC test -1.
 PRINT howdy.
  </textarea>
 <br>
-
+<button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0; init(); drau();">RESET</button>
+<button style="font-size: 28px;" onclick="parse_text()">RUN</button><br>
 <button onclick="save()">Save!</button>
 <button onclick="load()">Load!</button>
 <br>
 <button onclick="toggle_output()">Toggle Output</button>
-<button onclick="toggle_pointer()">Toggle Pointer</button><button onclick="delayflag = !delayflag">Toggle Delay</button><br>
-<button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0;">RESET</button>
-<button style="font-size: 28px;" onclick="parse_text()">RUN</button><br>
+<button onclick="toggle_pointer()">Toggle Pointer</button>
+<button onclick="delayflag = !delayflag">Toggle Delay</button><br>
+<br>
 <input type=text id=heoi placeholder="something in ms"></input>
-<button onclick="setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
-<button onclick="clearInterval(parse_text)">STOP Auto Iterate</button>
+<button onclick="if (s != null) {clearInterval(s);} s = setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
+<button onclick="clearInterval(s)">STOP Auto Iterate</button>
 <br>
 <button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
-<button onclick="window.open('index.html')">Back to homepage</button>
+
 <br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
 <canvas height=256 width=256 id=artf style="border: 1px solid white"></canvas>
@@ -66,7 +69,7 @@ const ctx = canvas.getContext("2d");
 ctx.fillStyle = "#d8e0d0";
 ctx.fillRect(0,0,256,256);
 var pen = {
-  x:128,y:128,th:0,down:true,//style:"black"
+  x:128,y:128,th:0,down:true,pointer:true
 }
 var the = [
   {page:"test",word:0},
@@ -77,6 +80,8 @@ var func_odometer = 0;
 var waitflag = 100;
 var delayflag = false;
 var thing_counter = 0;
+var MAGIC_MIKE = '.';
+var s = null;
 function save() {
   localStorage.savedcode2 = document.getElementById("input").value;
  }
@@ -87,10 +92,10 @@ function parse_text() {
  localStorage.savedcode = document.getElementById("output").innerText;
   document.getElementById("output").innerText = "";
   qz = document.getElementById("input").value;
-   bal = qz.replaceAll("\n","").split('.');
+   bal = qz.replaceAll("\n","").split(MAGIC_MIKE);
    
     for (var i=0; i<bal.length; i++) {
-    bal2 = bal[i].replace('.','').split(' ');
+    bal2 = bal[i].replace(MAGIC_MIKE,'').split(' ');
       turn_that_shit_into_code(parse_line(i),i);
       //document.getElementById("output").innerText += "\n" + "-------------------------\n";
     }
@@ -102,7 +107,7 @@ function parse_line(f) {
     }
   //document.getElementById("output").innerText += outputAsString;
   //console.log(bal2);
- let b = bal[f].replace('.','').split(' ');
+ let b = bal[f].replace(MAGIC_MIKE,'').split(' ');
   return b;
 }
 function HandleError(lentil,token) {
@@ -145,9 +150,13 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
         rin(arraygoeshere[fjdsa+1]);
         document.getElementById("output").innerText +=("\nPEN " + arraygoeshere[fjdsa+1] + " DONE");
       break;
+      case "POINTER": //subfunction (PEN STYLE, PEN LINE, PEN UP, PEN DOWN, ETC)
+        dogitum(arraygoeshere[fjdsa+1]);
+        document.getElementById("output").innerText +=("\nPOINTER " + arraygoeshere[fjdsa+1] + " DONE");
+      break;
       case "GOTO": 
         goto(mafs(arraygoeshere[fjdsa+1]),mafs(arraygoeshere[fjdsa+2]));
-        document.getElementById("output").innerText += ("\nWent to x" + mafs(arraygoeshere[fjdsa+1]) + ", y" + mafs(arraygoeshere[fjdsa+2]));
+        document.getElementById("output").innerText += ("\nWent to x=" + mafs(arraygoeshere[fjdsa+1]) + ", y=" + mafs(arraygoeshere[fjdsa+2]));
       break;
       case "ANGLE": 
         angle(mafs(arraygoeshere[fjdsa+1]));
@@ -210,6 +219,28 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       case "WAIT": //fucked
       waitflag = mafs(arraygoeshere[fjdsa+1]);
       document.getElementById("output").innerText += ("\nSleeping for " + arraygoeshere[fjdsa+1]);
+      break;
+      case "ASK":
+      let glung = prompt("= ? (type \"please stop\" to stop (or you can reload the website)");
+      if (glung == "please stop") {
+        init(); drau(); func_odometer = 0; clearInterval(s);
+      }
+      fakevar(arraygoeshere[fjdsa+1],mafs(glung),"is");
+      
+      break;
+      case "CONFIG":
+      if (arraygoeshere[fjdsa+1] == "SEMICOLON_TERMINATOR") {
+        alert("Javascript injection enabled");
+        MAGIC_MIKE = ";";
+      }
+      if (arraygoeshere[fjdsa+1] == "THE" && arraygoeshere[fjdsa+2] == "CHARACTER" && arraygoeshere[fjdsa+3] == "TERMINATING" && arraygoeshere[fjdsa+4] == "IS") {
+        alert("Weirdness Enabled");
+        MAGIC_MIKE = arraygoeshere[fjdsa+5];
+      }
+      break;
+      case "TITLE":
+      document.title = arraygoeshere[fjdsa+1];
+      document.getElementById("output").innerText += ("\nWindow title is now " + arraygoeshere[fjdsa+1]);
       break;
       default:
       break;
@@ -285,14 +316,16 @@ function init() {
   pen.fillStyle = "#d8e0d0";
   ctx.fillRect(0,0,256,256);
  pen = {
-  x:128,y:128,th:0,down:false
+  x:128,y:128,th:0,down:true,pointer:false
 }
 the = [
   {page:"test",word:0},
    {page:"px",word:0},
     {page:"py",word:0},
-     {page:"func-ct",word:0},
+        {page:"pd",word:0},
+            {page:"func-ct",word:0},
 ];
+MAGIC_MIKE = ".";
 waitflag = 0;
 thing_counter = 0;
 }
@@ -318,6 +351,14 @@ function rin(g) {
     case "TOGGLE": pen.down = !pen.down; break;
     case "WHITE": ctx.strokeColor = "#d8e0d0"; break;
     case "BLACK": ctx.strokeColor = "#404048"; break;
+    default: ctx.lineWidth = mafs(g); break;
+  }
+}
+function dogitum(g) {
+  switch (g) {
+    case "OFF": pen.pointer = false; document.getElementById("artf").style.display = "none"; break;
+    case "ON": pen.pointer = true; document.getElementById("artf").style.display = "block"; break;
+    case "TOGGLE": pen.pointer = !pen.pointer; toggle_pointer(); break;
     default: ctx.lineWidth = mafs(g); break;
   }
 }

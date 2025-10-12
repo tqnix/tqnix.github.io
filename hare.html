@@ -10,6 +10,7 @@
         font-size:18px;
         padding:1.5%;
         text-align: left;
+        overflow: auto;
     }
     .gau {
       margin: 0;
@@ -27,27 +28,23 @@
       position: absolute;
       pointer-events: none;
     }
+    #output {
+      overflow-y: auto;
+      height: 30vh;
+    }
   </style>
     
  <button class="navbutton" onclick="window.open('index.html')">◀️Back</button><br>
  <h1>HARE (turtle ripoff)</h1>
 <textarea id=input rows=10 cols=50>
-TITLE spiral.
-INIT 
-GOTO 192 64 
-VAR test 45 
-CLEAR.
-PEN UP.
-MOVE 1.
-PEN DOWN.
-TURN test.
-REPEAT 5.
-THEN MOVE 1.
-PEN UP.
-MOVE 1.
-INC test -1.
-PRINT howdy.
- 
+INIT PEN UP GOTO 128 32 ANGLE 90.
+TITLE flashing.
+POINTER TOGGLE.
+PEN TOGGLE.
+TURN (360/60).
+MOVE 10.
+GET pd.
+
  </textarea>
 <br>
 <button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0; init(); drau();">RESET</button>
@@ -59,17 +56,18 @@ PRINT howdy.
 <button onclick="save()">Export!</button>
 
 <br>
-<button onclick="toggle_output()">Toggle Output</button>
-<button onclick="toggle_pointer()">Toggle Pointer</button>
-<button onclick="delayflag = !delayflag">Toggle Delay</button><br>
+Toggle: 
+<button onclick="toggle_output()">Output</button>
+<button onclick="delayflag = !delayflag">Delay</button>
+<button onclick="i_am_righteous = !i_am_righteous">Output clearing</button><br>
 <br>
 <button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
 <button onclick="document.getElementById('input').value = '';">CLEAR ALL CODE</button>
 
 <br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
-<canvas height=256 width=256 id=artf style="border: 1px solid white"></canvas>
-<p>OUTPUT:<br>-------------------------------------------------------------</p>
+<canvas height=256 width=256 id=artf style="border: 1px solid white"></canvas><br><br>
+OUTPUT: -------------------------------------------------------------<br>
 <div id=output></div>
 <script>
   const canvas2 = document.getElementById("artf");
@@ -82,8 +80,9 @@ var pen = {
   x:128,y:128,th:0,down:true,pointer:true
 }
 var the = [
-  {page:"test",word:0},
-  {page:"func-ct",word:0},
+  {page:"random",word:0},
+  {page:"randomangle",word:0},
+  {page:"randominteger",word:0},
 ];
 var qz = "";
 var func_odometer = 0;
@@ -91,6 +90,7 @@ var waitflag = 100;
 var delayflag = false;
 var thing_counter = 0;
 var MAGIC_MIKE = '.';
+var i_am_righteous = false;
 var s = null;
 /*
 INIT 
@@ -133,7 +133,9 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
 });
 function parse_text() {
  localStorage.savedcode = document.getElementById("output").innerText;
-  document.getElementById("output").innerText = "";
+  if (!i_am_righteous) {
+    document.getElementById("output").innerText = "";
+  }
   qz = document.getElementById("input").value;
    bal = qz.replaceAll("\n","").split(MAGIC_MIKE);
    
@@ -164,8 +166,6 @@ function HandleError(lentil,token) {
 }
 async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of code
   for (var fjdsa = 0; fjdsa < arraygoeshere.length; fjdsa++) {
-
-      fakevar("func-ct",1,"inc");
       fakevar("px",pen.x,"is");
       fakevar("py",pen.y,"is");
      fakevar("pd",parseFloat(((pen.th*180/Math.PI*-1)%360).toFixed(1)),"is");
@@ -276,7 +276,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       document.getElementById("output").innerText += ("\nSleeping for " + arraygoeshere[fjdsa+1]);
       break;
       case "ASK":
-      let glung = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"please stop\" to stop (or you can reload the website)");
+      let glung = prompt(arraygoeshere[fjdsa+1] + " = ? (reload the website if you're stuck here)");
       //console.log(glung);
       if (glung == "please stop") {
         reload();
@@ -309,9 +309,14 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
     if (delayflag) {await sleep(100);}
   }
   drau();
+  scrolloutput();
 }
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms || 1000));
+}
+function scrolloutput() {
+  ;
+  document.getElementById('output').scrollTop = document.getElementById('output').scrollHeight;
 }
 function drau() {
   ctx2.clearRect(0,0,256,256);
@@ -325,6 +330,15 @@ ctx.beginPath();
   ctx.moveTo(pen.x,pen.y);
 }
 function getvar(pa) {
+  if (pa == "random") {
+    return Math.random();
+  }
+  if (pa == "randominteger") {
+    return Math.floor(Math.random()*100);
+  }
+  if (pa == "randomangle") {
+    return Math.floor(Math.random()*360);
+  }
 for (i=0; i<the.length; i++) {
   if (the[i].page == pa) {
     return the[i].word;
@@ -357,7 +371,7 @@ function mafs(func) {
   let regex = /[A-Za-z]+/i;
   if (func.includes("(")) {
     for (i=0; i<the.length; i++) {
-      kayasaki = kayasaki.replaceAll(the[i].page, "getvar(\"" +the[i].page+ "\")");
+      kayasaki = kayasaki.replaceAll(the[i].page, "getvar('" +the[i].page+ "')");
       console.log(kayasaki);
     }
     return eval(kayasaki);//unsafe af but who cares
@@ -371,17 +385,16 @@ function mafs(func) {
 }
 //Functions to make my programming language work
 function init() {
+  document.getElementById("output").innerText = "";
   pen.fillStyle = "#d8e0d0";
   ctx.fillRect(0,0,256,256);
  pen = {
   x:128,y:128,th:0,down:true,pointer:false
 }
 the = [
-  {page:"test",word:0},
-   {page:"px",word:0},
-    {page:"py",word:0},
-        {page:"pd",word:0},
-            {page:"func-ct",word:0},
+  {page:"random",word:0},
+  {page:"randomangle",word:0},
+  {page:"randominteger",word:0},
 ];
 MAGIC_MIKE = ".";
 waitflag = 0;

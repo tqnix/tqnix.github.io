@@ -1,4 +1,4 @@
-var indexingshouldhopefullyworkwiththis = [
+var indexingshouldhopefullyworkwiththis = [//numbers
 
 [{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":3},{"x":3,"y":2,"w":2,"l":1},{"x":2,"y":3,"w":1,"l":1},{"x":4,"y":3,"w":1,"l":2},{"x":1,"y":4,"w":1,"l":2},{"x":2,"y":5,"w":2,"l":1}],
 [{"x":2,"y":1,"w":1,"l":5},{"x":1,"y":2,"w":2,"l":1},{"x":1,"y":5,"w":3,"l":1}],
@@ -18,10 +18,7 @@ var indexingshouldhopefullyworkwiththis = [
 [{"w":1,"l":7,"x":3,"y":0},{"w":2,"l":1,"x":2,"y":1},{"w":1,"l":1,"x":1,"y":2},{"w":1,"l":2,"x":0,"y":3},{"w":5,"l":1,"x":0,"y":4}],
 [{"x":0,"y":6,"w":1,"l":-1},{"x":1,"y":7,"w":3,"l":-1},{"x":4,"y":3,"w":1,"l":3},{"x":1,"y":2,"w":3,"l":1},{"x":0,"y":0,"w":1,"l":3},{"x":0,"y":1,"w":5,"l":-1}],
 [{"w":2,"l":1,"x":2,"y":0},{"w":1,"l":1,"x":1,"y":1},{"w":1,"l":4,"x":0,"y":2},{"w":4,"l":1,"x":0,"y":3},{"w":1,"l":2,"x":0,"y":4},{"w":1,"l":2,"x":4,"y":4},{"w":3,"l":1,"x":1,"y":6}],
-[{'w':5,'l':1,'x':0,'y':0},
-{'w':1,'l':1,'x':4,'y':1},
-{'w':1,'l':2,'x':3,'y':2},
-{'w':1,'l':3,'x':2,'y':4},],
+[{'w':5,'l':1,'x':0,'y':0},{'w':1,'l':1,'x':4,'y':1},{'w':1,'l':2,'x':3,'y':2},{'w':1,'l':3,'x':2,'y':4},],
 [{"x":1,"y":0,"w":3,"l":1},{"x":4,"y":1,"w":1,"l":2},{"x":4,"y":4,"w":1,"l":2},{"x":0,"y":1,"w":1,"l":2},{"x":0,"y":4,"w":1,"l":2},{"x":1,"y":3,"w":3,"l":1},{"x":1,"y":6,"w":3,"l":1}],
 [{"w":3,"l":1,"x":1,"y":0},{"w":1,"l":2,"x":0,"y":1},{"w":1,"l":4,"x":4,"y":1},{"w":4,"l":1,"x":1,"y":3},{"w":1,"l":1,"x":4,"y":4},{"w":1,"l":1,"x":3,"y":5},{"w":2,"l":1,"x":1,"y":6},{"w":1,"l":1,"x":2,"y":6}],
 
@@ -54,6 +51,46 @@ charColon = [{'w':1,'l':1,'x':2,'y':2},{'w':1,'l':1,'x':2,'y':5},];
 charBlank = [];
 charU = [{'w':1,'l':4,'x':0,'y':1},{'w':1,'l':4,'x':4,'y':1},{'w':3,'l':1,'x':1,'y':5},];
 charN = [{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':5,'x':4,'y':1},{'w':1,'l':1,'x':1,'y':2},{'w':1,'l':1,'x':2,'y':3},{'w':2,'l':1,'x':3,'y':4},];
+charList = [
+	/* */[],
+	/*A*/[{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":4},{"x":1,"y":3,"w":4,"l":1}],
+	/*B*/[{'w':4,'l':1,'x':0,'y':1},{'w':1,'l':4,'x':0,'y':2},{'w':1,'l':1,'x':4,'y':2},{'w':3,'l':1,'x':1,'y':3},{'w':1,'l':1,'x':4,'y':4},{'w':3,'l':1,'x':1,'y':5},],
+	/*C*/[{"x":1,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":3},{"x":1,"y":5,"w":4,"l":1}],
+	/*D*/[{"x":0,"y":1,"w":4,"l":1},{"x":1,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":3},{"x":0,"y":5,"w":4,"l":1}],
+	/*E*/[{'w':5,'l':1,'x':0,'y':1},{'w':1,'l':4,'x':0,'y':2},{'w':3,'l':1,'x':1,'y':3},{'w':4,'l':1,'x':1,'y':5},],
+	/*F*/[{'w':5,'l':1,'x':0,'y':1},{'w':1,'l':4,'x':0,'y':2},{'w':3,'l':1,'x':1,'y':3},],
+	/*G*/[{'w':4,'l':1,'x':1,'y':1},{'w':1,'l':3,'x':0,'y':2},{'w':3,'l':1,'x':2,'y':3},{'w':1,'l':1,'x':4,'y':4},{'w':3,'l':1,'x':1,'y':5},],
+	/*H*/[{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':5,'x':4,'y':1},{'w':4,'l':1,'x':1,'y':3},],
+	/*I*/[{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':4,'x':2,'y':2},{'w':3,'l':1,'x':1,'y':5},],
+	/*J*/[{'w':4,'l':1,'x':1,'y':1},{'w':1,'l':3,'x':3,'y':2},{'w':1,'l':1,'x':0,'y':4},{'w':2,'l':1,'x':1,'y':5},],
+	/*K*/[{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':1,'x':4,'y':1},{'w':1,'l':1,'x':3,'y':2},{'w':2,'l':1,'x':1,'y':3},{'w':1,'l':1,'x':3,'y':4},{'w':1,'l':1,'x':4,'y':5},],
+	/*L*/[{"x":0,"y":1,"w":1,"l":5},{"x":1,"y":5,"w":4,"l":1}],
+	/*M*/[{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':5,'x':4,'y':1},{'w':1,'l':1,'x':1,'y':2},{'w':2,'l':1,'x':3,'y':2},{'w':1,'l':1,'x':2,'y':3},],
+	/*N*/[{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':5,'x':4,'y':1},{'w':1,'l':1,'x':1,'y':2},{'w':1,'l':1,'x':2,'y':3},{'w':2,'l':1,'x':3,'y':4}],
+	/*O*/[{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':3,'x':0,'y':2},{'w':1,'l':3,'x':4,'y':2},{'w':3,'l':1,'x':1,'y':5},],
+	/*P*/[{'w':4,'l':1,'x':0,'y':1},{'w':1,'l':4,'x':0,'y':2},{'w':1,'l':1,'x':4,'y':2},{'w':3,'l':1,'x':1,'y':3},],
+	/*Q*/[{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':3,'x':0,'y':2},{'w':1,'l':2,'x':4,'y':2},{'w':1,'l':1,'x':2,'y':3},{'w':1,'l':1,'x':3,'y':4},{'w':2,'l':1,'x':1,'y':5},{'w':1,'l':1,'x':4,'y':5},],
+	/*R*/[{"x":0,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":2}],
+	/*S*/[{"x":1,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":0,"y":5,"w":4,"l":1}],
+	/*T*/[{"x":0,"y":1,"w":5,"l":1},{"x":2,"y":2,"w":1,"l":4}],
+	/*U*/[{'w':1,'l':4,'x':0,'y':1},{'w':1,'l':4,'x':4,'y':1},{'w':3,'l':1,'x':1,'y':5}],
+	/*V*/[{'w':1,'l':3,'x':0,'y':1},{'w':1,'l':3,'x':4,'y':1},{'w':1,'l':1,'x':1,'y':4},{'w':1,'l':1,'x':3,'y':4},{'w':1,'l':1,'x':2,'y':5},],
+	/*W*/[{'w':1,'l':3,'x':0,'y':1},{'w':1,'l':3,'x':4,'y':1},{'w':1,'l':2,'x':2,'y':2},{'w':1,'l':2,'x':1,'y':4},{'w':1,'l':2,'x':3,'y':4},],
+	/*X*/[{'w':2,'l':1,'x':0,'y':1},{'w':1,'l':1,'x':4,'y':1},{'w':1,'l':1,'x':0,'y':2},{'w':2,'l':1,'x':2,'y':2},{'w':1,'l':2,'x':2,'y':3},{'w':2,'l':1,'x':1,'y':4},{'w':1,'l':2,'x':4,'y':4},{'w':1,'l':1,'x':0,'y':5},{'w':2,'l':1,'x':3,'y':5},],
+	/*Y*/[{'w':1,'l':2,'x':0,'y':1},{'w':1,'l':2,'x':4,'y':1},{'w':1,'l':1,'x':1,'y':3},{'w':1,'l':1,'x':3,'y':3},{'w':1,'l':2,'x':2,'y':4},],
+	/*Z*/[{'w':4,'l':1,'x':1,'y':1},{'w':1,'l':1,'x':3,'y':2},{'w':1,'l':1,'x':2,'y':3},{'w':1,'l':2,'x':1,'y':4},{'w':4,'l':1,'x':0,'y':5},],
+//Numbers 0-9
+	[{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":3},{"x":3,"y":2,"w":2,"l":1},{"x":2,"y":3,"w":1,"l":1},{"x":4,"y":3,"w":1,"l":2},{"x":1,"y":4,"w":1,"l":2},{"x":2,"y":5,"w":2,"l":1}],
+[{"x":2,"y":1,"w":1,"l":5},{"x":1,"y":2,"w":2,"l":1},{"x":1,"y":5,"w":3,"l":1}],
+[{"x":0,"y":1,"w":4,"l":1},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":0,"y":4,"w":1,"l":2},{"x":1,"y":5,"w":4,"l":1}],
+[{"x":0,"y":1,"w":4,"l":1},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":0,"y":5,"w":4,"l":1}],
+[{"x":2,"y":1,"w":2,"l":1},{"x":1,"y":2,"w":1,"l":1},{"x":3,"y":2,"w":1,"l":4},{"x":0,"y":3,"w":1,"l":2},{"x":1,"y":4,"w":4,"l":1}],
+[{"x":0,"y":1,"w":5,"l":1},{"x":0,"y":2,"w":1,"l":2},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":0,"y":5,"w":4,"l":1}],
+[{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":3},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":1,"y":5,"w":3,"l":1}],
+[{"x":0,"y":1,"w":5,"l":1},{"x":4,"y":2,"w":1,"l":1},{"x":3,"y":3,"w":1,"l":1},{"x":2,"y":4,"w":1,"l":2}],
+[{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":0,"y":4,"w":1,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":1,"y":5,"w":3,"l":1}],
+[{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":4,"y":2,"w":1,"l":3},{"x":1,"y":3,"w":4,"l":1},{"x":1,"y":5,"w":3,"l":1}],
+];
 
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -65,9 +102,9 @@ charN = [{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':5,'x':4,'y':1},{'w':1,'l':1,'x':1,
     ctx.fillRect(1375,1400,25,200);
     ctx.fillStyle = "#d8e0d0";
     ctx.fillRect(200,200,1200,1200);
-scrolltest = [0,0,0,0,0];
 doug = new Date();
-mode = "time";//time, stopwatch, interval timer, world time, databank, counter, gps, dice
+mode = "time";//time, stopwatch, interval timer, world time, databank, counter, gps, dice, settings (time, interval timer, view lap records)
+//TODO: Add entire alphabet
 mode_isAdjusting = false;
 time_24h = false;
 time_isAnalog = false;
@@ -85,8 +122,9 @@ databank_adj = false;
 databank_adj_char = '';
 databank_adj_pos = 0;
 databank_pos = 0;
-databank_entries = [];//{"name":"","info":""}
+databank_entries = [{"name":"TEST","info":""}];//{"name":"","info":""}
 counter_pos = 0;
+scrolltest = [0,0,0,0,0,0];
 dice_result = [55,55,1,1,1,1,1,1,1];
 dice_amount = 1;
 dice_trigger = false;
@@ -118,6 +156,12 @@ function ActuallyDraw(char0,q,b) {
       	ctx.fillRect(q+char0[i].x*25,b+char0[i].y*25,char0[i].w*25,char0[i].l*25);
       }
 }
+function DrawLetters(word,x,y) {
+	for (var t = 0; t<word.length; t++) {
+    //ctx.fillRect(x-25+(150*t),y,175,175);
+		ActuallyDraw(charList[word.charCodeAt(t)-64],x+(150*t),y);
+	}
+}
 function btnPressed(btn) {
     if (btn == 1) {DoWhateverButton1Does();}
     if (btn == 2) {DoWhateverButton2Does();}
@@ -131,7 +175,8 @@ function SwitchModes() {
     if (mode == "time") {mode = "stopwatch";} 
     else if (mode == "stopwatch") {mode = "interval";} 
     else if (mode == "interval") {mode = "counter";} 
-    else if (mode == "counter") {mode = "dice";} 
+    else if (mode == "counter") {mode = "debug";} 
+    else if (mode == "debug") {mode = "dice";} 
     else {mode = "time";}
 }
 function DoWhateverButton1Does() {
@@ -141,7 +186,7 @@ function DoWhateverButton1Does() {
     stopwatch_time = timer_interval_sets[timer_interval_ct];
     } else if (mode == "stopwatch") {
     console.log(stopwatch_laps);//temporary
-    } else if (mode == "counter") {
+    } else if (mode == "counter" || mode == "debug") {
        counter_pos = (counter_pos+1)%scrolltest.length;
     } else if (mode == "dice") {
        counter_pos = (counter_pos+1)%DiceTypes.length;
@@ -164,7 +209,7 @@ function DoWhateverButton2Does() {
                 stopwatch_time_start = Date.now();
             }
             stopwatch_started = !stopwatch_started;
-        } else if (mode == "counter") {
+        } else if (mode == "counter" || mode == "debug") {
             scrolltest[counter_pos]++;
         } else if (mode == "dice") {
             dice_trigger = true;
@@ -172,7 +217,7 @@ function DoWhateverButton2Does() {
 }
 function DoWhateverButton4Does() {
 
-    if (mode == "counter") {
+    if (mode == "counter" || mode == "debug") {
         scrolltest[counter_pos]--;
     } else if (mode == "stopwatch" || mode == "interval") {
         if (!stopwatch_started) {
@@ -310,24 +355,23 @@ function ShowTime() {
     switch (mode) {
         case "time": 
          
-        Draw(":","dotmatrix_short",600,1175);
-        Draw(":","dotmatrix_short",950,1175);
+        Draw(":","dotmatrix_short",600+50,1175);
+        Draw(":","dotmatrix_short",950+50,1175);
         if (time_24h) {
             Draw(" ","dotmatrix",200,1200);
-            Draw(10+IsolatePlaceValue(doug.getHours(),10,true),"dotmatrix",350,1175);
-            Draw(10+IsolatePlaceValue(doug.getHours(),1,true),"dotmatrix",500,1175);
+            Draw(10+IsolatePlaceValue(doug.getHours(),10,true),"dotmatrix",350+50,1175);
+            Draw(10+IsolatePlaceValue(doug.getHours(),1,true),"dotmatrix",500+50,1175);
         } else {
              if (AMPM(doug.getHours()).pm) {
-                Draw("P","dotmatrix",200,1200);
+                DrawLetters("P",225,1200);
             } else {
-                Draw("A","dotmatrix",200,1200);
+                DrawLetters("A",225,1200);
             }
-            Draw(10+IsolatePlaceValue(AMPM(doug.getHours()).hour,10,true),"dotmatrix",350,1175);
-            Draw(10+IsolatePlaceValue(AMPM(doug.getHours()).hour,1,true),"dotmatrix",500,1175);
+            Draw(10+IsolatePlaceValue(AMPM(doug.getHours()).hour,10,true),"dotmatrix",350+50,1175);
+            Draw(10+IsolatePlaceValue(AMPM(doug.getHours()).hour,1,true),"dotmatrix",500+50,1175);
         }
-            Draw(10+IsolatePlaceValue(doug.getMinutes(),10,true),"dotmatrix",700,1175);
-            Draw(10+IsolatePlaceValue(doug.getMinutes(),1,true),"dotmatrix",850,1175);
-            Draw(IsolatePlaceValue(doug.getSeconds(),10,true),"dotmatrix",1050,1200);
+            Draw(10+IsolatePlaceValue(doug.getMinutes(),10,true),"dotmatrix",700+50,1175);
+            Draw(10+IsolatePlaceValue(doug.getMinutes(),1,true),"dotmatrix",850+50,1175);
             break;
         case "stopwatch":
         if (stopwatch_lapTrigger) {
@@ -361,24 +405,18 @@ function ShowTime() {
             break;
         case "counter":
             ActuallyDraw(charCalc,250,225);
-            ActuallyDraw(charC,400,225);
-            ActuallyDraw(indexingshouldhopefullyworkwiththis[0],550,225);
-            ActuallyDraw(charU,700,225);
-            ActuallyDraw(charN,850,225);
-            ActuallyDraw(charT,1000,225);
-            ActuallyDraw(charCalc,250,525+150*counter_pos);
-        for (j=0; j<5; j++) {
+            DrawLetters("COUNT",400,225);
+            
+            ActuallyDraw(charCalc,250,475+150*counter_pos);
+        for (j=0; j<6; j++) {
             for (var i=0; i<=5; i++) {
-                Draw(IsolatePlaceValue(scrolltest[j],10**(5-i),true),"dotmatrix",475+150*i,525+150*j);
+                Draw(IsolatePlaceValue(scrolltest[j],10**(5-i),true),"dotmatrix",475+150*i,475+150*j);
             }
         }
         break;
         case "dice":
             ActuallyDraw(DiceTypes[2].icon,250,225);
-            ActuallyDraw(charD,400,225);
-            ActuallyDraw(indexingshouldhopefullyworkwiththis[1],550,225);
-            ActuallyDraw(charC,700,225);
-            ActuallyDraw(indexingshouldhopefullyworkwiththis[3],850,225);
+            DrawLetters("DICE",400,225);
             for (var i=0; i<=7; i++) {
                 ActuallyDraw(DiceTypes[i].icon,225+150*i,425);
             }
@@ -387,14 +425,28 @@ function ShowTime() {
             }
             ActuallyDraw(charArrowUp,225+150*counter_pos,625);
         break;
-
+		    case "debug":
+            ActuallyDraw(charCalc,250,225);
+            DrawLetters("DEBUG",400,225);
+            ActuallyDraw(charList[(37+scrolltest[0])%37],475+150*0,325+150);
+            ActuallyDraw(charList[(37+scrolltest[1])%37],475+150*1,325+150);
+            ActuallyDraw(charList[(37+scrolltest[2])%37],475+150*2,325+150);
+            ActuallyDraw(charList[(37+scrolltest[3])%37],475+150*3,325+150);
+            ActuallyDraw(charList[(37+scrolltest[4])%37],475+150*4,325+150);
+            ActuallyDraw(charList[(37+scrolltest[5])%37],475+150*5,325+150);
+            ActuallyDraw(charArrowUp,475+150*counter_pos,675);
+            DrawLetters("V",225+150*3,475+150*4);
+            for (i=0; i<7; i++) {
+              ActuallyDraw(charList[(34+i+scrolltest[0])%37],225+150*i,475+150*5);
+            }
+        break;
     }
 }
 function UpdateFast() {
     switch(mode) {
         case "time": 
-            Draw(IsolatePlaceValue(doug.getSeconds(),10,true),"dotmatrix",1050,1200);
-            Draw(IsolatePlaceValue(doug.getSeconds(),1,true),"dotmatrix",1200,1200);
+            Draw(IsolatePlaceValue(doug.getSeconds(),10,true),"dotmatrix",1050+50,1200);
+            Draw(IsolatePlaceValue(doug.getSeconds(),1,true),"dotmatrix",1200+50,1200);
             break;
         case "world": 
             Draw(IsolatePlaceValue(doug.getSeconds(),10,true),"dotmatrix",1050,1200);
@@ -466,7 +518,7 @@ function IsolatePlaceValue(value,place,singledigitonly) {
     }
 }
 function AMPM(hora) {
-    if (hora >= 12) {
+    if (hora > 12) {
         return {"pm":true,"hour":hora-12};
     } else if (hora == 0) {
         return {"pm":false,"hour":12};
@@ -506,127 +558,3 @@ function ManualIncrementTime(s) {
     stopwatch_time_start = Date.now();
     stopwatch_time = timer_interval_sets[timer_interval_ct];
 }
-//taken from dotmatrix application
-var output = [
-];
-yid = [];//array of all 35 checkboxes
-pixels = [];
-inna = "";
-function PixelToRect(inn, width) {
-  let checkedPixels = [
-    ['0','0','0','0','0'],
-    ['0','0','0','0','0'],
-    ['0','0','0','0','0'],
-    ['0','0','0','0','0'],
-    ['0','0','0','0','0'],
-    ['0','0','0','0','0'],
-    ['0','0','0','0','0'],
-
-];
-document.getElementById('zhangfu').innerHTML = "";
-//inn - size: 5+6*width, pixels from top left to bottom right
-//width: width (in characters) of pixel sprite
-
-if (inn.value != "") {
-  inna = inn.replaceAll("\n","");
-} else {
-  console.log("hataye " + inn.value);
-}
-
-pixels[0] = inna.substring(0,width);
-pixels[1] = inna.substring(width,width*2);
-pixels[2] = inna.substring(width*2,width*3);
-pixels[3] = inna.substring(width*3,width*4);
-pixels[4] = inna.substring(width*4,width*5);
-pixels[5] = inna.substring(width*5,width*6);
-pixels[6] = inna.substring(width*6,width*7);
-ud = 0;
-lr = 0;
-for (i=0; i<7; i++) {//y axis
-	for (j=0; j<width; j++) {//x axis
-		if (checkedPixels[i][j] != 'E'){
-      checkedPixels[i][j] = 'E';
-      let breen = true;//not found anywhere else
-      //pixels[y][x]
-      if (pixels[i][j] == '1') {
-
-        for (k=j; k<width; k++) {
-      		    if (pixels[i][k] == '1') {
-                lr++;
-                    checkedPixels[i][k] = "E";
-                    } else {
-                k = width;
-              }
-      	}
-        if (lr <= 1) {
-            for (k=i; k<=6; k++) {
-      		if (pixels[k][j] == '1') {
-            ud++;
-                checkedPixels[k][j] = "E";
-                } else {
-            k = 99;
-          }
-      	  }
-        }
-      }
-      if (ud != 0 || lr != 0) {//originally if (ud != 0 && lr != 0)
-      if (ud == 0) {
-        ud = 1;
-      }
-        document.getElementById('zhangfu').innerHTML += "{'w':" + lr + ",'l':" + ud + ",'x':" + j + ",'y':" + i + "},<br>";//debug
-        output.push({"x":j,"y":i,"w":lr,"l":ud});
-        lr = 0;
-        ud = 0;
-      }
-    }
-	}
-}
-console.log(output);
-} 
-function StoreToChar(charizard) {
-  ProcessCheckboxes();
-if (charizard == 57) {
-    for (i=0; i<20; i++) {
-        indexingshouldhopefullyworkwiththis[i] = output;
-      }
-} else {
-    indexingshouldhopefullyworkwiththis[charizard] = output;
-    output = [];
-    //console.log(charizard);
-    //console.log(output);
-}
-
-}
-function GenerateCheckboxes() {
-  document.getElementById("yod").innerHTML = "";
-  for (i=0; i<7; i++) {//y axis
-	for (j=0; j<5; j++) {//x axis
-  document.getElementById("yod").innerHTML += "<input type=checkbox id=\'chk-" + i + j + "\'>";
-  yid.push('chk-' + i + j);
-  //console.log('chk-' + i + j);
-  }
-  document.getElementById("yod").innerHTML += "<br>";
-  }
-document.getElementById("yod").innerHTML += "<button onclick='ProcessCheckboxes()'>Submit</button>";
-document.getElementById("yod").innerHTML += "<button onclick='GenerateCheckboxes()'>Clear</button>";
-document.getElementById("yod").innerHTML += "<button onclick='ExportCharData()'>SAVE ALL</button>";
-}
-function ProcessCheckboxes() {
-  inna = "";
-  for (i=0; i<35; i++) {//y axis
-  if (document.getElementById(yid[i]).checked) {
-    inna += "1";
-  } else {
-    inna += "0";
-  }
-  }
-  //console.log(inna);
-  PixelToRect(inna,5);
-}
-function ExportCharData() {
-    for (i=0; i<20; i++) {
-    document.getElementById('zhangfu').innerHTML += ("<br>indexingshouldhopefullyworkwiththis[" + i + "] = " + JSON.stringify(indexingshouldhopefullyworkwiththis[i]));
-  }
-
-}
-

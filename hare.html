@@ -15,6 +15,12 @@
       margin: 0;
       padding: 0;
     }
+    button {
+      font-size: 18px;
+    }
+    input {
+      font-size: 18px;
+    }
     canvas {
       right: 0px;
       top: 0px;
@@ -26,9 +32,11 @@
  <button class="navbutton" onclick="window.open('index.html')">◀️Back</button><br>
  <h1>HARE (turtle ripoff)</h1>
 <textarea id=input rows=10 cols=50>
+TITLE spiral.
 INIT 
 GOTO 192 64 
-VAR test 45.
+VAR test 45 
+CLEAR.
 PEN UP.
 MOVE 1.
 PEN DOWN.
@@ -39,22 +47,24 @@ PEN UP.
 MOVE 1.
 INC test -1.
 PRINT howdy.
+ 
  </textarea>
 <br>
 <button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0; init(); drau();">RESET</button>
 <button style="font-size: 28px;" onclick="parse_text()">RUN</button><br>
-<button onclick="save()">Save!</button>
-<button onclick="load()">Load!</button>
+<input type=text id=heoi placeholder="something in ms"></input>
+<button onclick="if (s != null) {clearInterval(s);} s = setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
+<button onclick="clearInterval(s)">STOP Auto Iterate</button><br>
+<input type="file" id="fileInput" accept=".hare">
+<button onclick="save()">Export!</button>
+
 <br>
 <button onclick="toggle_output()">Toggle Output</button>
 <button onclick="toggle_pointer()">Toggle Pointer</button>
 <button onclick="delayflag = !delayflag">Toggle Delay</button><br>
 <br>
-<input type=text id=heoi placeholder="something in ms"></input>
-<button onclick="if (s != null) {clearInterval(s);} s = setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
-<button onclick="clearInterval(s)">STOP Auto Iterate</button>
-<br>
 <button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
+<button onclick="document.getElementById('input').value = '';">CLEAR ALL CODE</button>
 
 <br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
@@ -82,12 +92,45 @@ var delayflag = false;
 var thing_counter = 0;
 var MAGIC_MIKE = '.';
 var s = null;
+/*
+INIT 
+GOTO 192 64 
+VAR test 45 
+CLEAR.
+PEN UP.
+MOVE 1.
+PEN DOWN.
+TURN test.
+REPEAT 5.
+THEN MOVE 1.
+PEN UP.
+MOVE 1.
+INC test -1.
+PRINT howdy.
+*/
 function save() {
-  localStorage.savedcode2 = document.getElementById("input").value;
+  //localStorage.savedcode2 = document.getElementById("input").value;
+  var inputValue = document.getElementById("input").value;
+    var blob = new Blob([inputValue], {type: "text/plain"});
+    saveAs(blob, document.title + "_code.hare");
  }
- function load() {
-   document.getElementById("input").value = localStorage.savedcode2;
- }
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  const file = event.target.files[0]; // Get the first selected file
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const fileContent = e.target.result; // The content of the text file
+      document.getElementById("input").value = e.target.result;
+      document.getElementById("output").innerText = "FILE LOADED\n";
+      console.log(fileContent);
+      // Process the fileContent here
+    };
+
+    reader.readAsText(file); // Read the file as text
+  }
+});
 function parse_text() {
  localStorage.savedcode = document.getElementById("output").innerText;
   document.getElementById("output").innerText = "";
@@ -187,26 +230,38 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       document.getElementById("output").innerText += "\nHelp is bad for the environment";
       break;
       case "THEN": //search for REPEAT, IF, or ELSE (ELSE searches for IF)
-      for (i=j; i>=0; i--) {
-        let leto = parse_line(i);
+      for (a=j; a>=0; a--) {
+        let leto = bal[a].split(' ');
+        console.log(leto);
+        let tengflang = false;
         if (leto[0] == "IF") {
+          a = -100;
           switch (leto[2]) {
-            case ">": if (mafs(leto[1]) <= mafs(leto[3])) {fjdsa = 10000;} break;
-            case "=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
-            case "<": if (mafs(leto[1]) >= mafs(leto[3])) {fjdsa = 10000;} break;
-            case "!=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
-            case "lim": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {fjdsa = 10000;} break;
+            case ">": if (mafs(leto[1]) <= mafs(leto[3])) {tengflang = true;} break;
+            case "=": if (mafs(leto[1]) !== mafs(leto[3])) {tengflang = true;} break;
+            case "<": if (mafs(leto[1]) >= mafs(leto[3])) {tengflang = true;} break;
+            case "!=": if (mafs(leto[1]) == mafs(leto[3])) {tengflang = true;} break;
+            case "lim": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {tengflang = true;} break;
           }
         } else if (leto[0] == "REPEAT") {
+          a = -100;
           thing_counter = mafs(leto[1])-1;
         } else if (leto[0] == "UNLESS") {
+          a = -100;
           switch (leto[2]) {
-            case "<": if (mafs(leto[1]) < mafs(leto[3])) {fjdsa = 10000;} break;
-            case "=": if (mafs(leto[1]) == mafs(leto[3])) {fjdsa = 10000;} break;
-            case ">": if (mafs(leto[1]) > mafs(leto[3])) {fjdsa = 10000;} break;
-            case "!=": if (mafs(leto[1]) !== mafs(leto[3])) {fjdsa = 10000;} break;
-            case "lim": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {fjdsa = 10000;} break;
+            case "<": if (mafs(leto[1]) < mafs(leto[3])) {tengflang = true;} break;
+            case "=": if (mafs(leto[1]) == mafs(leto[3])) {tengflang = true;} break;
+            case ">": if (mafs(leto[1]) > mafs(leto[3])) {tengflang = true;} break;
+            case "!=": if (mafs(leto[1]) !== mafs(leto[3])) {tengflang = true;} break;
+            case "lim": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {tengflang = true;} break;
           }
+        }
+        
+        if (tengflang) {
+          fjdsa = arraygoeshere.length + 16;
+          document.getElementById("output").innerText += ("\nVIBE CHECK FAILED ");
+        } else if (leto[0] == "IF" || leto[0] == "UNLESS") {
+          document.getElementById("output").innerText += ("\nVIBE CHECK PASSED ");
         }
       }
       break;
@@ -221,12 +276,13 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       document.getElementById("output").innerText += ("\nSleeping for " + arraygoeshere[fjdsa+1]);
       break;
       case "ASK":
-      let glung = prompt("= ? (type \"please stop\" to stop (or you can reload the website)");
+      let glung = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"please stop\" to stop (or you can reload the website)");
+      //console.log(glung);
       if (glung == "please stop") {
-        init(); drau(); func_odometer = 0; clearInterval(s);
+        reload();
       }
       fakevar(arraygoeshere[fjdsa+1],mafs(glung),"is");
-      
+      document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " + glung);
       break;
       case "CONFIG":
       if (arraygoeshere[fjdsa+1] == "SEMICOLON_TERMINATOR") {
@@ -307,9 +363,11 @@ function mafs(func) {
     return eval(kayasaki);//unsafe af but who cares
   } else if (regex.test(func)) {
     return getvar(func);
-  } else {
+  } else if (func.includes(".")) {
     return parseFloat(func);
-  }
+  } else {
+    return parseInt(func);
+  } 
 }
 //Functions to make my programming language work
 function init() {
@@ -376,4 +434,196 @@ function toggle_pointer() {
       document.getElementById("artf").style.display = "block";
    }
 }
+
+//FILESAVER.JS after this
+
+(function (global, factory) {
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof exports !== "undefined") {
+    factory();
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory();
+    global.FileSaver = mod.exports;
+  }
+})(this, function () {
+  "use strict";
+
+  /*
+  * FileSaver.js
+  * A saveAs() FileSaver implementation.
+  *
+  * By Eli Grey, http://eligrey.com
+  *
+  * License : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md (MIT)
+  * source  : http://purl.eligrey.com/github/FileSaver.js
+  */
+  // The one and only way of getting global scope in all environments
+  // https://stackoverflow.com/q/3277182/1008999
+  var _global = typeof window === 'object' && window.window === window ? window : typeof self === 'object' && self.self === self ? self : typeof global === 'object' && global.global === global ? global : void 0;
+
+  function bom(blob, opts) {
+    if (typeof opts === 'undefined') opts = {
+      autoBom: false
+    };else if (typeof opts !== 'object') {
+      console.warn('Deprecated: Expected third argument to be a object');
+      opts = {
+        autoBom: !opts
+      };
+    } // prepend BOM for UTF-8 XML and text/* types (including HTML)
+    // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+
+    if (opts.autoBom && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+      return new Blob([String.fromCharCode(0xFEFF), blob], {
+        type: blob.type
+      });
+    }
+
+    return blob;
+  }
+
+  function download(url, name, opts) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+
+    xhr.onload = function () {
+      saveAs(xhr.response, name, opts);
+    };
+
+    xhr.onerror = function () {
+      console.error('could not download file');
+    };
+
+    xhr.send();
+  }
+
+  function corsEnabled(url) {
+    var xhr = new XMLHttpRequest(); // use sync to avoid popup blocker
+
+    xhr.open('HEAD', url, false);
+
+    try {
+      xhr.send();
+    } catch (e) {}
+
+    return xhr.status >= 200 && xhr.status <= 299;
+  } // `a.click()` doesn't work for all browsers (#465)
+
+
+  function click(node) {
+    try {
+      node.dispatchEvent(new MouseEvent('click'));
+    } catch (e) {
+      var evt = document.createEvent('MouseEvents');
+      evt.initMouseEvent('click', true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null);
+      node.dispatchEvent(evt);
+    }
+  } // Detect WebView inside a native macOS app by ruling out all browsers
+  // We just need to check for 'Safari' because all other browsers (besides Firefox) include that too
+  // https://www.whatismybrowser.com/guides/the-latest-user-agent/macos
+
+
+  var isMacOSWebView = /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent);
+  var saveAs = _global.saveAs || ( // probably in some web worker
+  typeof window !== 'object' || window !== _global ? function saveAs() {}
+  /* noop */
+  // Use download attribute first if possible (#193 Lumia mobile) unless this is a macOS WebView
+  : 'download' in HTMLAnchorElement.prototype && !isMacOSWebView ? function saveAs(blob, name, opts) {
+    var URL = _global.URL || _global.webkitURL;
+    var a = document.createElement('a');
+    name = name || blob.name || 'download';
+    a.download = name;
+    a.rel = 'noopener'; // tabnabbing
+    // TODO: detect chrome extensions & packaged apps
+    // a.target = '_blank'
+
+    if (typeof blob === 'string') {
+      // Support regular links
+      a.href = blob;
+
+      if (a.origin !== location.origin) {
+        corsEnabled(a.href) ? download(blob, name, opts) : click(a, a.target = '_blank');
+      } else {
+        click(a);
+      }
+    } else {
+      // Support blobs
+      a.href = URL.createObjectURL(blob);
+      setTimeout(function () {
+        URL.revokeObjectURL(a.href);
+      }, 4E4); // 40s
+
+      setTimeout(function () {
+        click(a);
+      }, 0);
+    }
+  } // Use msSaveOrOpenBlob as a second approach
+  : 'msSaveOrOpenBlob' in navigator ? function saveAs(blob, name, opts) {
+    name = name || blob.name || 'download';
+
+    if (typeof blob === 'string') {
+      if (corsEnabled(blob)) {
+        download(blob, name, opts);
+      } else {
+        var a = document.createElement('a');
+        a.href = blob;
+        a.target = '_blank';
+        setTimeout(function () {
+          click(a);
+        });
+      }
+    } else {
+      navigator.msSaveOrOpenBlob(bom(blob, opts), name);
+    }
+  } // Fallback to using FileReader and a popup
+  : function saveAs(blob, name, opts, popup) {
+    // Open a popup immediately do go around popup blocker
+    // Mostly only available on user interaction and the fileReader is async so...
+    popup = popup || open('', '_blank');
+
+    if (popup) {
+      popup.document.title = popup.document.body.innerText = 'downloading...';
+    }
+
+    if (typeof blob === 'string') return download(blob, name, opts);
+    var force = blob.type === 'application/octet-stream';
+
+    var isSafari = /constructor/i.test(_global.HTMLElement) || _global.safari;
+
+    var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
+
+    if ((isChromeIOS || force && isSafari || isMacOSWebView) && typeof FileReader !== 'undefined') {
+      // Safari doesn't allow downloading of blob URLs
+      var reader = new FileReader();
+
+      reader.onloadend = function () {
+        var url = reader.result;
+        url = isChromeIOS ? url : url.replace(/^data:[^;]*;/, 'data:attachment/file;');
+        if (popup) popup.location.href = url;else location = url;
+        popup = null; // reverse-tabnabbing #460
+      };
+
+      reader.readAsDataURL(blob);
+    } else {
+      var URL = _global.URL || _global.webkitURL;
+      var url = URL.createObjectURL(blob);
+      if (popup) popup.location = url;else location.href = url;
+      popup = null; // reverse-tabnabbing #460
+
+      setTimeout(function () {
+        URL.revokeObjectURL(url);
+      }, 4E4); // 40s
+    }
+  });
+  _global.saveAs = saveAs.saveAs = saveAs;
+
+  if (typeof module !== 'undefined') {
+    module.exports = saveAs;
+  }
+});
+
 </script>

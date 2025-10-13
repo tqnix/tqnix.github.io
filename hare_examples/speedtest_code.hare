@@ -1,0 +1,6 @@
+TITLE speedtest.
+VAR c 0.
+ASK iteration_max.
+REPEAT iteration_max.
+THEN INC c 1 PRINTMAFS (c**2).
+MOVE 32.

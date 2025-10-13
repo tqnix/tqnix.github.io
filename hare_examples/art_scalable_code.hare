@@ -1,0 +1,8 @@
+INIT ASK size POINTER OFF.
+TITLE art_scalable.
+MOVE size.
+ANGLE randomangle.
+IF px < 0 THEN ANGLE 90.
+IF px > 256 THEN ANGLE 270.
+IF py < 0 THEN ANGLE 180.
+IF py > 256 THEN ANGLE 0.

@@ -19,23 +19,25 @@
 <br>
 <br>Info ya need to know beforehand:
 <br>- Press RUN to iterate a program. Pressing RUN will not reset any values.
-<br>- Press RESET to actually reset values.
-<br>- All sequences end with a period (.) or a semicolon (;).
+<br>- Alternatively, you can use the auto-iterate function to have a program automatically iterate over and over based on a fixed amount of time.
+<br>- Press RESET to reset all values
+<br>- All sequences end with a period (.) by default.
 <br>- You can have multiple functions within a sequence. This could come in useful when dealing with INIT or IF/REPEAT/UNLESS keywords.
 <br>	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
-<br>- Numbers can be either numbers, variables, or expressions (any expression in JS will work as of now, will likely change this soon)
+<br>- Numbers can be either numbers, variables, or expressions (any expression in JS that doesn't require letters or dots will work as of now, will likely change this soon)
+<br>- because the period is used for ending a sequence, you need to express non-integer numbers using fractions (i. e. 0.47 can be represented as 47/100)
 <br>- All variables are floating point
 <br>- The canvas is 256 x 256
-<br>- Pointer location can be accessed with px and py
 <br>- You do not need to have quotation marks when inputting strings or variable names.
-<br>- Calling a variable as part of an expression or IF statement sometimes crashes the app
 <br>
 <br><h1>VARIABLES</h1>
 <br>
-<br>func-ct: number of words in text
 <br>px: pen x position
 <br>py: pen y position
 <br>pd: pen angle (in degrees)
+<br>random: random number from 0 to 1
+<br>randominteger: random integer from 0 to 99 (inclusive)
+<br>randomangle: random integer from 0 to 359 (inclusive)
 <br>
 <br><h1>FUNCTIONS</h1>
 <br>
@@ -106,10 +108,9 @@
 <br>
 <br>ASK [variable name]
 <br>- Opens a popup asking for a variable value
-<br>- Type "please stop" to stop program
 <br>
 <br>POINTER 
 <br>- Controls various aspects about the pointer
 <br>	- POINTER ON: Turns pointer on
 <br>	- POINTER OFF: Turns pointer off
-<br>  - PEN TOGGLE: Toggles pointer
+<br>  - POINTER TOGGLE: Toggles pointer

@@ -47,8 +47,14 @@ GET pd.
 
  </textarea>
 <br>
+<div id="magic_mike_fun_box">
+</div>
 <button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0; init(); drau();">RESET</button>
-<button style="font-size: 28px;" onclick="parse_text()">RUN</button><br>
+<button style="font-size: 28px;" onclick="parse_text()">RUN</button>
+<button style="font-size: 28px;" onclick="toggle_fun_box()">FUNCTIONS</button>
+
+
+<br>
 <input type=text id=heoi placeholder="something in ms"></input>
 <button onclick="if (s != null) {clearInterval(s);} s = setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
 <button onclick="clearInterval(s)">STOP Auto Iterate</button><br>
@@ -76,6 +82,7 @@ OUTPUT: -------------------------------------------------------------<br>
 const ctx = canvas.getContext("2d");
 ctx.fillStyle = "#d8e0d0";
 ctx.fillRect(0,0,256,256);
+generate_fun_box();
 var pen = {
   x:128,y:128,th:0,down:true,pointer:true
 }
@@ -276,7 +283,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       document.getElementById("output").innerText += ("\nSleeping for " + arraygoeshere[fjdsa+1]);
       break;
       case "ASK":
-      let glung = prompt(arraygoeshere[fjdsa+1] + " = ? (reload the website if you're stuck here)");
+      let glung = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"please stop\" to stop (or you can reload the website)");
       //console.log(glung);
       if (glung == "please stop") {
         reload();
@@ -445,6 +452,51 @@ function toggle_pointer() {
       document.getElementById("artf").style.display = "none";
    } else {
       document.getElementById("artf").style.display = "block";
+   }
+}
+function generate_fun_box() {
+  let magic_mike_fun_box_cozy_interior = document.getElementById("magic_mike_fun_box");
+  let fun_box_thingies = [
+    "INIT",
+    "MOVE",
+    "GOTO",
+    "TURN",
+    "ANGLE",
+    "CLEAR",
+    "RESET",
+    "VAR",
+    "INC",
+    "GET",
+    "ASK",
+    "px",
+    "py",
+    "pd",
+    "random",
+    "randomangle",
+    "randominteger",
+    "IF",
+    "THEN",
+    "UNLESS",
+    "REPEAT",
+    ">",
+    "<",
+    "=",
+    "lim",
+    "PRINT",
+    "PRINTMAFS",
+    "PEN",
+    "POINTER",
+    "WAIT",
+  ];
+  for (i=0; i<fun_box_thingies.length; i++) {
+    magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value += \""+fun_box_thingies[i]+" \"'>" + fun_box_thingies[i] + "</button>";
+  }
+}
+function toggle_fun_box() {
+  if (document.getElementById("magic_mike_fun_box").style.display == "block") {
+      document.getElementById("magic_mike_fun_box").style.display = "none";
+   } else {
+      document.getElementById("magic_mike_fun_box").style.display = "block";
    }
 }
 

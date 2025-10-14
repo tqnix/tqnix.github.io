@@ -1,6 +1,6 @@
  <meta charset="UTF-16">
  <head>
-  <title>eえ饿</title>
+  <title>Bing Translate</title>
   <link rel="icon" type="image/jpeg" href="coloro.jpeg">
   <link rel="stylesheet" href="styles.css">
    <style>
@@ -21,11 +21,15 @@
       height:5%;
       font-size:20px;
     }
+    .gong {
+      overflow-y: scroll;
+      height: 30vh;
+    }
     </style> 
  </head>
  <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button><br><br>
- the thing on w3 doesnt properly display unicode characters so check the jsfiddle: <a href="https://jsfiddle.net/zqe6ywbu">here</a>
-<h3>Enter text (latin characters)</h3>
+ The worst translator, probably ever, in the history of mankind.
+<h3>Enter text (latin characters pls)</h3>
 <div style="width:100%;margin:0;padding:0">
 
 <input type=text class="button" placeholder = "Enter text here!" id=dahao></input><br>
@@ -35,7 +39,7 @@
 Final vowel
 <select id="final" name="ha">
   <option value="a">A</option>
-  <option value="e">E</option>
+  <option selected value="e">E</option>
   <option value="i">I</option>
   <option value="o">O</option>
   <option value="u">U</option>
@@ -44,14 +48,19 @@ Final vowel
 <input type=checkbox id="final-follow-previous-syllable"></input>-->
 Language
 <select id="langsel" name="ha">
-  <option value="text">Plain Text</option>
+  <option value="text">Syllabify!</option>
   <option value="cypriot">Cypriot Syllabary</option>
   <option value="japan">Bad Japanese</option>
   <option value="china">Bad Chinese</option>
+ <option value="french">Bad French</option>
+ <option value="russian">Bad Russian</option>
+ <option value="brainrot">Bad Brainrot</option>
 </select>
 </div>
 <h3>output</h3>
-<bdo dir="ltr" id="ya"></bdo>
+<div class="gong" id="ya1">
+  <bdo dir="ltr" id="ya"></bdo>
+</div>
 
 <script>
   inn = document.getElementById("dahao");
@@ -70,19 +79,20 @@ function ruu() {
             if (cookdogging[cookdogging.length-1] != 'a' && cookdogging[cookdogging.length-1] != 'e' && cookdogging[cookdogging.length-1] != 'i' && cookdogging[cookdogging.length-1] != 'o' && cookdogging[cookdogging.length-1] != 'u') {
               cookdogging += document.getElementById("final").value;
             }
-  plaintoarray();
   switch(document.getElementById("langsel").value) {
-    case "text":  arraytoromani();break;
-    case "cypriot": 
-  arraytocypher();break;
-    case "japan":
-  arraytoyobi();break;
-    case "china": 
-  arraytomgoisai(); break;
+    case "text":  plaintoarray(); arraytoromani();break;
+    case "cypriot": plaintoarray(); arraytocypher();break;
+    case "japan": plaintoarray(); arraytoyobi();break;
+    case "china": plaintoarray(); arraytomgoisai(); break;
+    case "french": arraytofrance(); break;
+    case "gay": arraytomicasa(); break;
+    case "russian": arraytovodka(); break;
+    case "brainrot": arraytoskibidi(); break;
   default: console.log(document.getElementById("langsel").value); break;
     //case "france": break; (add random accent markers)
   }
   localStorage.savedtranslation1 = document.getElementById('dahao').value;
+  document.getElementById('ya1').scrollTop = document.getElementById('ya1').scrollHeight;
 }
 
 function plaintoarray() {
@@ -117,14 +127,129 @@ function plaintoarray() {
   console.log(oututut);
 }
 function arraytoromani() {
-  outut.innerText += "\n";
+  outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
   for (var i=0; i<oututut.length; i++) {
     outut.innerText += oututut[i] + "-";
     outut.innerText=outut.innerText.replace('*','');
   }localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
+function arraytofrance() {
+ let accents = "eéèê aàâæ oôœ  iï   uü   cç   ";
+ let accentsCapital = "EÉÈÊ AÀÂÆ OÔŒ  IÏ   Uü   CÇ   ";
+ let glovedrink = inn.value;
+ let glovedrink_1 = "";
+  outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
+  for (var i=0; i<glovedrink.length; i++) {
+    switch (glovedrink[i]) {
+      case "a":
+      outut.innerText += accents[5+Math.floor(Math.random() * 4)];
+      break;
+      case "e":
+      outut.innerText += accents[Math.floor(Math.random() * 4)];
+      break;
+      case "i":
+      outut.innerText += accents[15+Math.floor(Math.random() * 2)];
+      break;
+      case "o":
+      outut.innerText += accents[10+Math.floor(Math.random() * 3)];
+      break;
+      case "c":
+      outut.innerText += accents[25+Math.floor(Math.random() * 2)];
+      break;
+      case "A":
+      outut.innerText += accentsCapital[5+Math.floor(Math.random() * 4)];
+      break;
+      case "E":
+      outut.innerText += accentsCapital[Math.floor(Math.random() * 5)];
+      break;
+      case "I":
+      outut.innerText += accentsCapital[15+Math.floor(Math.random() * 2)];
+      break;
+      case "O":
+      outut.innerText += accentsCapital[10+Math.floor(Math.random()* 3) ];
+      break;
+      case "C":
+      outut.innerText += accentsCapital[25+Math.floor(Math.random() * 2)];
+      break;
+      case " ": outut.innerText += " ​"; break;
+      default: outut.innerText += glovedrink[i]; break;
+      
+    }
+  }
+  if (glovedrink[glovedrink.length-1] != "s" || glovedrink[glovedrink.length-1] != "e" || glovedrink[glovedrink.length-1] != "." || glovedrink[glovedrink.length-1] != "," || glovedrink[glovedrink.length-1] != ";" || glovedrink[glovedrink.length-1] != ":" || glovedrink[glovedrink.length-1] != "\"" || glovedrink[glovedrink.length-1] != "?") {
+    outut.innerText += accents[Math.floor(Math.random() * 4)];
+  }
+ localStorage.savedtranslation2 = document.getElementById('ya').innerText;
+}
+function arraytovodka() {
+ let accents = "eéèê aàâæ oôœ  iï   uü   cç   ";
+ let accentsCapital = "EÉÈÊ AÀÂÆ OÔŒ  IÏ   Uü   CÇ   ";
+ let glovedrink = inn.value;
+ let glovedrink_1 = "";
+  outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
+  for (var i=0; i<glovedrink.length; i++) {
+    switch (glovedrink[i]) {
+
+      case "c":
+      outut.innerText += accents[25+Math.floor(Math.random() * 2)];
+      break;
+
+      case "C":
+      outut.innerText += accentsCapital[25+Math.floor(Math.random() * 2)];
+      break;
+
+      case "r":
+      outut.innerText += "я";
+      break;
+
+      case "R":
+      outut.innerText += "Я";
+      break;
+
+      case "x":
+      outut.innerText += "ж";
+      break;
+
+      case "X":
+      outut.innerText += "Ж";
+      break;
+
+      case "d":
+      outut.innerText += "д";
+      break;
+
+      case "D":
+      outut.innerText += "Д";
+      break;
+
+      case " ": outut.innerText += " ​"; break;
+      default: outut.innerText += glovedrink[i]; break;
+      
+    }
+  }
+  outut.innerText += " vodka blyat";
+ localStorage.savedtranslation2 = document.getElementById('ya').innerText;
+}
+function arraytoskibidi() {
+ let wurds = ["🥀", "🪑", "🚡", "🗿", "💀", "farming", "-maxxing", "mogging", "alpha", "aura", "brainrot", "-core", "crashout", "fanum tax", "goofy", "ahh", "grind", "grindset", "gyatt", "chill guy", "looks", "sigma", "rizz", "skibidi", "67", "slop", "algospeak", "cooked", "italian", "demure", "delulu", "points", "negative", "W", "L", "beta", "gooning", "goon", "-maxx", "-pilled", "mewing", "giga", "doomscrolling", "sybau", "ts", "fr", "pmo", "icl", "ngl", "glazing", "meatriding", "bootlicking", "ohio", "mango", "function", "baby gronk", "cuh", "ADHD", "atp", "js", "sm", "rn", "fr", "cooked", "bussing", "mad lit fr bro ong", "vro"];
+ let glovedrink = inn.value;
+ let glovedrink_1 = "";
+  outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
+  for (var i=0; i<glovedrink.length; i++) {
+    switch (glovedrink[i]) {
+
+      case " ": outut.innerText += " ​"; if (Math.random() < 0.25) {
+        outut.innerText += wurds[Math.floor(Math.random() * 67)] + " ​";
+      } break;
+      default: outut.innerText += glovedrink[i]; break;
+      
+    }
+  }
+  outut.innerText += wurds[Math.floor(Math.random() * 5)];
+ localStorage.savedtranslation2 = document.getElementById('ya').innerText;
+}
 function arraytocypher() {
-    outut.innerText += "\n";
+    outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
   for (var i=0; i<oututut.length; i++) {
     switch (oututut[i]) {
       case "*a": outut.innerText += "𐠀"; break;
@@ -232,7 +357,7 @@ function arraytocypher() {
   }localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 function arraytoyobi() {
-    outut.innerText += "\n";
+    outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
   for (var i=0; i<oututut.length; i++) {
     switch (oututut[i]) {
       case "*a": outut.innerText += "あ"; break;
@@ -374,7 +499,7 @@ function arraytoyobi() {
   }localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 function arraytomgoisai() {
-    outut.innerText += "\n";
+    outut.innerText += "\n" + document.getElementById('dahao').value + " ➡️\n";
   for (var i=0; i<oututut.length; i++) {
     switch (oututut[i]) {
       case "*a": outut.innerText += "啊"; break;
@@ -514,6 +639,7 @@ function arraytomgoisai() {
   localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 </script>
+
 
 
 

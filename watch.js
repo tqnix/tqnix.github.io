@@ -23,7 +23,6 @@ var indexingshouldhopefullyworkwiththis = [//numbers
 [{"w":3,"l":1,"x":1,"y":0},{"w":1,"l":2,"x":0,"y":1},{"w":1,"l":4,"x":4,"y":1},{"w":4,"l":1,"x":1,"y":3},{"w":1,"l":1,"x":4,"y":4},{"w":1,"l":1,"x":3,"y":5},{"w":2,"l":1,"x":1,"y":6},{"w":1,"l":1,"x":2,"y":6}],
 
 ];
-charDice = [{'w':1,'l':1,'x':0,'y':1},{'w':1,'l':1,'x':4,'y':1},{'w':1,'l':1,'x':2,'y':3},{'w':1,'l':1,'x':0,'y':5},{'w':1,'l':1,'x':4,'y':5},];
 var DiceTypes = [
     {"max":2,"icon":[{'w':1,'l':3,'x':0,'y':0},{'w':1,'l':3,'x':2,'y':0},{'w':2,'l':1,'x':1,'y':1},{'w':3,'l':1,'x':2,'y':4},{'w':1,'l':2,'x':3,'y':5},]},
     {"max":4,"icon":[{'w':5,'l':1,'x':0,'y':0},{'w':1,'l':1,'x':1,'y':2},{'w':1,'l':1,'x':3,'y':2},{'w':1,'l':1,'x':1,'y':4},{'w':1,'l':1,'x':3,'y':4},{'w':5,'l':1,'x':0,'y':6},]},
@@ -35,19 +34,18 @@ var DiceTypes = [
     {"max":100,"icon":[{'w':5,'l':1,'x':0,'y':0},{'w':1,'l':2,'x':1,'y':1},{'w':5,'l':1,'x':0,'y':2},{'w':1,'l':4,'x':0,'y':3},{'w':1,'l':4,'x':4,'y':3},{'w':2,'l':1,'x':1,'y':4},{'w':4,'l':1,'x':1,'y':6},]},
 ];
 charArrowUp = [{'w':1,'l':2,'x':2,'y':0},{'w':3,'l':1,'x':1,'y':1},{'w':2,'l':1,'x':0,'y':2},{'w':2,'l':1,'x':3,'y':2},{'w':1,'l':1,'x':0,'y':3},{'w':1,'l':1,'x':4,'y':3},];
-charCalc = [{"x":1,"y":1,"w":1,"l":3},{"x":0,"y":2,"w":3,"l":1},{"x":2,"y":5,"w":3,"l":1}]
-charClock = [{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':3,'x':0,'y':2},{'w':1,'l':2,'x':2,'y':2},{'w':1,'l':3,'x':4,'y':2},{'w':2,'l':1,'x':3,'y':3},{'w':3,'l':1,'x':1,'y':5},]
-charD = [{"x":0,"y":1,"w":4,"l":1},{"x":1,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":3},{"x":0,"y":5,"w":4,"l":1}]
-charS = [{"x":1,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":0,"y":5,"w":4,"l":1}]
-charT = [{"x":0,"y":1,"w":5,"l":1},{"x":2,"y":2,"w":1,"l":4}]
-charR = [{"x":0,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":2}]
-charA = [{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":4},{"x":1,"y":3,"w":4,"l":1}]
-charL = [{"x":0,"y":1,"w":1,"l":5},{"x":1,"y":5,"w":4,"l":1}]
-charC = [{"x":1,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":3},{"x":1,"y":5,"w":4,"l":1}]
-charAlarm = [{"x":2,"y":1,"w":1,"l":5},{"x":1,"y":2,"w":3,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":0,"y":4,"w":5,"l":1}]
-charPM = [{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':4,'x':1,'y':2},{'w':1,'l':2,'x':3,'y':2},{'w':2,'l':1,'x':2,'y':3},];
-charAM = [{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':4,'x':1,'y':2},{'w':1,'l':4,'x':3,'y':2},{'w':2,'l':1,'x':2,'y':3},];
+charCalc = [{"x":1,"y":1,"w":1,"l":3},{"x":0,"y":2,"w":3,"l":1},{"x":2,"y":5,"w":3,"l":1}];
+charClock = [{'w':3,'l':1,'x':1,'y':1},{'w':1,'l':3,'x':0,'y':2},{'w':1,'l':2,'x':2,'y':2},{'w':1,'l':3,'x':4,'y':2},{'w':2,'l':1,'x':3,'y':3},{'w':3,'l':1,'x':1,'y':5},];
+charD = [{"x":0,"y":1,"w":4,"l":1},{"x":1,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":3},{"x":0,"y":5,"w":4,"l":1}];
+charS = [{"x":1,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":0,"y":5,"w":4,"l":1}];
+charT = [{"x":0,"y":1,"w":5,"l":1},{"x":2,"y":2,"w":1,"l":4}];
+charR = [{"x":0,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":4,"y":4,"w":1,"l":2}];
+charA = [{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":4},{"x":4,"y":2,"w":1,"l":4},{"x":1,"y":3,"w":4,"l":1}];
+charL = [{"x":0,"y":1,"w":1,"l":5},{"x":1,"y":5,"w":4,"l":1}];
+charC = [{"x":1,"y":1,"w":4,"l":1},{"x":0,"y":2,"w":1,"l":3},{"x":1,"y":5,"w":4,"l":1}];
+charAlarm = [{"x":2,"y":1,"w":1,"l":5},{"x":1,"y":2,"w":3,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":0,"y":4,"w":5,"l":1}];
 charColon = [{'w':1,'l':1,'x':2,'y':2},{'w':1,'l':1,'x':2,'y':5},];
+charHyphen = [{'w':3,'l':1,'x':1,'y':3},];
 charBlank = [];
 charU = [{'w':1,'l':4,'x':0,'y':1},{'w':1,'l':4,'x':4,'y':1},{'w':3,'l':1,'x':1,'y':5},];
 charN = [{'w':1,'l':5,'x':0,'y':1},{'w':1,'l':5,'x':4,'y':1},{'w':1,'l':1,'x':1,'y':2},{'w':1,'l':1,'x':2,'y':3},{'w':2,'l':1,'x':3,'y':4},];
@@ -90,6 +88,29 @@ charList = [
 [{"x":0,"y":1,"w":5,"l":1},{"x":4,"y":2,"w":1,"l":1},{"x":3,"y":3,"w":1,"l":1},{"x":2,"y":4,"w":1,"l":2}],
 [{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":4,"y":2,"w":1,"l":1},{"x":1,"y":3,"w":3,"l":1},{"x":0,"y":4,"w":1,"l":1},{"x":4,"y":4,"w":1,"l":1},{"x":1,"y":5,"w":3,"l":1}],
 [{"x":1,"y":1,"w":3,"l":1},{"x":0,"y":2,"w":1,"l":1},{"x":4,"y":2,"w":1,"l":3},{"x":1,"y":3,"w":4,"l":1},{"x":1,"y":5,"w":3,"l":1}],
+];
+DaysOfTheWeek = [
+	"SUN",
+	"MON",
+	"TUE",
+	"WED",
+	"THU",
+	"FRI",
+	"SAT",
+];
+Montoies = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
 ];
 
     canvas = document.getElementById("canvas");
@@ -141,9 +162,8 @@ function Draw(char,fonttype,x,y) {
     }
     
     switch(char) {
-      case "P":ActuallyDraw(charPM,x,y);break;
-      case "A":ActuallyDraw(charAM,x,y);break;
       case " ":ActuallyDraw(charBlank,x,y);break;
+      case "-":ActuallyDraw(charHyphen,x,y);break;
       case ":": ActuallyDraw(charColon,x,y);break;
       default:
       ActuallyDraw(indexingshouldhopefullyworkwiththis[char],x,y);
@@ -158,6 +178,8 @@ function ActuallyDraw(char0,q,b) {
 }
 function DrawLetters(word,x,y) {
 	for (var t = 0; t<word.length; t++) {
+    ctx.fillStyle = "#d8e0d0";
+		ctx.fillRect(x+(150*t),y,125,175);
     //ctx.fillRect(x-25+(150*t),y,175,175);
 		ActuallyDraw(charList[word.charCodeAt(t)-64],x+(150*t),y);
 	}
@@ -172,7 +194,7 @@ function btnPressed(btn) {
     Update();
 }
 function SwitchModes() {
-    if (mode == "time") {mode = "stopwatch";} 
+    if (mode == "time" || mode == "date") {mode = "stopwatch";} 
     else if (mode == "stopwatch") {mode = "interval";} 
     else if (mode == "interval") {mode = "counter";} 
     else if (mode == "counter") {mode = "debug";} 
@@ -195,6 +217,11 @@ function DoWhateverButton1Does() {
     }
 }
 function DoWhateverButton2Does() {
+	if (mode == "time") {
+		mode = "date";
+	} else if (mode == "date") {
+		mode = "time";
+	}
     if (mode == "stopwatch") {
             if (stopwatch_started) {
                stopwatch_time_elapsed += Date.now() - stopwatch_time_start;
@@ -330,7 +357,7 @@ function DrawAnalogClock() {
 	        ctx.arc(800,700,375, 0, 2 * Math.PI);
             ctx.fill();
 
-            for (i=0; i<=IsolatePlaceValue(stopwatch_time,720,false)%60; i+=1) {
+            for (i=0; i<=IsolatePlaceValue(stopwatch_time,720,false)%60; i+=0.5) {
             ctx.beginPath();
             ctx.moveTo(800,700);
             ctx.lineTo(P2R(350,aazai(i,0,60)).x+800,P2R(350,aazai(i,0,60)).y+700);ctx.stroke();
@@ -354,8 +381,40 @@ function ShowTime() {
     }
     switch (mode) {
         case "time": 
-         
-        Draw(":","dotmatrix_short",600+50,1175);
+         Draw(":","dotmatrix_short",600+50,1175);
+        Draw(":","dotmatrix_short",950+50,1175);
+        if (time_24h) {
+            Draw(" ","dotmatrix",200,1200);
+            Draw(10+IsolatePlaceValue(doug.getHours(),10,true),"dotmatrix",350+50,1175);
+            Draw(10+IsolatePlaceValue(doug.getHours(),1,true),"dotmatrix",500+50,1175);
+        } else {
+             if (AMPM(doug.getHours()).pm) {
+                DrawLetters("P",225,1200);
+            } else {
+                DrawLetters("A",225,1200);
+            }
+            Draw(10+IsolatePlaceValue(AMPM(doug.getHours()).hour,10,true),"dotmatrix",350+50,1175);
+            Draw(10+IsolatePlaceValue(AMPM(doug.getHours()).hour,1,true),"dotmatrix",500+50,1175);
+        }
+            Draw(10+IsolatePlaceValue(doug.getMinutes(),10,true),"dotmatrix",700+50,1175);
+            Draw(10+IsolatePlaceValue(doug.getMinutes(),1,true),"dotmatrix",850+50,1175);
+            break;
+			case "date": 
+            ActuallyDraw(charClock,250,225);
+      Draw(IsolatePlaceValue(doug.getFullYear(),1000,true),"dotmatrix",250,525);
+     Draw(IsolatePlaceValue(doug.getFullYear(),100,true),"dotmatrix",400,525);
+      Draw(IsolatePlaceValue(doug.getFullYear(),10,true),"dotmatrix",550,525);
+      Draw(IsolatePlaceValue(doug.getFullYear(),1,true),"dotmatrix",700,525);
+            DrawLetters(DaysOfTheWeek[doug.getDay()],900+50,1200-400);
+            Draw("-","dotmatrix_short",525,1175-400);
+
+            Draw(10+IsolatePlaceValue(doug.getMonth()+1,10,true),"dotmatrix",200+50,1175-400);
+            Draw(10+IsolatePlaceValue(doug.getMonth()+1,1,true),"dotmatrix",350+50,1175-400);
+            
+            Draw(10+IsolatePlaceValue(doug.getDate(),10,true),"dotmatrix",600+50,1175-400);
+            Draw(10+IsolatePlaceValue(doug.getDate(),1,true),"dotmatrix",750+50,1175-400);
+            //time
+            Draw(":","dotmatrix_short",600+50,1175);
         Draw(":","dotmatrix_short",950+50,1175);
         if (time_24h) {
             Draw(" ","dotmatrix",200,1200);
@@ -445,6 +504,10 @@ function ShowTime() {
 function UpdateFast() {
     switch(mode) {
         case "time": 
+            Draw(IsolatePlaceValue(doug.getSeconds(),10,true),"dotmatrix",1050+50,1200);
+            Draw(IsolatePlaceValue(doug.getSeconds(),1,true),"dotmatrix",1200+50,1200);
+            break;
+        case "date": 
             Draw(IsolatePlaceValue(doug.getSeconds(),10,true),"dotmatrix",1050+50,1200);
             Draw(IsolatePlaceValue(doug.getSeconds(),1,true),"dotmatrix",1200+50,1200);
             break;
@@ -558,3 +621,4 @@ function ManualIncrementTime(s) {
     stopwatch_time_start = Date.now();
     stopwatch_time = timer_interval_sets[timer_interval_ct];
 }
+

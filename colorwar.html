@@ -104,11 +104,13 @@ document.getElementById("gameinfodisp").innerHTML +="<br>TURN: " + thingis[playe
 }
 function addis_ababa(q) {
   
-  if (color[q] == 0 || color[q] == players_list[player]) {
+  if (color[q] == 0 && turn == 1) {
+    data[q] = 3;
+    color[q] = players_list[player];
+  }
+   if (color[q] == players_list[player] && turn > 1) {
     data[q]++;
     color[q] = players_list[player];
-    
-  
   }
   for (iw=0; iw<(size);iw++) {
     for (i=0; i<(size*size);i++) {

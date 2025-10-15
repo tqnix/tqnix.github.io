@@ -13,15 +13,28 @@
       transition: 200ms;
     }
     button {
-      font-size: 4vmin;
-      padding: 1.5vmin 2.5vmin;
-      border-radius: 2px;
+      font-size: 5vmin;
+      padding: 1.5vmin 3vmin;
+      border-radius: 8px;
       margin: 2px;
+      opacity: 0.75;
+      transition: 100ms;
+    }
+    .small {
+      font-size: 3.75vmin;
+      padding: .5vmin 1.5vmin;
+    }
+    button:hover {
+      -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 
+    box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73);
+    }
+    .you {
+      opacity: 1;
     }
     input {
-      font-size: 4vmin;
-      padding: 0.5vmin 2.5vmin;
-      border-radius: 2px;
+      font-size: 2vmin;
+      padding: 0.5vmin 1vmin;
+      border-radius: 8px;
       margin: 2px;
     }
     .a {
@@ -37,12 +50,11 @@
       background-color: #ffaf3f;
     }
     .e {
-      font-weight: bold;
-      color: red;
+      background-color: #ff7fff;
     }
     .f {
       font-weight: bold;
-      color: blue;
+      color: red;
     }
     .g {
       font-weight: bold;
@@ -50,16 +62,22 @@
     }
     .h {
       font-weight: bold;
-      color: orange;
+      color: blue;
+    }
+    .almost {
+      
+      outline: 3px solid white;
     }
   </style>
 </head>
     
- <button class="navbutton" onclick="window.open('index.html')">◀️Back</button><br>
-<div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu<br>
-  PLAYERS:<input id=a placeholder="players" value="2"></input><br>
-  BOARD SIZE:<input id=b placeholder="board size" value="5"></input><br>
-   <button onclick="clear()"></button>
+ <button class="navbutton almost" onclick="window.open('index.html')">◀️Back</button><br>
+<div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu.<br>
+  PLAYERS:<input id=a placeholder="players (1-8)" value="2"></input><br>
+  BOARD SIZE:<input id=b placeholder="board size (1-14)" value="7"></input><br>
+  SPREAD REQ:<input id=c placeholder="2-3: fast, 4: normal, 5-9: slower" value="4"></input><br>
+   <button class="almost small" id="start_buiton" onclick="clear();">NEW GAME</button>
+   <button class="almost small" id="sipit_buiton" onclick="clear();">SKIP TURN</button>
   <p id="gameinfodisp">GAME INFO:</p>
 </div>
 <div id="gameplay"></div>
@@ -71,14 +89,26 @@
       "BLUE",
       "GREEN",
       "ORANGE",
-      "PLAYER 5",
-      "PLAYER 6",
-      "PLAYER 7",
-      "PLAYER 8"
+      "PINK",
+      "RED TEXT",
+      "GREEN TEXT",
+      "BLUE TEXT",
+   ];
+   const thingis_backgrounds = [
+      "dummy",
+      "#bf0000",
+      "#003fcf",
+      "#00cf00",
+      "#cf8f00",
+      "#af00af",
+      "#cf6030",
+      "#80cf80",
+      "#80afcf",
    ];
 size = 7;
 player = 1;
 players_max = 4;
+maxata = 5;
 var players_list = [];
 turn = 1;
 var color = [];
@@ -87,58 +117,69 @@ var flagged = [];
 clear();
 function draw() {
   arena.innerHTML = "";
+  goomba = "";
   for (i=0;i<size;i++) {
   for (j=0;j<size;j++){
     if (color[j+size*i] == 1) {
-      arena.innerHTML += "<button class=a onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'a ";
     } else if (color[j+size*i] == 2) {
-      arena.innerHTML += "<button class=b onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'b ";
     } else if (color[j+size*i] == 3) {
-      arena.innerHTML += "<button class=c onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'c ";
     } else if (color[j+size*i] == 4) {
-      arena.innerHTML += "<button class=d onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'d ";
     } else if (color[j+size*i] == 5) {
-      arena.innerHTML += "<button class=e onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'e ";
     } else if (color[j+size*i] == 6) {
-      arena.innerHTML += "<button class=f onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'f ";
     } else if (color[j+size*i] == 7) {
-      arena.innerHTML += "<button class=g onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'g ";
     } else if (color[j+size*i] == 8) {
-      arena.innerHTML += "<button class=h onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'h ";
     } else if (color[j+size*i] == 0) {
-      arena.innerHTML += "<button onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      goomba = "<button class=\'";
     }
+    if (data[j+size*i] >= maxata-1) {
+      goomba += "almost "
+    }
+    if (color[j+size*i] == players_list[[player]]) {
+      goomba += "you ";
+    }
+    if (size > 8) {
+      goomba += "small ";
+    }
+    arena.innerHTML += goomba + "\' onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
   }
   arena.innerHTML += "<br>";
 }
-document.getElementById("gameinfodisp").innerHTML = "PLAYERS:<br> ";
+document.getElementById("gameinfodisp").innerHTML = "PLAYERS: " + players_list.length + "<br>";
 for (i=0; i<players_list.length; i++) {
    document.getElementById("gameinfodisp").innerHTML += thingis[players_list[i]] + " | SCORE: " + scorecheck(i) + ",<br> ";
 }
-document.getElementById("gameinfodisp").innerHTML +="<strong>TURN: " + thingis[players_list[player]] + "</strong>";
+if (players_list.length > 1) {
+  document.getElementById("gameinfodisp").innerHTML +="<strong>TURN: " + thingis[players_list[player]] + "</strong>";
+} else {
+  document.getElementById("gameinfodisp").innerHTML +="<strong>" + thingis[players_list[player]] + " WINS!!!</strong>";
+}
 }
 function addis_ababa(q) {
-  
   if (color[q] == 0 && turn <= players_max) {
-    data[q] = 3;
+    data[q] = (maxata-1);
     color[q] = players_list[player];
-    for (iw=0; iw<(size);iw++) {
-    for (i=0; i<(size*size);i++) {
-      spread_check(i);
-      flagged[i] = 0;
-    }
-  }
   turn++;
     handleTurns();
   }
    if (color[q] == players_list[player] && turn > players_max) {
     data[q]++;
     color[q] = players_list[player];
-    for (iw=0; iw<(size);iw++) {
+    for (iw=0; iw<(size+1);iw++) {
     for (i=0; i<(size*size);i++) {
       spread_check(i);
+    }
+    for (i=0; i<(size*size);i++) {
       flagged[i] = 0;
     }
+    
   }
   turn++;
     handleTurns();
@@ -152,28 +193,12 @@ function handleTurns() {
   } else if (players_max > 1) {
     player = ((player+1)%players_list.length);
   }
-  if (players_list[player] == 1) {
-    document.body.style.background = "#ff2000";
-  } else if (players_list[player] == 4) {
-    document.body.style.background = "#ffaf00";
-  } else if (players_list[player] == 3) {
-    document.body.style.background = "#00ff00";
-  } else if (players_list[player] == 2) {
-    document.body.style.background = "#003fff";
-  } if (players_list[player] == 5) {
-    document.body.style.background = "#ff2000";
-  } else if (players_list[player] == 8) {
-    document.body.style.background = "#ffaf00";
-  } else if (players_list[player] == 7) {
-    document.body.style.background = "#00ff00";
-  } else if (players_list[player] == 6) {
-    document.body.style.background = "#003fff";
-  }
+  document.body.style.background = thingis_backgrounds[players_list[player]];
 
   draw();
 }
 function spread_check(q) {
-  if (data[q] >= 4) {
+  if (data[q] >= maxata) {
     flagged[q] = 1;
     add(q+1,q);
     add(q-1,q);
@@ -311,14 +336,27 @@ player = 0;
    players_list = [];
    turn = 1;
 players_max = ((parseInt(document.getElementById("a").value)-1)%8)+1;
-size = ((parseInt(document.getElementById("b").value)-1)%10)+1;
+size = ((parseInt(document.getElementById("b").value)-1)%14)+1;
+maxata = ((parseInt(document.getElementById("c").value)-2)%8)+2;
    
 for (i=1; i<=players_max; i++) {
    players_list.push(i);
 }
 draw();
+console.log(turn);
 }
+jae = document.getElementById("start_buiton");
+jae.addEventListener("click",function() {
 
+  clear();
+
+});
+jae2 = document.getElementById("sipit_buiton");
+jae2.addEventListener("click",function() {
+
+  handleTurns();
+
+});
 document.addEventListener("keydown",function() {
 if (event.code == "KeyC") {
   clear();
@@ -328,3 +366,14 @@ if (event.code == "KeyZ") {
 }
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+

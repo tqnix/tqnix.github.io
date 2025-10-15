@@ -9,13 +9,18 @@
        color: #000000;
         font-size:18px;
         padding:1.5%;
-        text-align: left;
         overflow: auto;
       transition: 200ms;
     }
     button {
       font-size: 4vmin;
       padding: 1.5vmin 2.5vmin;
+      border-radius: 2px;
+      margin: 2px;
+    }
+    input {
+      font-size: 4vmin;
+      padding: 0.5vmin 2.5vmin;
       border-radius: 2px;
       margin: 2px;
     }
@@ -32,21 +37,27 @@
       background-color: #ffaf3f;
     }
     .e {
+      font-weight: bold;
       color: red;
     }
     .f {
+      font-weight: bold;
       color: blue;
     }
     .g {
+      font-weight: bold;
       color: green;
     }
     .h {
+      font-weight: bold;
       color: orange;
     }
   </style>
 </head>
-<div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu
-   <button onclick="clear(); draw(); draw();">NEW GAME</button>
+<div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu<br>
+  PLAYERS:<input id=a placeholder="players" value="2"></input><br>
+  BOARD SIZE:<input id=b placeholder="board size" value="5"></input><br>
+   PRESS C FOR NEW GAME
   <p id="gameinfodisp">GAME INFO:</p>
 </div>
 <div id="gameplay"></div>
@@ -68,6 +79,10 @@ player = 1;
 players_max = 4;
 var players_list = [];
 turn = 1;
+var color = [];
+var data = [];
+var flagged = [];
+clear();
 function draw() {
   arena.innerHTML = "";
   for (i=0;i<size;i++) {
@@ -94,33 +109,39 @@ function draw() {
   }
   arena.innerHTML += "<br>";
 }
-document.getElementById("gameinfodisp").innerHTML = "PLAYERS: ";
+document.getElementById("gameinfodisp").innerHTML = "PLAYERS:<br> ";
 for (i=0; i<players_list.length; i++) {
-   document.getElementById("gameinfodisp").innerHTML += thingis[players_list[i]] + ", ";
+   document.getElementById("gameinfodisp").innerHTML += thingis[players_list[i]] + " | SCORE: " + scorecheck(i) + ",<br> ";
 }
-document.getElementById("gameinfodisp").innerHTML +="<br>TURN: " + thingis[players_list[player]];
+document.getElementById("gameinfodisp").innerHTML +="<strong>TURN: " + thingis[players_list[player]] + "</strong>";
 }
 function addis_ababa(q) {
   
   if (color[q] == 0 && turn <= players_max) {
     data[q] = 3;
     color[q] = players_list[player];
-  }
-   if (color[q] == players_list[player] && turn > players_max) {
-    data[q]++;
-    color[q] = players_list[player];
-  }
-  for (iw=0; iw<(size);iw++) {
+    for (iw=0; iw<(size);iw++) {
     for (i=0; i<(size*size);i++) {
       spread_check(i);
       flagged[i] = 0;
     }
   }
-  if (color[q] == 0 || color[q] == players_list[player]) {
-      turn++;
+  turn++;
     handleTurns();
   }
-  
+   if (color[q] == players_list[player] && turn > players_max) {
+    data[q]++;
+    color[q] = players_list[player];
+    for (iw=0; iw<(size);iw++) {
+    for (i=0; i<(size*size);i++) {
+      spread_check(i);
+      flagged[i] = 0;
+    }
+  }
+  turn++;
+    handleTurns();
+  }
+
   draw();
 }
 function handleTurns() {
@@ -137,7 +158,16 @@ function handleTurns() {
     document.body.style.background = "#00ff00";
   } else if (players_list[player] == 2) {
     document.body.style.background = "#003fff";
+  } if (players_list[player] == 5) {
+    document.body.style.background = "#ff2000";
+  } else if (players_list[player] == 8) {
+    document.body.style.background = "#ffaf00";
+  } else if (players_list[player] == 7) {
+    document.body.style.background = "#00ff00";
+  } else if (players_list[player] == 6) {
+    document.body.style.background = "#003fff";
   }
+
   draw();
 }
 function spread_check(q) {
@@ -153,17 +183,11 @@ function spread_check(q) {
   }
 }
 function outcheck() {
-  let squares = 0;
   let modificator = 0;
   for (b=0; b<players_list.length; b++) {
     if (turn > players_max) {
-    for (i=0; i<(size*size); i++) {
-      if (color[i] == players_list[b-modificator]) {
-        squares++;
-    }
-  }
   
-  if (squares <= 0) {
+  if (scorecheck(b) <= 0) {
     players_list = players_list.toSpliced((players_list.length+b)%players_list.length,1);
      //modificator++;
      console.log(b);
@@ -172,6 +196,15 @@ function outcheck() {
   }
   }
     //remove player
+}
+function scorecheck(bs) {
+  let squares = 0;
+    for (ba=0; ba<(size*size); ba++) {
+      if (color[ba] == players_list[bs]) {
+        squares++;
+    }
+  }
+  return squares;
 }
 function add(st,st1) {
   if (!flagged[st]) {
@@ -271,16 +304,17 @@ flagged = [
   0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,
 ];
-draw();
+
 player = 0;
    players_list = [];
    turn = 1;
-players_max = ((parseInt(prompt("# of players? (1-8)"))-1)%8)+1;
-size = ((parseInt(prompt("Board size (1-10)"))-1)%10)+1;
+players_max = ((parseInt(document.getElementById("a").value)-1)%8)+1;
+size = ((parseInt(document.getElementById("b").value)-1)%10)+1;
    
 for (i=1; i<=players_max; i++) {
    players_list.push(i);
 }
+draw();
 }
 
 document.addEventListener("keydown",function() {

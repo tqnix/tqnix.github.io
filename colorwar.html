@@ -46,6 +46,7 @@
   </style>
 </head>
 <div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu
+   <button onclick="clear(); draw(); draw();">NEW GAME</button>
   <p id="gameinfodisp">GAME INFO:</p>
 </div>
 <div id="gameplay"></div>
@@ -67,9 +68,6 @@ player = 1;
 players_max = 4;
 var players_list = [];
 turn = 1;
-clear();
-draw();
-draw();
 function draw() {
   arena.innerHTML = "";
   for (i=0;i<size;i++) {
@@ -275,9 +273,11 @@ flagged = [
 ];
 draw();
 player = 0;
+   players_list = [];
+   turn = 1;
 players_max = ((parseInt(prompt("# of players? (1-8)"))-1)%8)+1;
 size = ((parseInt(prompt("Board size (1-10)"))-1)%10)+1;
-   players_list = [];
+   
 for (i=1; i<=players_max; i++) {
    players_list.push(i);
 }

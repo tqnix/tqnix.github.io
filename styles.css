@@ -36,7 +36,7 @@
   width: 6969%
 }
 .fullwidth {
-  width: calc(100vmin - 20px);
+  width: calc(100vw - 20px);
 }
 .nameplate {
   float: left;
@@ -127,7 +127,7 @@ a {
   margin-bottom: 3px;
   display: inline-block;
     transition-duration: 200ms;
-  //z-index: -2000;
+  z-index: -2000;
 }
 .case_container:hover {
     -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 

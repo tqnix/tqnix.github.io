@@ -1,0 +1,261 @@
+<head>
+   <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+   <title>color war</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+        font-family: Arial;
+        background-color: #303036;
+        color: #ffffcd;
+        font-size:18px;
+        padding:1.5%;
+        text-align: left;
+        overflow: auto;
+      transition: 200ms;
+    }
+    button {
+      font-size: 4vh;
+      padding: 1.5vh 2.5vh;
+      border-radius: 2px;
+      margin: 2px;
+    }
+    .a {
+      color: red;
+    }
+    .b {
+      color: blue;
+    }
+    .c {
+      color: green;
+    }
+    .d {
+      color: orange;
+    }
+  </style>
+</head>
+<div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu
+  <p id="gameinfodisp">GAME INFO:</p>
+</div>
+<div id="gameplay"></div>
+<script>
+  arena = document.getElementById("gameplay");
+size = 7;
+player = 1;
+players_max = 4;
+turn = 1;
+var out = [0,0,0,0,0];
+clear();
+draw();
+draw();
+function draw() {
+  arena.innerHTML = "";
+  for (i=0;i<size;i++) {
+  for (j=0;j<size;j++){
+    if (color[j+size*i] == 1) {
+      arena.innerHTML += "<button class=a onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 2) {
+      arena.innerHTML += "<button class=b onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 3) {
+      arena.innerHTML += "<button class=c onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 4) {
+      arena.innerHTML += "<button class=d onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 0) {
+      arena.innerHTML += "<button onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    }
+  }
+  arena.innerHTML += "<br>";
+}
+document.getElementById("gameinfodisp").innerHTML = "GAME INFO: <br>RED ";
+if (out[1] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
+document.getElementById("gameinfodisp").innerHTML += "<br>BLUE ";
+if (out[2] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
+document.getElementById("gameinfodisp").innerHTML += "<br>GREEN ";
+if (out[3] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
+document.getElementById("gameinfodisp").innerHTML += "<br>ORANGE ";
+if (out[4] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
+}
+function addis_ababa(q) {
+  if (color[q] == 0 || color[q] == player) {
+    data[q]++;
+    color[q] = player;
+    turn++;
+    handleTurns();
+  
+  }
+  for (iw=0; iw<(size);iw++) {
+    for (i=0; i<(size*size);i++) {
+      spread_check(i);
+      flagged[i] = 0;
+    }
+  }
+  draw();
+}
+function handleTurns() {
+  let sel = 1;
+  for (i=0; i<7; i++) {
+    
+    if (out[((player)%players_max)+1] == 0) {
+      break;
+    } else {
+      player++;
+    }
+    if (((player)%players_max)+1 > players_max) {
+      player = 1;
+    }
+  }
+  if (players_max > 1) {
+    player = ((player)%players_max)+1;
+  }
+  if (player == 1) {
+    document.body.style.background = "#ff2000";
+  } else if (player == 4) {
+    document.body.style.background = "#ffaf00";
+  } else if (player == 3) {
+    document.body.style.background = "#00ff00";
+  } else if (player == 2) {
+    document.body.style.background = "#003fff";
+  }
+}
+function spread_check(q) {
+  if (data[q] >= 4) {
+    flagged[q] = 1;
+    add(q+1,q);
+    add(q-1,q);
+    add(q+size,q);
+    add(q-size,q);
+    data[q] = 0;
+    color[q]= 0;
+  }
+}
+function outcheck() {
+  let squares = 0;
+  for (b=1; b<5; b++) {
+    if (turn > players_max) {
+    for (i=0; i<(size*size); i++) {
+      if (color[i] == b) {
+        squares++;
+    }
+  }
+  if (squares == 0) {
+    out[b] = 1;
+    console.log(b);
+  }
+  squares = 0;
+  }
+  }
+    
+}
+function add(st,st1) {
+  if (!flagged[st]) {
+    data[st]++;
+    color[st] = color[st1];
+  }
+}
+function clear() {
+  turn = 1;
+  data = [
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+];  
+color = [
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+];
+flagged = [
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,
+];
+draw();
+player = 1;
+players_max = ((parseInt(prompt("# of players? (1-4)"))-1)%4)+1;
+size = ((parseInt(prompt("Board size (1-10)"))-1)%10)+1;
+out = [0,0,0,0,0];
+}
+
+document.addEventListener("keydown",function() {
+if (event.code == "KeyC") {
+  clear();
+}
+if (event.code == "KeyZ") {
+  handleTurns();
+}
+});
+</script>

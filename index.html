@@ -20,7 +20,7 @@
     <button class="navbutton clear" id="title_bottomtext" onclick="reroll()">uh oh the js isnt loading please dont panic</button><br><br>
     <div class="header">
 		<span class="bigtext">featured:</span><br>
-		<button id="seng-hoop-hide" onclick="hime()">hide</button><br>
+		<button id="seng-hoop-hide" onclick="hime()">Hide</button><br>
 		<div id="seng-hoop">
 		<div class="case_container"><a class="smalltext" href="hare.html"><iframe src="hare.html" height="640"></iframe><br>Hare (turtle ripoff)</a></div>
 		<div class="case_container"><a class="smalltext" href="watchsim.html"><iframe src="watchsim.html" height="640"></iframe><br>Digital Watch Simulator</a></div>
@@ -41,6 +41,7 @@ seecret_items = [
   {link:"ateji.html",na:"Translator (but badddddddddd)", e:0},
   {link:"buttonbros.html",na:"school project Circle Cropper", e:0},
   {link:"colormatis-patched.html",na:"Color Vomit Generator", e:0},
+  {link:"colorwar.html",na:"Color Wars", e:0},
   {link:"drau.html",na:"drawing app", e:0},
   {link:"dotmatrix.html",na:"Dot-matrix pixel format (press R)", e:0},
   {link:"hare.html",na:"Hare (turtle ripoff)", e:0},
@@ -72,7 +73,7 @@ function aintit() {
   activate();
 }
 function hime() {
-	if (document.getElementById("seng-hoop").style.display == "block") {
+	if (document.getElementById("seng-hoop").style.display != "none") {
 		document.getElementById("seng-hoop").style.display = "none";
 		document.getElementById("seng-hoop-hide").innerText = "Show";
 	} else {

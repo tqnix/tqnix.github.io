@@ -20,15 +20,27 @@
       margin: 2px;
     }
     .a {
-      color: red;
+      background-color: #ff5f5f;
     }
     .b {
-      color: blue;
+      background-color: #7f7fff;
     }
     .c {
-      color: green;
+      background-color: #7fff7f;
     }
     .d {
+      background-color: #ffaf3f;
+    }
+    .e {
+      color: red;
+    }
+    .f {
+      color: blue;
+    }
+    .g {
+      color: green;
+    }
+    .h {
       color: orange;
     }
   </style>
@@ -39,11 +51,22 @@
 <div id="gameplay"></div>
 <script>
   arena = document.getElementById("gameplay");
+   const thingis = [
+      "dummy",
+      "RED",
+      "BLUE",
+      "GREEN",
+      "ORANGE",
+      "PLAYER 5",
+      "PLAYER 6",
+      "PLAYER 7",
+      "PLAYER 8"
+   ];
 size = 7;
 player = 1;
 players_max = 4;
+var players_list = [];
 turn = 1;
-var out = [0,0,0,0,0];
 clear();
 draw();
 draw();
@@ -52,34 +75,39 @@ function draw() {
   for (i=0;i<size;i++) {
   for (j=0;j<size;j++){
     if (color[j+size*i] == 1) {
-      arena.innerHTML += "<button class=a onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      arena.innerHTML += "<button class=a onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
     } else if (color[j+size*i] == 2) {
-      arena.innerHTML += "<button class=b onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      arena.innerHTML += "<button class=b onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
     } else if (color[j+size*i] == 3) {
-      arena.innerHTML += "<button class=c onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      arena.innerHTML += "<button class=c onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
     } else if (color[j+size*i] == 4) {
-      arena.innerHTML += "<button class=d onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      arena.innerHTML += "<button class=d onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 5) {
+      arena.innerHTML += "<button class=e onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 6) {
+      arena.innerHTML += "<button class=f onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 7) {
+      arena.innerHTML += "<button class=g onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+    } else if (color[j+size*i] == 8) {
+      arena.innerHTML += "<button class=h onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
     } else if (color[j+size*i] == 0) {
-      arena.innerHTML += "<button onclick='outcheck();addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
+      arena.innerHTML += "<button onclick='addis_ababa(" + (j+size*i) +")'>" + data[j+size*i] + "</button>";
     }
   }
   arena.innerHTML += "<br>";
 }
-document.getElementById("gameinfodisp").innerHTML = "GAME INFO: <br>RED ";
-if (out[1] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
-document.getElementById("gameinfodisp").innerHTML += "<br>BLUE ";
-if (out[2] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
-document.getElementById("gameinfodisp").innerHTML += "<br>GREEN ";
-if (out[3] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
-document.getElementById("gameinfodisp").innerHTML += "<br>ORANGE ";
-if (out[4] == 1) {document.getElementById("gameinfodisp").innerHTML += "OUT"} else {document.getElementById("gameinfodisp").innerHTML += "IN"}
+document.getElementById("gameinfodisp").innerHTML = "PLAYERS: ";
+for (i=0; i<players_list.length; i++) {
+   document.getElementById("gameinfodisp").innerHTML += thingis[players_list[i]] + ", ";
+}
+document.getElementById("gameinfodisp").innerHTML +="<br>TURN: " + thingis[players_list[player]];
 }
 function addis_ababa(q) {
-  if (color[q] == 0 || color[q] == player) {
+  
+  if (color[q] == 0 || color[q] == players_list[player]) {
     data[q]++;
-    color[q] = player;
-    turn++;
-    handleTurns();
+    color[q] = players_list[player];
+    
   
   }
   for (iw=0; iw<(size);iw++) {
@@ -88,33 +116,29 @@ function addis_ababa(q) {
       flagged[i] = 0;
     }
   }
+  if (color[q] == 0 || color[q] == players_list[player]) {
+      turn++;
+    handleTurns();
+  }
+  
   draw();
 }
 function handleTurns() {
-  let sel = 1;
-  for (i=0; i<7; i++) {
-    
-    if (out[((player)%players_max)+1] == 0) {
-      break;
-    } else {
-      player++;
-    }
-    if (((player)%players_max)+1 > players_max) {
-      player = 1;
-    }
+  if (player > players_max - 1) {
+    player = 0;
+  } else if (players_max > 1) {
+    player = ((player+1)%players_list.length);
   }
-  if (players_max > 1) {
-    player = ((player)%players_max)+1;
-  }
-  if (player == 1) {
+  if (players_list[player] == 1) {
     document.body.style.background = "#ff2000";
-  } else if (player == 4) {
+  } else if (players_list[player] == 4) {
     document.body.style.background = "#ffaf00";
-  } else if (player == 3) {
+  } else if (players_list[player] == 3) {
     document.body.style.background = "#00ff00";
-  } else if (player == 2) {
+  } else if (players_list[player] == 2) {
     document.body.style.background = "#003fff";
   }
+  draw();
 }
 function spread_check(q) {
   if (data[q] >= 4) {
@@ -125,25 +149,29 @@ function spread_check(q) {
     add(q-size,q);
     data[q] = 0;
     color[q]= 0;
+    outcheck();
   }
 }
 function outcheck() {
   let squares = 0;
-  for (b=1; b<5; b++) {
+  let modificator = 0;
+  for (b=0; b<players_list.length; b++) {
     if (turn > players_max) {
     for (i=0; i<(size*size); i++) {
-      if (color[i] == b) {
+      if (color[i] == players_list[b-modificator]) {
         squares++;
     }
   }
-  if (squares == 0) {
-    out[b] = 1;
-    console.log(b);
+  
+  if (squares <= 0) {
+    players_list = players_list.toSpliced((players_list.length+b)%players_list.length,1);
+     //modificator++;
+     console.log(b);
   }
   squares = 0;
   }
   }
-    
+    //remove player
 }
 function add(st,st1) {
   if (!flagged[st]) {
@@ -244,10 +272,13 @@ flagged = [
   0,0,0,0,0,0,0,
 ];
 draw();
-player = 1;
-players_max = ((parseInt(prompt("# of players? (1-4)"))-1)%4)+1;
+player = 0;
+players_max = ((parseInt(prompt("# of players? (1-8)"))-1)%8)+1;
 size = ((parseInt(prompt("Board size (1-10)"))-1)%10)+1;
-out = [0,0,0,0,0];
+   players_list = [];
+for (i=1; i<=players_max; i++) {
+   players_list.push(i);
+}
 }
 
 document.addEventListener("keydown",function() {

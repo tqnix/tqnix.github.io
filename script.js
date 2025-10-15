@@ -49,6 +49,7 @@ seecret_items = [
   {link:"ateji.html",na:"Translator (but badddddddddd)", e:0},
   {link:"buttonbros.html",na:"Button Brothers Circle Cropper", e:0},
   {link:"colormatis-patched.html",na:"Color Vomit Generator", e:0},
+{link:"colorwar.html",na:"Color Wars", e:0},
   {link:"drau.html",na:"drawing app", e:0},
   {link:"watchsim.html",na:"Dot-matrix pixel format (press R)", e:0},
   {link:"hotkeypractice.html",na:"Hotkey switching practice", e:0},

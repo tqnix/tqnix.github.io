@@ -516,11 +516,11 @@ function ShowTime() {
         case "back":
             ActuallyDraw(charCalc,250,225);
             DrawLetters("PRESS",250,225+150);
-            DrawLetters("ANY",400,225+300));
-            DrawLetters("BUTTON",400,225+450));
-            DrawLetters("TO",400,225+600));
-            DrawLetters("GO",400,225+750));
-            DrawLetters("BACK",400,225+900));
+            DrawLetters("ANY",400,225+300);
+            DrawLetters("BUTTON",400,225+450);
+            DrawLetters("TO",400,225+600);
+            DrawLetters("GO",400,225+750);
+            DrawLetters("BACK",400,225+900);
         break;
     }
 }

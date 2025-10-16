@@ -44,7 +44,7 @@
       background-color: #7f7fff;
     }
     .c {
-      background-color: #7fff7f;
+      background-color: #4fff4f;
     }
     .d {
       background-color: #ffaf3f;
@@ -116,6 +116,7 @@ var data = [];
 var flagged = [];
 clear();
 function draw() {
+  document.body.style.background = thingis_backgrounds[players_list[player]];
   arena.innerHTML = "";
   goomba = "";
   for (i=0;i<size;i++) {
@@ -162,38 +163,64 @@ if (players_list.length > 1) {
   document.getElementById("gameinfodisp").innerHTML +="<strong>" + thingis[players_list[player]] + " WINS!!!</strong>";
 }
 }
+
+timingston = 0;
+timingFlag = 0;
+
 function addis_ababa(q) {
   if (color[q] == 0 && turn <= players_max) {
     data[q] = (maxata-1);
     color[q] = players_list[player];
-  turn++;
+    turn++;
     handleTurns();
-  }
-   if (color[q] == players_list[player] && turn > players_max) {
+  } else if (color[q] == players_list[player] && turn > players_max) {
     data[q]++;
     color[q] = players_list[player];
-    for (iw=0; iw<(size+1);iw++) {
     for (i=0; i<(size*size);i++) {
-      spread_check(i);
+        if (data[i] >= maxata) {
+          s = setInterval(gruau,250);
+      }
     }
-    for (i=0; i<(size*size);i++) {
-      flagged[i] = 0;
+    if (timingston > 5) {
+      clearInterval(s);
+      timingston = 0;
     }
-    
-  }
-  turn++;
+    turn++;
     handleTurns();
   }
-
+  
+  if (player > players_list.length-1) {
+      player = 0;
+    }
   draw();
 }
+function gruau() {
+  timingston++;
+    for (i=0; i<(size*size);i++) {
+      
+      if (spread_check(i,0)) {
+        timingFlag = true;
+      }
+      if (timingFlag) {
+        timingFlag = false;
+        draw();
+        return 0;
+      }
+      flagged[i] = 0;
+      
+    }
+    if (!timingFlag || timingston > 5) {
+      timingston = 0;
+      clearInterval(s);
+    }
+    draw();
+}
 function handleTurns() {
-  if (player > players_max - 1) {
+  if (player > players_max - 1 || player > players_list.length-1) {
     player = 0;
   } else if (players_max > 1) {
     player = ((player+1)%players_list.length);
   }
-  document.body.style.background = thingis_backgrounds[players_list[player]];
 
   draw();
 }
@@ -207,7 +234,9 @@ function spread_check(q) {
     data[q] = 0;
     color[q]= 0;
     outcheck();
+    return 1;
   }
+  return 0;
 }
 function outcheck() {
   let modificator = 0;
@@ -216,8 +245,9 @@ function outcheck() {
   
   if (scorecheck(b) <= 0) {
     players_list = players_list.toSpliced((players_list.length+b)%players_list.length,1);
-     //modificator++;
-     console.log(b);
+    if (player > players_list.length - 1) {
+      player = 0;
+    }
   }
   squares = 0;
   }
@@ -235,12 +265,18 @@ function scorecheck(bs) {
 }
 function add(st,st1) {
   if (!flagged[st]) {
-    data[st]++;
+    data[st] += (data[st1]-maxata+1);
+
     color[st] = color[st1];
   }
 }
 function clear() {
   turn = 1;
+  timingston = 0;
+  var s;
+  if (s != null) {
+    clearInterval(s);
+  }
   data = [
   0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,

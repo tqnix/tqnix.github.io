@@ -196,12 +196,18 @@ function btnPressed(btn) {
 function SwitchModes() {
     if (mode == "time" || mode == "date") {mode = "stopwatch";} 
     else if (mode == "stopwatch") {mode = "interval";} 
-    else if (mode == "interval") {mode = "counter";} 
-    else if (mode == "counter") {mode = "debug";} 
+    else if (mode == "interval") {mode = "counter";} //worldtime before counter
+    else if (mode == "counter") {mode = "debug";} //databank later
     else if (mode == "debug") {mode = "dice";} 
+    else if (mode == "dice") {mode = "back";}
     else {mode = "time";}
 }
 function DoWhateverButton1Does() {
+
+    if (mode == "back") {
+        window.open('index.html');
+    }
+
     if (mode == "interval") {
     timer_interval_ct = (timer_interval_ct+1)%timer_interval_sets.length;
     stopwatch_time_start = timer_interval_sets[timer_interval_ct];
@@ -217,32 +223,40 @@ function DoWhateverButton1Does() {
     }
 }
 function DoWhateverButton2Does() {
+
+if (mode == "back") {
+    window.open('index.html');
+}
+
 	if (mode == "time") {
 		mode = "date";
 	} else if (mode == "date") {
 		mode = "time";
-	}
-    if (mode == "stopwatch") {
+	} else if (mode == "stopwatch") {
             if (stopwatch_started) {
                stopwatch_time_elapsed += Date.now() - stopwatch_time_start;
             } else {
                 stopwatch_time_start = Date.now();
             }
             stopwatch_started = !stopwatch_started;
-        } else if (mode == "interval") {
+    } else if (mode == "interval") {
             if (stopwatch_started) {
                stopwatch_time_elapsed += Date.now() - stopwatch_time_start;
             } else {
                 stopwatch_time_start = Date.now();
             }
             stopwatch_started = !stopwatch_started;
-        } else if (mode == "counter" || mode == "debug") {
+    } else if (mode == "counter" || mode == "debug") {
             scrolltest[counter_pos]++;
-        } else if (mode == "dice") {
+    } else if (mode == "dice") {
             dice_trigger = true;
-        }
+    }
 }
 function DoWhateverButton4Does() {
+
+    if (mode == "back") {
+    window.open('index.html');
+    }
 
     if (mode == "counter" || mode == "debug") {
         scrolltest[counter_pos]--;
@@ -498,6 +512,15 @@ function ShowTime() {
             for (i=0; i<7; i++) {
               ActuallyDraw(charList[(34+i+scrolltest[0])%37],225+150*i,475+150*5);
             }
+        break;
+        case "back":
+            ActuallyDraw(charCalc,250,225);
+            DrawLetters("PRESS",250,225+150);
+            DrawLetters("ANY",400,225+300));
+            DrawLetters("BUTTON",400,225+450));
+            DrawLetters("TO",400,225+600));
+            DrawLetters("GO",400,225+750));
+            DrawLetters("BACK",400,225+900));
         break;
     }
 }

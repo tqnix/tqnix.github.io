@@ -322,7 +322,6 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms || 1000));
 }
 function scrolloutput() {
-  ;
   document.getElementById('output').scrollTop = document.getElementById('output').scrollHeight;
 }
 function drau() {
@@ -505,7 +504,7 @@ function generate_fun_box() {
   }
 }
 function toggle_fun_box() {
-  if (document.getElementById("magic_mike_fun_box").style.display == "block") {
+  if (document.getElementById("magic_mike_fun_box").style.display != "none") {
       document.getElementById("magic_mike_fun_box").style.display = "none";
    } else {
       document.getElementById("magic_mike_fun_box").style.display = "block";

@@ -11,6 +11,10 @@
         font-size:18px;
         padding:1.5%;
     }
+    #disp {
+      overflow-y: auto;
+      height: 30vh;
+    }
     </style> 
  </head>
  <button class="navbutton" onclick="window.location.href = 'index.html'">◀️BACK</button><br>
@@ -121,7 +125,7 @@ function Lose() {
 function DrawToDisp(a) {
   document.getElementById("disp").innerHTML += "<br>";
   document.getElementById("disp").innerHTML += a;
-
+  document.getElementById('disp').scrollTop = document.getElementById('disp').scrollHeight;
 }
 function ClearDisp() {
   document.getElementById("disp").innerHTML = "";

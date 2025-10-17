@@ -125,8 +125,19 @@ Montoies = [
     ctx.fillRect(200,200,1200,1200);
 doug = new Date();
 mode = "time";//time, stopwatch, interval timer, world time, databank, counter, gps, dice, settings (time, interval timer, view lap records)
+modes = [
+    "time",
+    "stopwatch",
+    "interval",
+    "world",
+    "counter",
+    "dice",
+    "debug",
+    "back",
+];
 //TODO: Add entire alphabet
 mode_isAdjusting = false;
+menu_pos = 0;
 time_24h = false;
 time_isAnalog = false;
 time_date_format = false; //false: mm/dd | true: dd/mm
@@ -137,6 +148,7 @@ stopwatch_time_hidden = 0; //used for animations
 stopwatch_started = false;
 stopwatch_lapTrigger = false;
 stopwatch_laps = [];
+stopwatch_records_pos = 0;
 timer_interval_ct = 0;
 timer_interval_sets = [0,60,300,600,900];//time is in seconds
 databank_adj = false;
@@ -189,14 +201,18 @@ function btnPressed(btn) {
     if (btn == 2) {DoWhateverButton2Does();}
     if (btn == 3) {SwitchModes();}
     if (btn == 4) { DoWhateverButton4Does(); }
+    if (mode == "back" && btn != 3) {
+    window.location.href = 'index.html';
+}
     ctx.fillStyle = "#d8e0d0";
     ctx.fillRect(200,200,1200,1200);
     Update();
 }
 function SwitchModes() {
     if (mode == "time" || mode == "date") {mode = "stopwatch";} 
-    else if (mode == "stopwatch") {mode = "interval";} 
-    else if (mode == "interval") {mode = "counter";} //worldtime before counter
+    else if (mode == "stopwatch" || mode == "stopwatch_records") {mode = "interval";} 
+    else if (mode == "interval") {mode = "world";}
+    else if (mode == "world") {mode = "counter";} //worldtime before counter
     else if (mode == "counter") {mode = "debug";} //databank later
     else if (mode == "debug") {mode = "dice";} 
     else if (mode == "dice") {mode = "back";}
@@ -204,29 +220,27 @@ function SwitchModes() {
 }
 function DoWhateverButton1Does() {
 
-    if (mode == "back") {
-        window.open('index.html');
-    }
+    
 
     if (mode == "interval") {
     timer_interval_ct = (timer_interval_ct+1)%timer_interval_sets.length;
     stopwatch_time_start = timer_interval_sets[timer_interval_ct];
     stopwatch_time = timer_interval_sets[timer_interval_ct];
     } else if (mode == "stopwatch") {
-    console.log(stopwatch_laps);//temporary
+    mode = "stopwatch_records";
+    } else if (mode == "stopwatch_records") {
+    mode = "stopwatch";
     } else if (mode == "counter" || mode == "debug") {
        counter_pos = (counter_pos+1)%scrolltest.length;
     } else if (mode == "dice") {
        counter_pos = (counter_pos+1)%DiceTypes.length;
-    } else if (mode == "time") {
+    } else if (mode == "time" || mode == "date") {
         time_24h = !time_24h;
     }
 }
 function DoWhateverButton2Does() {
 
-if (mode == "back") {
-    window.open('index.html');
-}
+
 
 	if (mode == "time") {
 		mode = "date";
@@ -239,6 +253,8 @@ if (mode == "back") {
                 stopwatch_time_start = Date.now();
             }
             stopwatch_started = !stopwatch_started;
+    } else if (mode == "stopwatch_records") {
+            stopwatch_records_pos--;
     } else if (mode == "interval") {
             if (stopwatch_started) {
                stopwatch_time_elapsed += Date.now() - stopwatch_time_start;
@@ -247,19 +263,17 @@ if (mode == "back") {
             }
             stopwatch_started = !stopwatch_started;
     } else if (mode == "counter" || mode == "debug") {
-            scrolltest[counter_pos]++;
+            scrolltest[counter_pos]--;
     } else if (mode == "dice") {
             dice_trigger = true;
     }
 }
 function DoWhateverButton4Does() {
 
-    if (mode == "back") {
-    window.open('index.html');
-    }
+    
 
     if (mode == "counter" || mode == "debug") {
-        scrolltest[counter_pos]--;
+        scrolltest[counter_pos]++;
     } else if (mode == "stopwatch" || mode == "interval") {
         if (!stopwatch_started) {
         timer_interval_ct = 0;
@@ -268,7 +282,9 @@ function DoWhateverButton4Does() {
         stopwatch_time_start = Date.now();
         stopwatch_time_elapsed = 0;
         } else {stopwatch_laps.push(stopwatch_time);
-        stopwatch_lapTrigger = true;}
+        stopwatch_lapTrigger = true;stopwatch_time_hidden = 0;}
+    } else if (mode == "stopwatch_records") {
+            stopwatch_records_pos++;
     } else if (mode == "dice") {
             dice_amount = (dice_amount%4)+1;
     }
@@ -283,6 +299,12 @@ function P2R(radius,radian){
 function aazai(a,b,c) {
     return (a+b/60)/c*Math.PI*2-Math.PI/2;
 }
+function CreateLine(a,b,c,d) {
+    ctx.beginPath();
+    ctx.moveTo(a,b);//improve
+    ctx.lineTo(c,d);
+    ctx.stroke();
+}
 function DrawAnalogClock() {
     ctx.fillStyle = "#d8e0d0";
     ctx.fillRect(200,200,1175,975);
@@ -290,58 +312,29 @@ function DrawAnalogClock() {
 
     ctx.lineWidth = 10;
 
-    ctx.beginPath();
-    ctx.moveTo(800+368.06,700+212.5);//improve
-    ctx.lineTo(800-368.06,700-212.5);
-    ctx.stroke();
+    
+    CreateLine(800+368.06,700+212.5,800-368.06,700-212.5);//improve
+    CreateLine(800+212.5,700+368.06,800-212.5,700-368.06);
+    CreateLine(800-368.06,700+212.5,800+368.06,700-212.5);
+    CreateLine(800+212.5,700-368.06,800-212.5,700+368.06);
+    CreateLine(800,275,800,1125);
+    CreateLine(375,700,1225,700);
 
-    ctx.beginPath();
-    ctx.moveTo(800+212.5,700+368.06);//improve
-    ctx.lineTo(800-212.5,700-368.06);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(800-368.06,700+212.5);//improve
-    ctx.lineTo(800+368.06,700-212.5);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(800+212.5,700-368.06);//improve
-    ctx.lineTo(800-212.5,700+368.06);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(800,275);
-    ctx.lineTo(800,1125);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(375,700);
-    ctx.lineTo(1225,700);
-    ctx.stroke();
 
     ctx.strokeStyle = "#404048";
     ctx.lineWidth = 22;
 
     if (mode == "time") {
-        ctx.beginPath();
-    ctx.moveTo(800,700);
-    ctx.lineTo(P2R(450,aazai(doug.getSeconds(),doug.getMilliseconds()*0.06,60)).x+800,P2R(450,aazai(doug.getSeconds(),doug.getMilliseconds()*0.06,60)).y+700);
-    ctx.stroke();
+        
+        CreateLine(800,700,P2R(450,aazai(doug.getSeconds(),doug.getMilliseconds()*0.06,60)).x+800,P2R(450,aazai(doug.getSeconds(),doug.getMilliseconds()*0.06,60)).y+700);
 
     ctx.beginPath();
 	ctx.arc(800,700,375, 0, 2 * Math.PI);
     ctx.fill();
 
-    ctx.beginPath();
-    ctx.moveTo(800,700);
-	ctx.lineTo(P2R(250,aazai(doug.getHours(),doug.getMinutes(),12)).x+800,P2R(250,aazai(doug.getHours(),doug.getMinutes(),12)).y+700);
-	ctx.stroke();
+            CreateLine(800,700,P2R(250,aazai(doug.getHours(),doug.getMinutes(),12)).x+800,P2R(250,aazai(doug.getHours(),doug.getMinutes(),12)).y+700);
+        CreateLine(800,700,P2R(350,aazai(doug.getMinutes(),doug.getSeconds(),60)).x+800,P2R(350,aazai(doug.getMinutes(),doug.getSeconds(),60)).y+700);
 
-    ctx.beginPath();
-    ctx.moveTo(800,700);
-    ctx.lineTo(P2R(350,aazai(doug.getMinutes(),doug.getSeconds(),60)).x+800,P2R(350,aazai(doug.getMinutes(),doug.getSeconds(),60)).y+700);
-    ctx.stroke();
     } else if (mode == "interval" || mode == "stopwatch") {
         
         if (stopwatch_time < 3600) {
@@ -467,6 +460,26 @@ function ShowTime() {
             Draw(10+IsolatePlaceValue(stopwatch_time,-7,true),"dotmatrix",400,1175);
             Draw(10+IsolatePlaceValue(stopwatch_time,60,true),"dotmatrix",550,1175);
             break;
+            case "stopwatch_records":
+            DrawLetters("LAPS",400,225);
+            
+            ActuallyDraw(charClock,250,225);
+        for (j=0; j<3; j++) {
+
+                 Draw(IsolatePlaceValue(j+1+stopwatch_records_pos,100,true),"dotmatrix",225,475+300*j);
+            Draw(IsolatePlaceValue(j+1+stopwatch_records_pos,10,true),"dotmatrix",225+150,475+300*j);
+            Draw(IsolatePlaceValue(j+1+stopwatch_records_pos,1,true),"dotmatrix",225+150*2,475+300*j);
+            Draw(":","dotmatrix_short",325+150*2,475+150+300*j);
+            Draw(":","dotmatrix_short",375+150*4,475+150+300*j);
+            Draw(IsolatePlaceValue(stopwatch_laps[j+stopwatch_records_pos],-7,true),"dotmatrix",375+150*0,475+150+300*j);
+            Draw(IsolatePlaceValue(stopwatch_laps[j+stopwatch_records_pos],60,true),"dotmatrix",375+150*1,475+150+300*j);
+            Draw(IsolatePlaceValue(stopwatch_laps[j+stopwatch_records_pos],-6,true),"dotmatrix",375+150*2+50,475+150+300*j);
+            Draw(IsolatePlaceValue(stopwatch_laps[j+stopwatch_records_pos],1,true),"dotmatrix",375+150*3+50,475+150+300*j);
+            Draw(IsolatePlaceValue(stopwatch_laps[j+stopwatch_records_pos],0.1,true),"dotmatrix",375+150*4+100,475+150+300*j);
+            Draw(IsolatePlaceValue(stopwatch_laps[j+stopwatch_records_pos],0.01,true),"dotmatrix",375+150*5+100,475+150+300*j);
+            
+        }
+        break;
         case "interval":
             Draw(":","dotmatrix_short",650,1175);
             Draw(":","dotmatrix_short",1000,1175);
@@ -476,6 +489,13 @@ function ShowTime() {
             Draw(10+IsolatePlaceValue(stopwatch_time,60,true),"dotmatrix",900,1175);
             Draw(IsolatePlaceValue((timer_interval_ct%5)+1,1,true),"dotmatrix",225,1200);
             break;
+            case "world":
+            ActuallyDraw(charClock,250,225);
+            DrawLetters("COMING",250,225+600);
+            DrawLetters("SOON",250,225+750);
+            DrawLetters("WORLD",250,225+300);
+            DrawLetters("TIME",250,225+450);
+        break;
         case "counter":
             ActuallyDraw(charCalc,250,225);
             DrawLetters("COUNT",400,225);
@@ -516,11 +536,11 @@ function ShowTime() {
         case "back":
             ActuallyDraw(charCalc,250,225);
             DrawLetters("PRESS",250,225+150);
-            DrawLetters("ANY",400,225+300);
-            DrawLetters("BUTTON",400,225+450);
-            DrawLetters("TO",400,225+600);
-            DrawLetters("GO",400,225+750);
-            DrawLetters("BACK",400,225+900);
+            DrawLetters("ANY",250,225+300);
+            DrawLetters("BUTTON",250,225+450);
+            DrawLetters("TO",250,225+600);
+            DrawLetters("GO",250,225+750);
+            DrawLetters("BACK",250,225+900);
         break;
     }
 }

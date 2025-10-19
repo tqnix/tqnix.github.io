@@ -22,13 +22,14 @@
 <br>- Alternatively, you can use the auto-iterate function to have a program automatically iterate over and over based on a fixed amount of time.
 <br>- Press RESET to reset all values
 <br>- All sequences end with a period (.) by default.
-<br>- You can have multiple functions within a sequence. This could come in useful when dealing with INIT or IF/REPEAT/UNLESS keywords.
+<br>- You can have multiple functions within a sequence. This could come in useful when using the INIT function.
 <br>	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
-<br>- Numbers can be either numbers, variables, or expressions (any expression in JS that doesn't require letters or dots will work as of now, will likely change this soon)
+<br>- Numbers can be either numbers, variables, or expressions.
 <br>- because the period is used for ending a sequence, you need to express non-integer numbers using fractions (i. e. 0.47 can be represented as 47/100)
 <br>- All variables are floating point
 <br>- The canvas is 256 x 256
 <br>- You do not need to have quotation marks when inputting strings or variable names.
+<br>- Simple (supported by JS) mathematical expressions can be entered in place of numbers by having the expression in parantheses.
 <br>
 <br><h1>VARIABLES</h1>
 <br>
@@ -38,6 +39,29 @@
 <br>random: random number from 0 to 1
 <br>randominteger: random integer from 0 to 99 (inclusive)
 <br>randomangle: random integer from 0 to 359 (inclusive)
+<br>
+<br><h1>MATH SHORTHAND</h1>
+<br>
+<br>These can be used in place of JS math operations, because many math functions can't be entered without a period.
+<br>You need to have parenthesis after the shorthand because the shorthand only stands in for the characters, not the parentheses.
+<br>Here is a list of the shorthand usable in Hare and their JS equivalent, or what they do:
+<br>
+<br>#sin: Math.sin
+<br>#cos: Math.cos
+<br>#tan: Math.tan
+<br>#asin: Math.asin
+<br>#acos: Math.acos
+<br>#atan: Math.atan
+<br>#ceil: Math.ceil
+<br>#floor: Math.floor
+<br>#min: Math.min
+<br>#max: Math.max
+<br>#ln: Math.log
+<br>#log: Math.log10
+<br>#pi: Math.PI
+<br>#sqrt: Math.sqrt
+<br>#deg: A function that converts from radians to degrees
+<br>#abs: Math.abs
 <br>
 <br><h1>FUNCTIONS</h1>
 <br>

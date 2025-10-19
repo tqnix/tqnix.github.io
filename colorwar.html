@@ -72,6 +72,10 @@ background-color: #303036;
  font-weight: bold;
  color: #af20af;
  }
+  .botte {
+ background-color: #404048;
+ color: #ffffcd;
+ }
  .almost {
  
  outline: 3px solid white;
@@ -84,16 +88,21 @@ background-color: #303036;
 PLAYERS:<input id=a placeholder="players (1-10)" value="2"></input><br>
 BOARD SIZE:<input id=b placeholder="board size (1-14)" value="7"></input><br>
 SPREAD REQ:<input id=c placeholder="2-3: fast, 4: normal, 5-8: slower" value="4"></input><br>
-Wraparound:
+Wrap Around:
 <input type=checkbox id="wrapping_check"></input>
-Colored Text instead of BG:
-<input type=checkbox id="apartheid_check"></input><br>
+Colored Text:
+<input type=checkbox id="apartheid_check"></input>
+Bot:
+<input type=checkbox id="botte_check"></input><br>
  <button class="almost small" id="start_buiton" onclick="clear();">NEW GAME</button>
 <button class="almost small" id="sipit_buiton" onclick="clear();">SKIP TURN</button>
 <p id="gameinfodisp">GAME INFO:</p>
 </div>
 <div id="gameplay"></div>
 <script>
+  /*
+  TODO: Make actual bot, add powerups (maybe)
+  */
 arena = document.getElementById("gameplay");
  const thingis = [
  "dummy",
@@ -107,6 +116,7 @@ arena = document.getElementById("gameplay");
  "BLUE TEXT",
  "ORANGE TEXT",
  "PINK TEXT",
+ "BOT",
 ];
  const thingis_backgrounds = [
  "dummy",
@@ -120,6 +130,7 @@ arena = document.getElementById("gameplay");
  "#60afcf",
  "#ffcf1f",
  "#df80df",
+ "#9f9f9f",
 ];
 size = 7;
 player = 1;
@@ -161,6 +172,8 @@ goomba = "<button class=\'h ";
 goomba = "<button class=\'i ";
 } else if (color[j+size*i] == 10) {
 goomba = "<button class=\'j ";
+} else if (color[j+size*i] == 11) {
+goomba = "<button class=\'botte ";
 }
 if (data[j+size*i] >= maxata-1) {
 goomba += "almost "
@@ -175,9 +188,9 @@ arena.innerHTML += goomba + "\' onclick='addis_ababa(" + (j+size*i) +")'>" + dat
 }
 arena.innerHTML += "<br>";
 }
-document.getElementById("gameinfodisp").innerHTML = "PLAYERS: " + players_list.length + "<br>";
+document.getElementById("gameinfodisp").innerHTML = "PLAYERS: " + players_list.length + " | TURN: " + turn + "<br>";
 for (i=0; i<players_list.length; i++) {
- document.getElementById("gameinfodisp").innerHTML += thingis[players_list[i]] + " | SCORE: " + scorecheck(i) + ",<br> ";
+ document.getElementById("gameinfodisp").innerHTML += thingis[players_list[i]] + " | " + scorecheck(i) + "<br> ";
  }
  if (players_list.length > 1) {
  document.getElementById("gameinfodisp").innerHTML +="<strong>TURN: " + thingis[players_list[player]] + "</strong>";
@@ -240,7 +253,15 @@ gonerflag = true;
  } else if (players_max > 1) {
  player = ((player+1)%players_list.length);
  }
- 
+ if (players_list[player] == 11) {
+  for (i=0; i<(size*size);i++) {
+    if (color[i] != 0) {
+      color[i] = 11;
+    }
+  }
+  players_list = [11];
+  player = 0;
+ }
  draw();
  }
  function spread_check(q) {
@@ -417,6 +438,9 @@ if (go) {
   for (i=1; i<=players_max; i++) {
  players_list.push(i);
  }
+}
+if (document.getElementById("botte_check").checked) {
+  players_list.push(11);
 }
  draw();
  }

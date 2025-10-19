@@ -46,12 +46,12 @@ MOVE 10.
 GET pd.
 
  </textarea>
-<div id="magic_mike_fun_box">
+<div style="display: none" id="magic_mike_fun_box">
 </div>
 <br>
 <button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0; init(); drau();">RESET</button>
 <button style="font-size: 28px;" onclick="parse_text()">RUN</button>
-<button style="font-size: 28px;" onclick="toggle_fun_box()">FUNCTIONS & EXAMPLES</button>
+<button style="font-size: 28px;" onclick="toggle_fun_box()">TOOLBOX</button>
 
 
 <br>
@@ -378,8 +378,24 @@ function mafs(func) {
   if (func.includes("(")) {
     for (i=0; i<the.length; i++) {
       kayasaki = kayasaki.replaceAll(the[i].page, "getvar('" +the[i].page+ "')");
-      console.log(kayasaki);
+      //console.log(kayasaki);
     }
+    kayasaki = kayasaki.replaceAll("#sin", "Math.sin");
+    kayasaki = kayasaki.replaceAll("#cos", "Math.cos");
+    kayasaki = kayasaki.replaceAll("#tan", "Math.tan");
+    kayasaki = kayasaki.replaceAll("#asin", "Math.asin");
+    kayasaki = kayasaki.replaceAll("#acos", "Math.acos");
+    kayasaki = kayasaki.replaceAll("#atan", "Math.atan");
+    kayasaki = kayasaki.replaceAll("#ln", "Math.log");
+    kayasaki = kayasaki.replaceAll("#log", "Math.log10");
+    kayasaki = kayasaki.replaceAll("#pi", "Math.PI");
+    kayasaki = kayasaki.replaceAll("#sqrt", "Math.sqrt");
+    kayasaki = kayasaki.replaceAll("#ceil", "Math.ceil");
+    kayasaki = kayasaki.replaceAll("#floor", "Math.floor");
+    kayasaki = kayasaki.replaceAll("#max", "Math.max");
+    kayasaki = kayasaki.replaceAll("#min", "Math.min");
+    kayasaki = kayasaki.replaceAll("#deg", "todegrees");
+    kayasaki = kayasaki.replaceAll("#abs", "Math.abs");
     return eval(kayasaki);//unsafe af but who cares
   } else if (regex.test(func)) {
     return getvar(func);
@@ -388,6 +404,9 @@ function mafs(func) {
   } else {
     return parseInt(func);
   } 
+}
+function todegrees(c) {
+  return c * Math.PI / 180;
 }
 //Functions to make my programming language work
 function init() {
@@ -493,6 +512,7 @@ function generate_fun_box() {
       {"name":"bouncing pointer","data":"INIT ASK a ANGLE a ASK c.VAR b pd.PEN DOWN.PRINTMAFS (b*-1+180).MOVE 8.IF py < 8.THEN ANGLE (b*-1+180) CLEAR.IF py > 248.THEN ANGLE (b*-1+180) CLEAR.IF px < 8.THEN ANGLE (b*-1) CLEAR.IF px > 248.THEN ANGLE (b*-1) CLEAR.UNLESS px lim 0 256.THEN PEN UP GOTO 128 128.UNLESS py lim 0 256.THEN PEN UP GOTO 128 128. POINTER ON. TURN c."},
       {"name":"etch-a-sketch","data":"TITLE etchasketch.ASK move.ANGLE (move*45).IF (move%2) = 0.THEN MOVE 20.IF (move%2) = 1.THEN MOVE (28284/1000)."},
       {"name":"speedtest","data":"TITLE speedtest.VAR c 0.ASK iteration_max.REPEAT iteration_max.THEN INC c 1 PRINTMAFS (c**2).MOVE 32."},
+      {"name":"fibonacci","data":"INIT VAR a 1 VAR b 1.PRINTMAFS (a+b).VAR c (a+b) VAR a b VAR b c GET c.TURN 12.MOVE (#log(c))."},
       {"name":"randomly generated art","data":"INIT ASK size POINTER OFF.TITLE art_scalable.MOVE size.ANGLE randomangle.IF px < 0 THEN ANGLE 90.IF px > 256 THEN ANGLE 270.IF py < 0 THEN ANGLE 180.IF py > 256 THEN ANGLE 0."},
    ];
   for (i=0; i<fun_box_thingies.length; i++) {
@@ -500,7 +520,7 @@ function generate_fun_box() {
   }
     magic_mike_fun_box_cozy_interior.innerHTML += "<br><br>";
    for (i=0; i<fun_box_examples.length; i++) {
-    magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value += \""+fun_box_examples[i].data +" \"'>" + fun_box_examples[i].name + "</button>";
+    magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value = \""+fun_box_examples[i].data +" \"'>" + fun_box_examples[i].name + "</button>";
   }
 }
 function toggle_fun_box() {

@@ -375,27 +375,44 @@ function fakevar(pa,o,yn) {
 function mafs(func) {
   let kayasaki = func;
   let regex = /[A-Za-z]+/i;
-  if (func.includes("(")) {
+  if (func.includes("(") || func.includes("#")) {
+    kayasaki = kayasaki.replaceAll("#sin", "啊");
+    kayasaki = kayasaki.replaceAll("#cos", "吧");
+    kayasaki = kayasaki.replaceAll("#tan", "大");
+    kayasaki = kayasaki.replaceAll("#asin", "发");
+    kayasaki = kayasaki.replaceAll("#acos", "哈");
+    kayasaki = kayasaki.replaceAll("#atan", "啦");
+    kayasaki = kayasaki.replaceAll("#ln", "马");
+    kayasaki = kayasaki.replaceAll("#log", "那");
+    kayasaki = kayasaki.replaceAll("#pi", "怕");
+    kayasaki = kayasaki.replaceAll("#sqrt", "撒");
+    kayasaki = kayasaki.replaceAll("#ceil", "他");
+    kayasaki = kayasaki.replaceAll("#floor", "地");
+    kayasaki = kayasaki.replaceAll("#max", "多");
+    kayasaki = kayasaki.replaceAll("#min", "少");
+    kayasaki = kayasaki.replaceAll("#deg", "度");
+    kayasaki = kayasaki.replaceAll("#abs", "力");
+    kayasaki = kayasaki.replaceAll("#round", "吖");
     for (i=0; i<the.length; i++) {
-      kayasaki = kayasaki.replaceAll(the[i].page, "getvar('" +the[i].page+ "')");
-      //console.log(kayasaki);
+        kayasaki = kayasaki.replaceAll(the[i].page, "getvar('" +the[i].page+ "')");
     }
-    kayasaki = kayasaki.replaceAll("#sin", "Math.sin");
-    kayasaki = kayasaki.replaceAll("#cos", "Math.cos");
-    kayasaki = kayasaki.replaceAll("#tan", "Math.tan");
-    kayasaki = kayasaki.replaceAll("#asin", "Math.asin");
-    kayasaki = kayasaki.replaceAll("#acos", "Math.acos");
-    kayasaki = kayasaki.replaceAll("#atan", "Math.atan");
-    kayasaki = kayasaki.replaceAll("#ln", "Math.log");
-    kayasaki = kayasaki.replaceAll("#log", "Math.log10");
-    kayasaki = kayasaki.replaceAll("#pi", "Math.PI");
-    kayasaki = kayasaki.replaceAll("#sqrt", "Math.sqrt");
-    kayasaki = kayasaki.replaceAll("#ceil", "Math.ceil");
-    kayasaki = kayasaki.replaceAll("#floor", "Math.floor");
-    kayasaki = kayasaki.replaceAll("#max", "Math.max");
-    kayasaki = kayasaki.replaceAll("#min", "Math.min");
-    kayasaki = kayasaki.replaceAll("#deg", "todegrees");
-    kayasaki = kayasaki.replaceAll("#abs", "Math.abs");
+    kayasaki = kayasaki.replaceAll("啊", "Math.sin");
+    kayasaki = kayasaki.replaceAll("吧", "Math.cos");
+    kayasaki = kayasaki.replaceAll("大", "Math.tan");
+    kayasaki = kayasaki.replaceAll("发", "Math.asin");
+    kayasaki = kayasaki.replaceAll("哈", "Math.acos");
+    kayasaki = kayasaki.replaceAll("啦", "Math.atan");
+    kayasaki = kayasaki.replaceAll("马", "Math.log");
+    kayasaki = kayasaki.replaceAll("那", "Math.log10");
+    kayasaki = kayasaki.replaceAll("怕", "Math.PI");
+    kayasaki = kayasaki.replaceAll("撒", "Math.sqrt");
+    kayasaki = kayasaki.replaceAll("他", "Math.ceil");
+    kayasaki = kayasaki.replaceAll("地", "Math.floor");
+    kayasaki = kayasaki.replaceAll("吖", "Math.round");
+    kayasaki = kayasaki.replaceAll("多", "Math.max");
+    kayasaki = kayasaki.replaceAll("少", "Math.min");
+    kayasaki = kayasaki.replaceAll("度", "todegrees");
+    kayasaki = kayasaki.replaceAll("力", "Math.abs");
     return eval(kayasaki);//unsafe af but who cares
   } else if (regex.test(func)) {
     return getvar(func);
@@ -506,6 +523,24 @@ function generate_fun_box() {
     "POINTER",
     "WAIT",
     ".",
+    "#sin",
+  "#cos",
+  "#tan",
+  "#asin",
+  "#acos",
+  "#atan",
+  "#ln", 
+  "#log",
+  "#pi", 
+  "#sqrt",
+  "#ceil",
+  "#floor",
+  "#round",
+  "#max",
+  "#min",
+  "#deg",
+  "#abs",
+
   ];
    let fun_box_examples = [
       {"name":"road","data":"INIT PEN UP ANGLE 90 GOTO 2 2.TITLE road.PEN DOWN.REPEAT 40.THEN MOVE 55 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN MOVE 13 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN MOVE 15 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN MOVE 25 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN MOVE 35 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 40.THEN MOVE 45 TURN 5.PEN UP.PRINT halfway_thruuuuu.PEN DOWN.REPEAT 40.THEN PEN TOGGLE MOVE 24 TURN 2.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN PEN TOGGLE MOVE 20 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN PEN TOGGLE MOVE 30 TURN 5.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 30.THEN PEN TOGGLE MOVE 18 TURN 2.PEN UP.GOTO 2 2 ANGLE 90.PEN DOWN.REPEAT 40.THEN PEN TOGGLE MOVE 23 TURN 2.PEN UP."},

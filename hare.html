@@ -549,6 +549,7 @@ function generate_fun_box() {
       {"name":"speedtest","data":"TITLE speedtest.VAR c 0.ASK iteration_max.REPEAT iteration_max.THEN INC c 1 PRINTMAFS (c**2).MOVE 32."},
       {"name":"fibonacci","data":"INIT VAR a 1 VAR b 1.PRINTMAFS (a+b).VAR c (a+b) VAR a b VAR b c GET c.TURN 12.MOVE (#log(c))."},
       {"name":"randomly generated art","data":"INIT ASK size POINTER OFF.TITLE art_scalable.MOVE size.ANGLE randomangle.IF px < 0 THEN ANGLE 90.IF px > 256 THEN ANGLE 270.IF py < 0 THEN ANGLE 180.IF py > 256 THEN ANGLE 0."},
+      {"name":"graphing","data":"INIT PEN UP VAR x -128 VAR lx 0 VAR ly 0.PEN UP .GOTO 128 0 .PEN DOWN .GOTO 128 256 .PEN UP .GOTO 0 128 .PEN DOWN .GOTO 256 128 .TITLE GraphingCalculator.PEN UP.GOTO lx ly.PEN DOWN.\n-> Expression in line after next line, within the innermost bracket.GOTO (128+(x)) \n(-(x**2/10)+128).\nVAR lx px.VAR ly py.\n-> Adjust precision.\nINC x 8."}
    ];
   for (i=0; i<fun_box_thingies.length; i++) {
     magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value += \""+fun_box_thingies[i]+" \"'>" + fun_box_thingies[i] + "</button>";

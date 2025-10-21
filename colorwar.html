@@ -85,9 +85,9 @@ background-color: #303036;
  
 <button class="navbutton almost" onclick="window.open('index.html')">◀️Back</button><br>
 <div style="background-color: white">This is a recreation of Color Wars from 2 Player Games by Jindoblu.<br>
-PLAYERS:<input id=a placeholder="players (1-10)" value="2"></input><br>
-BOARD SIZE:<input id=b placeholder="board size (1-14)" value="7"></input><br>
-SPREAD REQ:<input id=c placeholder="2-3: fast, 4: normal, 5-8: slower" value="4"></input><br>
+PLAYERS:<input type="number" min="1" max="10" id=a placeholder="2" value="2"></input><br>
+BOARD SIZE:<input type="number" min="1" max="10" id=b placeholder="7" value="7"></input><br>
+SPREAD REQ:<input type="number" min="2" max="8" id=c placeholder="4" value="4"></input><br>
 Wrap Around:
 <input type=checkbox id="wrapping_check"></input>
 Colored Text:

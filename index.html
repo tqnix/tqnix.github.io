@@ -12,25 +12,30 @@
     <img src="coloro.jpeg" style="position: absolute;left: 12px;top: 16px;" id="nomplat" class="nameplate"></img>
         <div id="navbar">
             <button class="navbutton" onclick="luck()">i am lucky</button>
-            <button class="navbutton" onclick="view_plaintext = !view_plaintext; DealWithLocalStorage('send');">toggle previews</button><br>
+            <button class="navbutton" id="seng-hoop-hide" onclick="hime()">toggle previews</button><br>
         </div>
 	<br>
     <p class="bigtext">Welcome to</p>
     <img class="fullwidth" src="ei.png"></img><br><br>
     <button class="navbutton clear" id="title_bottomtext" onclick="reroll()">uh oh the js isnt loading please dont panic</button><br><br>
     <div class="header">
-		<span class="bigtext">featured:</span><br>
-		<button id="seng-hoop-hide" onclick="hime()">Hide</button><br>
+		
+		<br>
 		<div id="seng-hoop">
+      <span class="bigtext">featured:</span><br>
 		<div class="case_container"><a class="smalltext" href="colorwar.html"><iframe src="colorwar.html" height="640"></iframe><br>Color Wars</a></div>
-		<div class="case_container"><a class="smalltext" href="watchsim.html"><iframe src="watchsim.html" height="640"></iframe><br>Digital Watch Simulator</a></div>
+		<div class="case_container"><a class="smalltext" href="hare.html"><iframe src="hare.html" height="640"></iframe><br>Hare (ripoff LOGO)</a></div>
 		<div class="case_container"><a class="smalltext" href="buttonbros.html"><iframe src="buttonbros.html" height="640"></iframe><br>school project Circle Cropper</a></div>
 		</div>
 		<span class="bigtext">thingies:</span><br>
         <span id="search"></span>
         <div id="tianxue" style="text-align: center;">
         </div>
-		<br><br><br><br><br><br><br><br>hello<br><br>
+		<br><br>
+    <div id="svg">
+      da
+    </div>
+    <br><br>
     </div>
 </body>
 <script src="splash.js"></script>
@@ -74,11 +79,15 @@ function aintit() {
 }
 function hime() {
 	if (document.getElementById("seng-hoop").style.display != "none") {
+    view_plaintext = true; 
+  DealWithLocalStorage('send');
 		document.getElementById("seng-hoop").style.display = "none";
-		document.getElementById("seng-hoop-hide").innerText = "Show";
+		document.getElementById("seng-hoop-hide").innerText = "show previews";
 	} else {
+    view_plaintext = false; 
+  DealWithLocalStorage('send');
 		document.getElementById("seng-hoop").style.display = "block";
-		document.getElementById("seng-hoop-hide").innerText = "Hide";
+		document.getElementById("seng-hoop-hide").innerText = "hide previews";
 	}
 }
 function DealWithLocalStorage(j) {
@@ -91,9 +100,11 @@ function DealWithLocalStorage(j) {
 	} else if (j == "get") {
 		if (localStorage.writeview == "false") {
 			view_plaintext = false;
+      document.getElementById("seng-hoop").style.display = "none";
 		}
 		if (localStorage.writeview == "true" || window.innerWidth <= 959) {
 			view_plaintext = true;
+      document.getElementById("seng-hoop").style.display = "block";
 		}
 	}
 	activate();
@@ -235,4 +246,8 @@ window.addEventListener('mouseup', function() {
   clearTimeout(idTimeout);
   
   mouseIsDown = false;
-});</script>
+});
+
+
+
+</script>

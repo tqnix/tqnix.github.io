@@ -14,7 +14,6 @@
   transition-duration: 200ms;
 }
 .navbutton:hover {
-    background-color: skyblue;
     -webkit-box-shadow: 0px 3px 10px 3px rgba(255,255,205,0.73);
     box-shadow: 0px 3px 10px 3px rgba(255,255,205,0.73);
 }
@@ -94,23 +93,7 @@ a {
     left: 0;
     right: 0;
 }
-.header {
-}
-.salesbar-container {
-  width: 100%;
-}
-.salesbar {
-    margin: auto;
-  width: 80%;
-  height: 4vh;
-  border-radius: 1vh;
-  background-color: gainsboro;
-  z-index:1;
-}
-.salestext {
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-}
+
 .bigtext {
   font-size:4.5vmax;
   font-weight: bold;

@@ -11,7 +11,8 @@
 <body onload="aintit()" >
     <img src="coloro.jpeg" style="position: absolute;left: 12px;top: 16px;" id="nomplat" class="nameplate"></img>
         <div id="navbar">
-            <button class="navbutton" onclick="luck()">i am lucky</button>
+          <button class="navbutton" onclick="luck()">i am lucky</button>
+          <button class="navbutton" onclick="contacting()">contact</button>
             <button class="navbutton" id="seng-hoop-hide" onclick="hime()">toggle previews</button><br>
         </div>
 	<br>
@@ -136,11 +137,11 @@ function DealWithLocalStorage(j) {
 	} else if (j == "get") {
 		if (localStorage.writeview == "false") {
 			view_plaintext = false;
-      document.getElementById("seng-hoop").style.display = "none";
+      document.getElementById("seng-hoop").style.display = "block";
 		}
 		if (localStorage.writeview == "true" || window.innerWidth <= 959) {
 			view_plaintext = true;
-      document.getElementById("seng-hoop").style.display = "block";
+      document.getElementById("seng-hoop").style.display = "none";
 		}
 	}
 	activate();
@@ -266,6 +267,15 @@ function add() {
   toaster++;
   localStorage.eecountervalue = toaster;
     
+}
+
+function contacting() {
+  const element = document.getElementById("contact");
+element.scrollIntoView({
+behavior: "smooth", // Smooth scrolling animation
+block: "end", // Aligns to the bottom of the viewport
+inline: "nearest" // Horizontal alignment
+});
 }
 
 window.addEventListener('mousedown', function() {

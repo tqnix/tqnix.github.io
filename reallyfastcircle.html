@@ -1,0 +1,173 @@
+<head>
+       <meta charset="UTF-16">
+   <link rel="icon" type="image/jpeg" href="coloro.jpeg">
+  <link rel="stylesheet" href="styles.css">
+<title>Draw a Really Fast Circle</title>
+<style>
+  body {
+        font-family: Arial;
+        background: #000000;
+        color: #ffffcd;
+        font-size:18px;
+        text-align: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        
+    }
+.so {
+  padding: 0;
+  margin: 0;
+border: 1px solid red;
+display: flex;
+  
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  justify-content: center;
+  pointer-events: none;
+  cursor: not-allowed;
+  
+}
+.cantabile {
+  justify-content: center;
+  align-items: center;
+  font-size: 10vmax;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+.diin {
+  align-items: flex-end;
+  pointer-events: none;
+}
+button {
+  position: fixed;
+}
+</style>
+</head>
+<canvas id="kaap" class= "so"></canvas>
+<div id="seer" class="so"><br>
+  <h2>Draw a Really Fast Circle</h2>
+</div>
+<div id="seng-btrony" class="so diin">
+  HOLD LEFT CLICK to<br>Start drawing circles<br>around me!
+</div>
+<div id="seng-idiwere" class="so cantabile">
+  💀
+</div>
+<button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button>
+<script>
+  const canvas = document.getElementById("kaap");
+const ctx = canvas.getContext("2d");
+
+ctx.canvas.width  = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+ctx.strokeStyle = "#303038";
+ctx.lineWidth = 5;
+previousangle = 77;
+spin_speed = 0;
+high_spin_speed = 0;
+drawflag = false;
+duffel = [0,0,0,0,0,0,0,0,0,0];
+var thisFrameTime = 1000;
+var filterStrength = 20;
+var frameTime = 0, lastLoop = new Date, thisLoop;
+var lastS = 0, thisS;
+main = document.getElementById("seng-btrony");
+
+document.addEventListener('mousedown', (event) => {
+  drawflag = true;
+  mx = event.clientX + window.pageXOffset;
+    my = event.clientY + window.pageYOffset;
+main = document.getElementById("seng-btrony");
+spin = document.getElementById("seng-idiwere");
+
+
+if (drawflag) {
+  spin.style.transform = 'rotate('+ toro(mx,my) +'rad)';
+spin_speed++;
+if (spin_speed > high_spin_speed) {
+  high_spin_speed = spin_speed;
+}
+  ctx.lineTo(mx,my);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(mx,my);
+}
+});
+
+
+document.addEventListener('mouseup', (event) => {
+  previousangle = 77;
+  drawflag = false;
+  ctx.canvas.width  = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+ctx.strokeStyle = "#505058";
+ctx.lineWidth = 5;
+spin_speed = 0;
+duffel = [0,0,0,0,0,0,0,0,0,0];
+});
+
+document.addEventListener('mousemove', (event) => {
+  gameLoop();
+  mx = event.clientX + window.pageXOffset;
+    my = event.clientY + window.pageYOffset;
+main = document.getElementById("seng-btrony");
+spin = document.getElementById("seng-idiwere");
+if (drawflag) {
+  spin.style.transform = 'rotate('+ toro(mx,my) +'rad)';
+    if (previousangle != 77 && Math.abs((toro(mx,my) - previousangle)) < Math.PI*2/3) {
+      duffelLoop();
+  previousangle = toro(mx,my);
+} else {
+  previousangle = toro(mx,my);
+}
+if (spin_speed > high_spin_speed) {
+  high_spin_speed = spin_speed;
+}
+  ctx.lineTo(mx,my);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(mx,my);
+}
+});
+s = setInterval(function () {
+  if (drawflag) {
+
+  }
+  main.innerHTML = "SPIN: " + Math.floor(spin_speed) + "rpm<br>HIGH: " + Math.floor(high_spin_speed);
+}, 100);
+function toxy(radius,radian){
+    return {
+        x:radius*Math.cos(radian),
+        y:radius*Math.sin(radian)
+    }
+}
+function toro(x,y) {
+  return Math.atan2(y-window.innerHeight/2, x-window.innerWidth/2)+3.1415926535*1/2;
+}
+function gameLoop(){
+  // ...
+  thisFrameTime = (thisLoop=new Date) - lastLoop;
+  frameTime+= (thisFrameTime - frameTime) / filterStrength;
+  lastLoop = thisLoop;
+  
+}
+
+function duffelLoop () {
+  ddff = Math.abs((toro(event.clientX,event.clientY) - previousangle))*60000/(2*Math.PI*thisFrameTime);
+  ddff_a = duffel[0] + duffel[1] + duffel[2] + duffel[3] + duffel[4] + duffel[5] + duffel[6] + duffel[7] + duffel[8] + duffel[9];
+  spin_speed = ddff_a/10;
+  duffel.push(ddff);
+  duffel.shift();
+}
+
+</script>
+
+
+
+
+
+
+

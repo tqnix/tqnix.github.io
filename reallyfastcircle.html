@@ -40,6 +40,9 @@ display: flex;
   pointer-events: none;
   justify-content: center;
 }
+  .bayashi {
+    font-size: 9vh;
+  }
 button {
   position: fixed;
 }
@@ -52,8 +55,10 @@ button {
 <div id="seng-btrony" class="so diin">
   HOLD LEFT CLICK to<br>Start drawing circles<br>around me!
 </div>
+<div id="seng-osu" class="so diin bayashi">
+</div>
 <div id="seng-idiwere" class="so cantabile">
-  💀
+  ©️
 </div>
 <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button>
 <script>
@@ -62,9 +67,9 @@ const ctx = canvas.getContext("2d");
 
 ctx.canvas.width  = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
-ctx.strokeStyle = "#303038";
 ctx.lineWidth = 5;
 previousangle = 77;
+cumulangle = 0;
 spin_speed = 0;
 high_spin_speed = 0;
 drawflag = false;
@@ -74,6 +79,7 @@ var filterStrength = 20;
 var frameTime = 0, lastLoop = new Date, thisLoop;
 var lastS = 0, thisS;
 main = document.getElementById("seng-btrony");
+  
 document.addEventListener('mousedown', (event) => {
   drawflag = true;
   mx = event.clientX + window.pageXOffset;
@@ -101,12 +107,48 @@ document.addEventListener('mouseup', (event) => {
   drawflag = false;
   ctx.canvas.width  = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
-ctx.strokeStyle = "#505058";
+ctx.strokeStyle = "#303038";
 ctx.lineWidth = 5;
 spin_speed = 0;
 duffel = [0,0,0,0,0,0,0,0,0,0];
+  cumulangle = 0;
 });
 
+document.addEventListener('keypress', (event) => {
+  if (event.repeat) { return 0;}
+  drawflag = true;
+  mx = event.clientX + window.pageXOffset;
+    my = event.clientY + window.pageYOffset;
+main = document.getElementById("seng-btrony");
+spin = document.getElementById("seng-idiwere");
+
+
+if (drawflag) {
+  spin.style.transform = 'rotate('+ toro(mx,my) +'rad)';
+spin_speed++;
+if (spin_speed > high_spin_speed) {
+  high_spin_speed = spin_speed;
+}
+  ctx.lineTo(mx,my);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(mx,my);
+}
+});
+
+
+document.addEventListener('keyup', (event) => {
+  previousangle = 77;
+  drawflag = false;
+  ctx.canvas.width  = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+ctx.strokeStyle = "#303038";
+ctx.lineWidth = 5;
+spin_speed = 0;
+duffel = [0,0,0,0,0,0,0,0,0,0];
+  cumulangle = 0;
+});
+  
 document.addEventListener('mousemove', (event) => {
   gameLoop();
   mx = event.clientX + window.pageXOffset;
@@ -117,10 +159,15 @@ if (drawflag) {
   spin.style.transform = 'rotate('+ toro(mx,my) +'rad)';
     if (previousangle != 77 && Math.abs((toro(mx,my) - previousangle)) < Math.PI*2/3) {
       duffelLoop();
-  previousangle = toro(mx,my);
-} else {
-  previousangle = toro(mx,my);
+      cumulangle += Math.abs((toro(mx,my) - previousangle));
+      if (cumulangle > 31.41) {
+        document.getElementById("seng-osu").innerHTML = Math.floor(cumulangle/20*Math.PI)*1000-4000 + "<br><br><br>";
+      } else {
+        document.getElementById("seng-osu").innerHTML = "<br><br><br>";
+        console.log(cumulangle);
+      }
 }
+  previousangle = toro(mx,my);
 if (spin_speed > high_spin_speed) {
   high_spin_speed = spin_speed;
 }
@@ -131,8 +178,16 @@ ctx.moveTo(mx,my);
 }
 });
 s = setInterval(function () {
-  if (drawflag) {
-
+  if (Math.floor(spin_speed) >= 477) {
+    main.style.color = "#30ff30";
+    ctx.strokeStyle = "#30ff38";
+  } else if (Math.floor(spin_speed) >= 300) {
+    main.style.color = "#ffffcd";
+    ctx.strokeStyle = "#505050";
+  } else {
+    
+    main.style.color = "#afafaf";
+    ctx.strokeStyle = "#303038";
   }
   main.innerHTML = "SPIN: " + Math.floor(spin_speed) + "rpm<br>HIGH: " + Math.floor(high_spin_speed);
 }, 100);

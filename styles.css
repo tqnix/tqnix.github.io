@@ -76,8 +76,9 @@ body {
 }
 iframe {
   background-color: white;
+  border: none;
   font-size: 1vmax;
-  height: 33vw;
+  height: 25vw;
   width: 98%;
   transition: opacity .2s linear;
 }
@@ -105,15 +106,14 @@ a {
   width: 25vw;
   border: 0.25vw solid beige;
   border-radius: 0.8vw;
-  padding-bottom: 2.5vw;
-  margin-top: 2.5vw;
-  margin-bottom: 2.5vw;
+  margin: 2.5vw;
   display: inline-block;
     transition-duration: 200ms;
   z-index: -2000;
 }
 .case_container a{
   font-size: 1.5vw;
+  margin: 1vmin;
 }
 .case_container:hover {
     -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 

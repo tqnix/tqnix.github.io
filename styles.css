@@ -102,6 +102,9 @@ a {
   font-weight: bold;
 }
 .smalltext {
+  font-size: 1.5vw;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   font-size: 1.8vw;
 }
 .case_container {
@@ -113,11 +116,6 @@ a {
   display: inline-block;
     transition-duration: 200ms;
   z-index: -2000;
-}
-.case_container a{
-  font-size: 1.5vw;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
 }
 .case_container:hover {
     -webkit-box-shadow: 0px 3px 15px 9px rgba(255,255,205,0.73); 

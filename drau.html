@@ -15,6 +15,23 @@
 	  canvas {
 		  background-color: white;
 	  }
+    .colorbutton {
+      display: inline-block;
+      width: 4vmax;
+      margin: 0.5vw;
+      transition: 100ms;
+    }
+    .colorbutton:hover {
+      outline: 3px solid red;
+      
+    }
+    button, input {
+      height: 4vmax;
+      font-size: 30px;
+    }
+    .tianxue {
+      position: fixed; width: 100%; height: 100%; display: none; background-color: #ffffcd7f; text-align: center; content-align: center; color: #000000;
+    }
   </style>
   </head>
 
@@ -27,16 +44,15 @@
 <button onclick="skylearn()">color menu</button><button onclick="phil('#ffffff')">clear</button><button id="navbutton" onclick="window.location.href = 'index.html'">Back to homepage</button><input class="button inputbox" type=color id="s_e1" onchange="changecolorstrM()" value="#ffffff">
 </div>
 
-<div id="tianxue" style="position: absolute; width: 100%; height: 100%; display: none; background-color: #ffffcd7f; text-align: center; content-align: center; color: #000000">
+<div id="tianxue" class="tianxue">
 <br>
-  <input id="lsizetf" class=colorbutton type="text" placeholder="横大小"><button onclick="changelsize();">Apply</button>
+  <input id="lsizetf" type="number" placeholder="line size (px)"><button onclick="changelsize();">Apply</button>
 <br>
-  <input id="csizetf" class=colorbutton type="text" placeholder="图画大小"><button onclick="changecsize(0);">Apply(WILL RESET CANVAS)</button><button onclick="changecsize(1);">phil screen</button>
-<br><button onclick="phil('#ffffff')">clear</button>
-<button onclick="phil(lastusedcolor)">fill with last used color</button>
-<button onclick="abimasu()">toggle grid mode</button><br>
+  <input id="csizetf" type="number" placeholder="canvas size (px*px)"><button onclick="changecsize(0);">Apply(RESETS CANVAS)</button><br>
+  <button onclick="phil('#ffffff')">clear</button><button onclick="phil(lastusedcolor)">fill with last used color</button><br>
+<button id="teng" onclick="abimasu()">MODE: Normal</button><button onclick="changecsize(1);">fullscreen</button><br>
 <input onchange="ImportImage()" type="file" id="import-dialog" accept="image/png, image/jpeg, image/webp, image/bmp"><button onclick="ImportImage();">IMPORT</button><button id="btn-download">Save!</button>
-<button style="position: fixed; right:15%; bottom: 0px;font-size:40px; padding:5% 25%" onclick="skylearn()">close</button>
+<button style="position: fixed; right:0; bottom: 0px;font-size:40px; width: 100%" onclick="skylearn()">close</button>
 </div>
 </body>
 <script>
@@ -46,20 +62,29 @@ const ctx = canvas.getContext("2d");
 var lastusedcolor = "black";
 var colors = [
   'red',
+  'orangered',
   'tomato',
   'orange',
+  "gold",
   'yellow',
   'lime',
   'green',
+  'turquoise',
   'skyblue',
   'cyan',
+  'royalblue',
   'blue',
+  'indigo',
   'purple',
   'violet',
   'magenta',
+  'pink',
+  'LightPink',
   'beige',
   'tan',
   'brown',
+  'saddlebrown',
+  'lightsteelblue',
   'lightgray',
   'gray',
   'dimgray',
@@ -79,7 +104,8 @@ ctx.fillStyle = "black";
   ctx.lineWidth = 15;
 
 for (var i=0; i<colors.length; i++) {
-document.getElementById("tianxue").innerHTML += "<br><button style='display:inline-block; background-color:" + colors[i] + ";' onclick='changecolor(" + i + ")'>" + colors[i] + "</button>";
+if (i%8 == 0) {document.getElementById("tianxue").innerHTML += "<br>"}
+  document.getElementById("tianxue").innerHTML += "<button class='colorbutton' style='background-color:" + colors[i] + ";' onclick='changecolor(" + i + ")'></button>";
 //newb.style.display = "block"; newb.innerHTML = colors[i];
 //newb.style.background = colors[i];
 }
@@ -98,7 +124,7 @@ document.addEventListener('mousedown', event => {
 if (document.getElementById("tianxue").style.display == "none") {
     ctx.beginPath();
     ctx.arc(mx, my, ctx.lineWidth/2, 0, 2 * Math.PI);
-    if (GridMode%3 !== 1) {
+    if (GridMode%3 != 1) {
       ctx.fill();
     } else {
       ctx.fillRect(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth,ctx.lineWidth-1,ctx.lineWidth-1);
@@ -157,17 +183,18 @@ function touch2Mouse(e)
 document.getElementById("canvas").addEventListener("touchstart", touch2Mouse, true);
 document.getElementById("canvas").addEventListener("touchmove", touch2Mouse, true);
 document.getElementById("canvas").addEventListener("touchend", touch2Mouse, true);
+  
 function draw(x,y,a) {
 if (DrawStartFlag && document.getElementById("tianxue").style.display == "none") {
   if (GridMode%3 == 1) {
     ctx.fillRect(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth,ctx.lineWidth-1,ctx.lineWidth-1);
   } else if (GridMode%3 == 2) {
-    ctx.lineTo(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth);
+    ctx.lineTo(Math.floor(x/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2,Math.floor(y/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2);
    if (true) {ctx.stroke();}
   ctx.beginPath();
     //ctx.arc(Math.floor(x/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2,Math.floor(y/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2, ctx.lineWidth/2, 0, 2 * Math.PI);
     //ctx.fill();
-  ctx.moveTo(Math.floor(x/ctx.lineWidth)*ctx.lineWidth,Math.floor(y/ctx.lineWidth)*ctx.lineWidth);
+  ctx.moveTo(Math.floor(x/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2,Math.floor(y/ctx.lineWidth)*ctx.lineWidth+ctx.lineWidth/2);
   } else {
     ctx.lineTo(x,y);
    if (true) {ctx.stroke();}
@@ -185,7 +212,16 @@ function tungu() {
   //menu
 }
 function abimasu() {
+  let modeNames = [
+    "Normal",
+    "Grid",
+    "Fragment",
+    "Airbrush",
+    "Line Tool",
+    "Fill Tool",
+  ];
   GridMode++;
+  document.getElementById("teng").innerText = "MODE: " + modeNames[GridMode%3];
 }
 function changecsize(se) {
 if (se == 0) {
@@ -195,18 +231,18 @@ if (se == 0) {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
 }
-	console.log("Canvas size is now " + parseInt(document.getElementById("csizetf").value));
+	//console.log("Canvas size is now " + parseInt(document.getElementById("csizetf").value));
 	phil("#ffffff");
   changelsize();
 }
 function changelsize() {
 	ctx.lineWidth = parseInt(document.getElementById("lsizetf").value);
-	console.log("Line size is now " + parseInt(document.getElementById("lsizetf").value));
+	//console.log("Line size is now " + parseInt(document.getElementById("lsizetf").value));
 }
 function skylearn() {
   let x = document.getElementById("tianxue");
   if (x.style.display === "none") {
-    x.style.display = "block";
+    x.style.display = "inline-block";
   } else {
     x.style.display = "none";
   }

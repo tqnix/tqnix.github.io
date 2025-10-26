@@ -15,9 +15,12 @@
       overflow-y: auto;
       height: 30vh;
     }
+     .baboon {
+       font-size: 2vmax;
+     }
     </style> 
  </head>
- <button class="navbutton" onclick="window.location.href = 'index.html'">◀️BACK</button><br>
+ <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button><br>
  <h1>MINECRAFT HOTKEY PRACTICE PROOF OF CONCEPT</h1>
 <p id="rq">PRESS ANY KEY TO START</p>
 <p id="hotkey"></p>
@@ -66,10 +69,10 @@ function Update() {
 Reset();
 function ShowHotkeys() {
   document.getElementById("hotkey").innerHTML = "";
+  document.getElementById("hotkey").innerHTML += "<button class='baboon' onclick='ChangeSize()'>DIFFICULTY</button><button class='baboon' onclick='Reset()'>Reset</button><br><br>";
   for (i=1; i<=9; i++) {
     document.getElementById("hotkey").innerHTML += i + ": <button onclick='ChangeBind(" + i + ")'>" + keys[i] + "</button> | ";
   }
-  document.getElementById("hotkey").innerHTML += "<button onclick='ChangeSize()'>DIFFICULTY</button><button onclick='Reset()'>Reset</button>";
 }
 function ChangeSize() {
   size = prompt("# of hotbar slots? (2-9)");
@@ -86,8 +89,6 @@ function ChangeBind(n) {
 function GenerateHotkey() {
 askbuffer.push(1 + Math.floor(Math.random() * size));
 DrawPlayfield();
-document.getElementById("rq").innerHTML += "<br><br> COMBO " + combo + " | HIGH " + hcombo + " | <br><br>" + misses + " MISSES | " + size + " HOTKEYS";
-
 }
 function DrawPlayfield() {
   document.getElementById("rq").innerHTML = "";
@@ -98,7 +99,7 @@ document.getElementById("rq").innerHTML += "<span style='font-size:36px'>" + ask
 for (i=6; i<11; i++) {
   document.getElementById("rq").innerHTML += "<span style='font-size:24px'>" + askbuffer[i] + "</span> ";
 }
-
+document.getElementById("rq").innerHTML += "<br><br> COMBO " + combo + " | HIGH " + hcombo + " | <br><br>" + misses + " / 3 MISSES | " + size + " HOTKEYS";
 }
 function UpdateHighestCombo() {
   if (combo >= hcombo) {
@@ -110,6 +111,7 @@ function Reset() {
   timer_start = 0;
   timer = 0;
   combo = 0;
+  misses = 0;
   DrawToDisp("Game RESET");
   for(i=0; i<11; i++) {
     askbuffer[i] = (1 + Math.floor(Math.random() * size));
@@ -119,8 +121,10 @@ function Reset() {
 }
 function Lose() {
   DrawToDisp("Game Over! Combo: " + combo);
+    timer_start_flag = false;
+  timer_start = 0;
+  timer = 0;
   combo = 0;
-  misses++;
 }
 function DrawToDisp(a) {
   document.getElementById("disp").innerHTML += "<br>";
@@ -140,6 +144,7 @@ if (changebind_ask == 0) {
     if (!timer_start_flag) {
       timer_start = Date.now();
       timer_start_flag = true;
+      misses = 0;
     }
     askbuffer.shift();
     combo++;
@@ -147,7 +152,13 @@ if (changebind_ask == 0) {
     UpdateHighestCombo();
     GenerateHotkey();
   } else {
-     Lose();
+    DrawToDisp("Miss! Combo: " + combo);
+     misses++;
+    combo = 0;
+    if (misses >= 3) {
+      Lose();
+    }
+    DrawPlayfield();
   }
 }
 if (changebind_ask !== 0) {

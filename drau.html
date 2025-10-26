@@ -56,7 +56,7 @@
   <input id="csizetf" type="number" placeholder="canvas width"><input id="csizebtf" type="number" placeholder="canvas height"><button onclick="changecsize(0);">Apply(RESETS CANVAS)</button><br>
   <button onclick="phil('#ffffff')">clear</button><button onclick="phil(lastusedcolor)">fill with last used color</button><button onclick="changecsize(1);">fullscreen</button><br>
 <button id="teng" onclick="abimasu()">MODE: Normal</button><br>
-<input onchange="ImportImage()" type="file" id="import-dialog" accept="image/png, image/jpeg, image/webp, image/bmp"><button onclick="ImportImage();">IMPORT</button><button id="btn-download">Save!</button>
+<input onchange="ImportImage()" type="file" id="import-dialog" accept="image/png, image/jpeg, image/webp, image/bmp"><button onclick="ImportImage();">IMPORT</button><button id="btn-download" onclick="gen();">Save!</button>
 <button style="position: fixed; right:0; bottom: 0px;font-size:40px; width: 100%; padding: 5vh;" onclick="skylearn()">close</button>
 </div>
 </body>
@@ -253,6 +253,7 @@ function skylearn() {
   } else {
     x.style.display = "none";
   }
+  document.getElementById('btn-download').innerHTML = "Save";
 }
 function changecolor(b) {
   ctx.strokeStyle = colors[b];
@@ -272,17 +273,6 @@ function changecolorstrM(b) {
   console.log(document.getElementById('s_e1').value);
 lastusedcolor = document.getElementById('s_e1').value;
 }
-// Convert canvas to image
-document.getElementById('btn-download').addEventListener("click", function(e) {
-
-    var dataURL = canvas.toDataURL("image/jpeg", 1.0);
-
-    var a = document.createElement('a');
-    a.href = dataURL;
-    a.download = "tqnixity-w3spaces-canvas-test-drawing.jpeg";
-    document.body.appendChild(a);
-    a.click();
-});
 function phil(c) {
 	ctx.fillStyle = c;
 	ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -292,8 +282,8 @@ console.log("philled | " + lastusedcolor);
 }
 var ldh = new Image();
 function CalcCanvasResolution(c) {
-    c.canvas.width = Math.max(ldh.width,ldh.height);
-    c.canvas.height = Math.max(ldh.width,ldh.height);
+    c.canvas.width = ldh.width;
+    c.canvas.height = ldh.height;
 }
 function ImportImage() {
  const reader = new FileReader();
@@ -305,5 +295,15 @@ function ImportImage() {
   
 }
 
+function gen() {
+  var dataURL = canvas.toDataURL("image/jpeg", 1.0);
+
+    var a = document.createElement('a');
+    a.href = dataURL;
+    a.download = "tqnixity-drawing-app-export.jpeg";
+    document.body.appendChild(a);
+    a.click();
+    document.getElementById('btn-download').innerHTML = "Saved!";
+}
 </script>
 

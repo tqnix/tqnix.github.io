@@ -171,20 +171,7 @@ duffel = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   
 document.addEventListener('mousemove', (event) => {
   gameLoop();
-  if (Math.floor(spin_speed) >= 477) {
-    main.style.color = "#30ffff";
-    ctx.strokeStyle = "#30ffff";
-  } else if (Math.floor(spin_speed) >= 400) {
-    main.style.color = "#30ff38";
-    ctx.strokeStyle = "#30cf38";
-  } else if (Math.floor(spin_speed) >= 277) {
-    main.style.color = "#ffff00";
-    ctx.strokeStyle = "#7f7f7f";
-  }else {
-    
-    main.style.color = "#afafaf";
-    ctx.strokeStyle = "#3f3f3f";
-  }
+  
   mx = event.clientX + window.pageXOffset;
     my = event.clientY + window.pageYOffset;
 main = document.getElementById("seng-btrony");
@@ -214,6 +201,20 @@ if (spin_speed > high_spin_speed) {
   if (spin_speed > at_high_spin_speed) {
   at_high_spin_speed = spin_speed;
 }
+if (Math.floor(spin_speed) >= 477) {
+    main.style.color = "#30ffff";
+    ctx.strokeStyle = "#30ffff";
+  } else if (Math.floor(spin_speed) >= 400) {
+    main.style.color = "#30ff38";
+    ctx.strokeStyle = "#30cf38";
+  } else if (Math.floor(spin_speed) >= 277) {
+    main.style.color = "#ffff00";
+    ctx.strokeStyle = "#7f7f7f";
+  }else {
+    
+    main.style.color = "#afafaf";
+    ctx.strokeStyle = "#3f3f3f";
+  }
   ctx.lineTo(mx,my);
 ctx.stroke();
 ctx.beginPath();

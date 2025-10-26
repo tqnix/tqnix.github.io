@@ -98,7 +98,7 @@ spin_speed = 0;
 high_spin_speed = 0;
 at_high_spin_speed = 0;
 drawflag = false;
-duffel = [0,0,0,0,0,0,0,0,0,0];
+duffel = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var thisFrameTime = 1000;
 var filterStrength = 20;
 var frameTime = 0, lastLoop = new Date, thisLoop;
@@ -133,7 +133,7 @@ document.addEventListener('mouseup', (event) => {
 
 spin_speed = 0;
   
-duffel = [0,0,0,0,0,0,0,0,0,0];
+duffel = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   cumulangle = 0;
 });
 
@@ -164,7 +164,7 @@ document.addEventListener('keyup', (event) => {
   previousangle = 77;
   drawflag = false;
 spin_speed = 0;
-duffel = [0,0,0,0,0,0,0,0,0,0];
+duffel = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   cumulangle = 0;
   
 });
@@ -242,8 +242,8 @@ function gameLoop(){
 
 function duffelLoop () {
   ddff = Math.abs((toro(event.clientX,event.clientY) - previousangle))*60000/(2*Math.PI*thisFrameTime);
-  ddff_a = duffel[0] + duffel[1] + duffel[2] + duffel[3] + duffel[4] + duffel[5] + duffel[6] + duffel[7] + duffel[8] + duffel[9];
-  spin_speed = ddff_a/10;
+  ddff_a = duffel[0] + duffel[1] + duffel[2] + duffel[3] + duffel[4] + duffel[5] + duffel[6] + duffel[7] + duffel[8] + duffel[9] + duffel[10] + duffel[11] + duffel[12] + duffel[13] + duffel[14] + duffel[15] + duffel[16] + duffel[17] + duffel[18] + duffel[19];
+  spin_speed = ddff_a/20;
   duffel.push(ddff);
   duffel.shift();
 }

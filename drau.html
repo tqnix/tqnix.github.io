@@ -102,13 +102,16 @@ var colors = [
 DrawStartFlag = false;
 IsMouseDown = false;
 GridMode = 0;
-ctx.canvas.width  = window.innerWidth - 5;
+
+
+function boy() {
+  ctx.canvas.width  = window.innerWidth - 5;
 ctx.canvas.height = window.innerHeight*15/16;
 ctx.strokeStyle = "black";
 ctx.fillStyle = "black";
-  ctx.lineWidth = 15;
-
-function boy() {
+  ctx.lineWidth = 16;
+  document.getElementById("csizetf").innerHTML = ctx.canvas.width;
+  document.getElementById("csizebtf").innerHTML = ctx.canvas.height;
   for (var i=0; i<colors.length; i++) {
 if (i%8 == 0) {document.getElementById("tianxue").innerHTML += "<br>"}
   document.getElementById("tianxue").innerHTML += "<button class='colorbutton' style='background-color:" + colors[i] + ";' onclick='changecolor(" + i + ")'></button>";
@@ -299,6 +302,7 @@ function gen() {
   var dataURL = canvas.toDataURL("image/jpeg", 1.0);
 
     var a = document.createElement('a');
+  var dataURL = canvas.toDataURL("image/jpeg", 1.0);
     a.href = dataURL;
     a.download = "tqnixity-drawing-app-export.jpeg";
     document.body.appendChild(a);

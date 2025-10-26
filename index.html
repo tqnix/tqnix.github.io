@@ -170,7 +170,7 @@ let tanjou = "<div class=\"case_container";
 if (seecret_items[i].e > 0) {
   tanjou += " grun";
 }
-tanjou += "\"><a class='smalltext' href=" + seecret_items[i].link + ">";
+tanjou += "\">";
 if (!view_plaintext) {
   
   if (seecret_items[i].e == 1) {
@@ -184,7 +184,7 @@ if (!view_plaintext) {
     tanjou += '<iframe src="' + seecret_items[i].link + '" height="640"></iframe><br>';
   }
 }
-tanjou += seecret_items[i].na + "</a></div>\n";
+tanjou += seecret_items[i].na + "<a class='smalltext' href=" + seecret_items[i].link + "></a></div>\n";
 
 document.getElementById("tianxue").innerHTML += tanjou;
   

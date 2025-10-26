@@ -99,10 +99,10 @@ a {
   font-weight: bold;
 }
 .smalltext {
-  font-size: 1.8vw;
+  font-size: 1.5vw;
 }
 .case_container {
-  width: 30vw;
+  width: 25vw;
   border: 0.25vw solid beige;
   border-radius: 0.8vw;
   padding-bottom: 6px;

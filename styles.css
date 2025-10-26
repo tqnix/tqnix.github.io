@@ -81,7 +81,7 @@ iframe {
   border: none;
   font-size: 1vmax;
   height: 28vw;
-  width: 98%;
+  width: 100%;
   transition: opacity .2s linear;
 }
 iframe:hover {
@@ -105,7 +105,6 @@ a {
   font-size: 1.5vw;
   margin-top: 1vh;
   margin-bottom: 1vh;
-  font-size: 1.8vw;
 }
 .case_container {
   width: 25vw;

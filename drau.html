@@ -18,6 +18,7 @@
     .colorbutton {
       display: inline-block;
       width: 4vmax;
+      height: 4vmax;
       margin: 0.5vw;
       transition: 100ms;
     }
@@ -26,8 +27,12 @@
       
     }
     button, input {
-      height: 4vmax;
-      font-size: 30px;
+      height: 3vh;
+      padding: 0 1vmin;
+      font-size: 1.5vh;
+    }
+    input {
+      width: 15vmax;
     }
     .tianxue {
       position: fixed; width: 100%; height: 100%; display: none; background-color: #ffffcd7f; text-align: center; content-align: center; color: #000000;
@@ -35,7 +40,7 @@
   </style>
   </head>
 
-<body style="margin:0;padding:0;display:flex;background-color:white;">
+<body style="margin:0;padding:0;display:flex;background-color:white;" onload="boy();">
   <div id=main>
 <canvas id="canvas">
 </canvas>
@@ -48,11 +53,11 @@
 <br>
   <input id="lsizetf" type="number" placeholder="line size (px)"><button onclick="changelsize();">Apply</button>
 <br>
-  <input id="csizetf" type="number" placeholder="canvas size (px*px)"><button onclick="changecsize(0);">Apply(RESETS CANVAS)</button><br>
-  <button onclick="phil('#ffffff')">clear</button><button onclick="phil(lastusedcolor)">fill with last used color</button><br>
-<button id="teng" onclick="abimasu()">MODE: Normal</button><button onclick="changecsize(1);">fullscreen</button><br>
+  <input id="csizetf" type="number" placeholder="canvas width"><input id="csizebtf" type="number" placeholder="canvas height"><button onclick="changecsize(0);">Apply(RESETS CANVAS)</button><br>
+  <button onclick="phil('#ffffff')">clear</button><button onclick="phil(lastusedcolor)">fill with last used color</button><button onclick="changecsize(1);">fullscreen</button><br>
+<button id="teng" onclick="abimasu()">MODE: Normal</button><br>
 <input onchange="ImportImage()" type="file" id="import-dialog" accept="image/png, image/jpeg, image/webp, image/bmp"><button onclick="ImportImage();">IMPORT</button><button id="btn-download">Save!</button>
-<button style="position: fixed; right:0; bottom: 0px;font-size:40px; width: 100%" onclick="skylearn()">close</button>
+<button style="position: fixed; right:0; bottom: 0px;font-size:40px; width: 100%; padding: 5vh;" onclick="skylearn()">close</button>
 </div>
 </body>
 <script>
@@ -98,16 +103,18 @@ DrawStartFlag = false;
 IsMouseDown = false;
 GridMode = 0;
 ctx.canvas.width  = window.innerWidth - 5;
-ctx.canvas.height = window.innerHeight - 100;
+ctx.canvas.height = window.innerHeight*15/16;
 ctx.strokeStyle = "black";
 ctx.fillStyle = "black";
   ctx.lineWidth = 15;
 
-for (var i=0; i<colors.length; i++) {
+function boy() {
+  for (var i=0; i<colors.length; i++) {
 if (i%8 == 0) {document.getElementById("tianxue").innerHTML += "<br>"}
   document.getElementById("tianxue").innerHTML += "<button class='colorbutton' style='background-color:" + colors[i] + ";' onclick='changecolor(" + i + ")'></button>";
 //newb.style.display = "block"; newb.innerHTML = colors[i];
 //newb.style.background = colors[i];
+}
 }
 
 document.addEventListener('mousedown', event => {
@@ -226,9 +233,9 @@ function abimasu() {
 function changecsize(se) {
 if (se == 0) {
   	ctx.canvas.width = parseInt(document.getElementById("csizetf").value);
-	ctx.canvas.height = parseInt(document.getElementById("csizetf").value);
+	ctx.canvas.height = parseInt(document.getElementById("csizebtf").value);
 } else {
-  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.width = window.innerWidth-5;
   ctx.canvas.height = window.innerHeight;
 }
 	//console.log("Canvas size is now " + parseInt(document.getElementById("csizetf").value));

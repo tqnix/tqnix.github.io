@@ -7,16 +7,19 @@
   body {
         font-family: Arial;
         background: #000000;
+        
         color: #ffffcd;
-        font-size:18px;
+        font-size:3vh;
         margin: 0;
         padding: 0;
         text-align: left;
     }
-.so {
+  a {
+    color: royalblue;
+  }
+.pianoforte {
   padding: 0;
   margin: 0;
-border: 1px solid red;
 display: flex;
   
   height: 100vh;
@@ -27,13 +30,23 @@ display: flex;
   cursor: not-allowed;
   
 }
+  .marcato {
+    padding: 0;
+  margin: 0;
+  
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  text-align: center;
+  pointer-events: none;
+  cursor: not-allowed;
+  }
 .cantabile {
   justify-content: center;
   align-items: center;
   font-size: 10vmax;
   margin: 0;
   padding: 0;
-  pointer-events: none;
 }
 .diin {
   align-items: flex-end;
@@ -43,24 +56,35 @@ display: flex;
   .bayashi {
     font-size: 9vh;
   }
+   .bayashimi {
+    font-size: 6vh;
+     font-weight: bold;
+  }
 button {
   position: fixed;
 }
+  #kaap {
+    background: radial-gradient(circle,rgba(0, 0, 0, 1) 5%, rgba(28, 28, 28, 1) 100%);
+  }
 </style>
 </head>
-<canvas id="kaap" class= "so"></canvas>
-<div id="seer" class="so"><br>
-  <h2>Draw a Really Fast Circle</h2>
+<body>
+<canvas id="kaap" class= "pianoforte"></canvas>
+<div id="seer" class="marcato"><br>
+  <a href="">Inspired by Draw a Perfect Circle</a><br>
+  <span class="bayashimi">Draw a Really Fast Circle</span>
+  
 </div>
-<div id="seng-btrony" class="so diin">
+<div id="seng-btrony" class="pianoforte diin">
   HOLD LEFT CLICK to<br>Start drawing circles<br>around me!
 </div>
-<div id="seng-osu" class="so diin bayashi">
+<div id="seng-osu" class="pianoforte diin bayashi">
 </div>
-<div id="seng-idiwere" class="so cantabile">
-  ©️
+<div id="seng-idiwere" class="pianoforte cantabile">
+  ©
 </div>
 <button class="navbutton" onclick="window.location.href = 'index.html'">◀️Back</button>
+</body>
 <script>
   const canvas = document.getElementById("kaap");
 const ctx = canvas.getContext("2d");
@@ -72,6 +96,7 @@ previousangle = 77;
 cumulangle = 0;
 spin_speed = 0;
 high_spin_speed = 0;
+at_high_spin_speed = 0;
 drawflag = false;
 duffel = [0,0,0,0,0,0,0,0,0,0];
 var thisFrameTime = 1000;
@@ -105,11 +130,9 @@ ctx.moveTo(mx,my);
 document.addEventListener('mouseup', (event) => {
   previousangle = 77;
   drawflag = false;
-  ctx.canvas.width  = window.innerWidth;
-ctx.canvas.height = window.innerHeight;
-ctx.strokeStyle = "#303038";
-ctx.lineWidth = 5;
+
 spin_speed = 0;
+  
 duffel = [0,0,0,0,0,0,0,0,0,0];
   cumulangle = 0;
 });
@@ -140,13 +163,10 @@ ctx.moveTo(mx,my);
 document.addEventListener('keyup', (event) => {
   previousangle = 77;
   drawflag = false;
-  ctx.canvas.width  = window.innerWidth;
-ctx.canvas.height = window.innerHeight;
-ctx.strokeStyle = "#303038";
-ctx.lineWidth = 5;
 spin_speed = 0;
 duffel = [0,0,0,0,0,0,0,0,0,0];
   cumulangle = 0;
+  
 });
   
 document.addEventListener('mousemove', (event) => {
@@ -166,10 +186,19 @@ if (drawflag) {
         document.getElementById("seng-osu").innerHTML = "<br><br><br>";
         console.log(cumulangle);
       }
+} else if (previousangle == 77) {
+            ctx.canvas.width  = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+        ctx.strokeStyle = "#303038";
+        ctx.lineWidth = 5;
+  high_spin_speed = 0;
 }
   previousangle = toro(mx,my);
 if (spin_speed > high_spin_speed) {
   high_spin_speed = spin_speed;
+}
+  if (spin_speed > at_high_spin_speed) {
+  at_high_spin_speed = spin_speed;
 }
   ctx.lineTo(mx,my);
 ctx.stroke();
@@ -177,19 +206,22 @@ ctx.beginPath();
 ctx.moveTo(mx,my);
 }
 });
-s = setInterval(function () {
+s = setInterval(function () {//fix
   if (Math.floor(spin_speed) >= 477) {
-    main.style.color = "#30ff30";
-    ctx.strokeStyle = "#30ff38";
-  } else if (Math.floor(spin_speed) >= 300) {
-    main.style.color = "#ffffcd";
-    ctx.strokeStyle = "#505050";
-  } else {
+    main.style.color = "#30ffff";
+    ctx.strokeStyle = "#30ffff";
+  } else if (Math.floor(spin_speed) >= 400) {
+    main.style.color = "#30ff38";
+    ctx.strokeStyle = "#30cf38";
+  } else if (Math.floor(spin_speed) >= 277) {
+    main.style.color = "#ffff00";
+    ctx.strokeStyle = "#7f7f7f";
+  }else {
     
     main.style.color = "#afafaf";
-    ctx.strokeStyle = "#303038";
+    ctx.strokeStyle = "#3f3f3f";
   }
-  main.innerHTML = "SPIN: " + Math.floor(spin_speed) + "rpm<br>HIGH: " + Math.floor(high_spin_speed);
+  main.innerHTML = "SPIN: " + Math.floor(spin_speed) + "rpm<br>HIGH: " + Math.floor(high_spin_speed) + " | " + Math.floor(at_high_spin_speed);
 }, 100);
 function toxy(radius,radian){
     return {

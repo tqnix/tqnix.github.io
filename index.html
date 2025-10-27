@@ -221,7 +221,13 @@ addEventListener("keydown", (event) => {
       }
       break;
     }
-    
+    if (document.querySelector("#satyrday:focus")) {
+		switch(event.key) {
+      case "ArrowUp": YDirFlag = 1;  break;
+      case "ArrowDown": YDirFlag = -1; break;
+      case "ArrowLeft": XDirFlag = -1; break;
+      case "ArrowRight": XDirFlag = 1; break;
+	}
      document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
 });
 function ProcessPlaceholders(j,n) {
@@ -309,8 +315,10 @@ thr : 0,
 rot : -90
 };
 const speed = 8;
-
-	function b() {
+setInterval(function() {
+b();
+},25);
+function b() {
     //console.log(YDirFlag);
     AccelerationTimer1+=XDirFlag*2;
     AccelerationTimer2+=YDirFlag*2;
@@ -331,15 +339,6 @@ player.thr = speed*AccelerationTimer2/20;
   pbox.style.transform = "translate(" + player.xpos + "px," + player.ypos + "px) rotate(" + (90+player.rot) + "deg)";
  // document.getElementById("fifty").style.transform = "translateX(" + angle + "px)";
 }
-addEventListener("keydown", (event) => {
-if (!document.querySelector("#satyrday:focus")) {
-		switch(event.key) {
-      case "ArrowUp": YDirFlag = 1;  break;
-      case "ArrowDown": YDirFlag = -1; break;
-      case "ArrowLeft": XDirFlag = -1; break;
-      case "ArrowRight": XDirFlag = 1; break;
-}
-});
 
 addEventListener("keyup", (event) => {
 		switch(event.key) {

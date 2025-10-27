@@ -74,7 +74,7 @@
     </span>
     </div>
     <br><br>
-	<input type=text id=satyrday placeholder="<< head"></input>
+	<input type=text id=satyrday placeholder="move me with the arrow keys!"></input>
 	<br><br><br>
 </body>
 <script src="splash.js"></script>
@@ -210,10 +210,6 @@ addEventListener("keydown", (event) => {
 		switch(event.key) {
       case "Backspace": input_text = input_text.substring(0, input_text.length - 1);activate(); break;
 	  case "Delete": input_text = ""; activate(); break;
-      case "ArrowUp": splash_showing++; document.getElementById("title_bottomtext").innerText = ProcessPlaceholders(splash_texts[splash_showing],true); break;
-      case "ArrowDown": splash_showing--; document.getElementById("title_bottomtext").innerText = ProcessPlaceholders(splash_texts[splash_showing],true); break;
-      case "ArrowLeft": user_adjustable--; break;
-      case "ArrowRight": user_adjustable++; break;
       case "Insert": reroll(); break;
       default: 
       if (event.key.length == 1) {
@@ -228,6 +224,7 @@ addEventListener("keydown", (event) => {
       case "ArrowDown": YDirFlag = -1; break;
       case "ArrowLeft": XDirFlag = -1; break;
       case "ArrowRight": XDirFlag = 1; break;
+	}
 	}
      document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
 });
@@ -316,6 +313,7 @@ thr : 0,
 rot : -90
 };
 const speed = 8;
+pbox = document.getElementById("satyrday");
 setInterval(function() {
 b();
 },25);

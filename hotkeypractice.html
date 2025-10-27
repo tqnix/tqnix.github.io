@@ -154,11 +154,12 @@ if (changebind_ask == 0) {
   } else {
     DrawToDisp("Miss! Combo: " + combo);
      misses++;
-    combo = 0;
+    
     if (misses >= 3) {
       Lose();
     }
     DrawPlayfield();
+   combo = 0;
   }
 }
 if (changebind_ask !== 0) {
@@ -192,3 +193,4 @@ if (changebind_ask !== 0) {
 }
 });*/
 </script>
+

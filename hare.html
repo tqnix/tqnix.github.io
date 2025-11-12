@@ -284,12 +284,13 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       break;
       case "ASK":
       let glu = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"!stop\" to stop (or you can reload the website)");
+      outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " + glu);
       //console.log(glung);
       if (glu == "!stop") {
         clearInterval(s);
+      } else {
+        fakevar(arraygoeshere[fjdsa+1],mafs(glu),"is");
       }
-      fakevar(arraygoeshere[fjdsa+1],mafs(glu),"is");
-      outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " + glung);
       break;
       case "CONFIG":
       /*if (arraygoeshere[fjdsa+1] == "SEMICOLON_TERMINATOR") {

@@ -145,20 +145,20 @@ function parse_text() {
    bal = qz.replaceAll("\n","").split(MAGIC_MIKE);
    
     for (var i=0; i<bal.length; i++) {
-    bal2 = bal[i].replace(MAGIC_MIKE,'').split(' ');
-      turn_that_shit_into_code(parse_line(i),i);
+    //bal2 = bal[i].replace(MAGIC_MIKE,'').split(' ');
+      turn_that_shit_into_code(parse_line(bal[i]),i);
       //document.getElementById("output").innerText += "\n" + "-------------------------\n";
     }
 }
 function parse_line(f) {
-  let outputAsString = "";
-    for (var i=0; i<bal2.length; i++) {
-      outputAsString += bal2[i] + " | ";
-    }
+  let outputAsString = ""; 
+  let bal2 = f.replace(MAGIC_MIKE,'').split(' ');
+    /*for (var i=0; i<f.length; i++) {
+      outputAsString += f[i] + " | ";
+    }*/
   //document.getElementById("output").innerText += outputAsString;
   //console.log(bal2);
- let b = bal[f].replace(MAGIC_MIKE,'').split(' ');
-  return b;
+  return bal2;
 }
 function HandleError(lentil,token) {
   let err;
@@ -308,22 +308,27 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       break;
       case "DEF":
       let darast = "";
-      for (darasten = fjdsa+2; darasten < parse_line(j).length; darasten++) {
+      for (darasten = fjdsa+2; darasten < arraygoeshere.length; darasten++) {
         darast += arraygoeshere[darasten];
         darast += " ";
+        console.log(darast);
       }
-      darast += ".";
-      console.log(darast);
       fakefunc(arraygoeshere[fjdsa+1],darast);
         outputlog.innerText += ("\nFunction " + arraygoeshere[fjdsa+1] + " defined as " + darast);
         fjdsa = arraygoeshere.length + 16;
       break;
       case "CALL":
-      getfunc(arraygoeshere[fjdsa+1]);
-        outputlog.innerText += ("\nFunction " + arraygoeshere[fjdsa+1] + " called");
+  let function_to_add = parse_line(getfunc(arraygoeshere[fjdsa+1]));
+  outputlog.innerText += ("\nFunction " + arraygoeshere[fjdsa+1] + " called");
+for (i=function_to_add.length-1; i>=0; i--) {
+arraygoeshere.splice(2,0,function_to_add[i]);
+//console.log(arraygoeshere);
+}
+
+        
       break;
-      case "ASKFUNCTION": /*delete this*/
-      let glue = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"!stop\" to stop (or you can reload the website)");
+      case "ASKFUNCTION":
+      let glue = prompt("Enter code (type \"!stop\" to stop (or you can reload the website)");
       //console.log(glung);
       if (glue == "!stop") {
         clearInterval(s);
@@ -514,8 +519,6 @@ function rin(g) {
     case "UP": pen.down = false; break;
     case "DOWN": pen.down = true; break;
     case "TOGGLE": pen.down = !pen.down; break;
-    case "WHITE": ctx.strokeColor = "#d8e0d0"; break;
-    case "BLACK": ctx.strokeColor = "#404048"; break;
     default: ctx.lineWidth = mafs(g); break;
   }
 }
@@ -613,6 +616,7 @@ function generate_fun_box() {
       {"name":"speedtest","data":"TITLE speedtest.VAR c 0.ASK iteration_max.REPEAT iteration_max.THEN INC c 1 PRINTMAFS (c**2).MOVE 32."},
       {"name":"fibonacci","data":"INIT VAR a 1 VAR b 1.PRINTMAFS (a+b).VAR c (a+b) VAR a b VAR b c GET c.TURN 12.MOVE (#log(c))."},
       {"name":"randomly generated art","data":"INIT ASK size POINTER OFF.TITLE art_scalable.MOVE size.ANGLE randomangle.IF px < 0 THEN ANGLE 90.IF px > 256 THEN ANGLE 270.IF py < 0 THEN ANGLE 180.IF py > 256 THEN ANGLE 0."},
+      {"name":"command prompt","data":"PRINT Terminal.ASKFUNCTION command.CALL command."},
    ];
   for (i=0; i<fun_box_thingies.length; i++) {
     if (fun_box_thingies[i] == "!break") {

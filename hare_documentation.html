@@ -22,13 +22,13 @@
 <br>- Alternatively, you can use the auto-iterate function to have a program automatically iterate over and over based on a fixed amount of time.
 <br>- Press RESET to reset all values
 <br>- All sequences end with a period (.) by default.
-<br>- You can have multiple functions within a sequence. This could come in useful when using the INIT function.
+<br>- You can have multiple functions within a sequence. This could come in useful when using the INIT or THEN functions, or when defining a function with DEF.
 <br>	- Ex. PEN DOWN MOVE 10 TURN 15 PEN UP.
-<br>- Numbers can be either numbers, variables, or expressions.
-<br>- because the period is used for ending a sequence, you need to express non-integer numbers using fractions (i. e. 0.47 can be represented as 47/100)
-<br>- All variables are floating point
-<br>- The canvas is 256 x 256
-<br>- You do not need to have quotation marks when inputting strings or variable names.
+<br>- Functions with numerical parameters accept numbers, variables, or expressions enclosed in brackets.
+<br>- because the period is used for ending a sequence, you need to express non-integer numbers using fractions (i. e. 0.47 can be represented as 47/100).
+<br>- All variables are floating point numbers.
+<br>- The canvas is 256 x 256 with a gray background.
+<br>- You do not need to have quotation marks when inputting variable or function names.
 <br>- Simple (supported by JS) mathematical expressions can be entered in place of numbers by having the expression in parantheses.
 <br>
 <br><h1>VARIABLES</h1>
@@ -104,8 +104,22 @@
 <br>GET [variable name]
 <br>- Prints out the current value of a variable. Mainly used for debugging purposes.
 <br>
-<br>HELP
-<br>- Does nothing, since asking for help is bad for the environment as we all know
+<br>ASK [variable]
+<br>- Opens a prompt for the user to enter a function.
+<br>- Alternatively, you could type !stop to stop auto iterate if it's on.
+<br>
+<br>DEF [function name]
+<br>- Defines a function.
+<br>- Note that functions cannot be executed as of the time of writing.
+<br>
+<br>CALL [function name]
+<br>- Defines a function.
+<br>- Note that functions cannot be executed as of the time of writing.
+<br>
+<br>ASKFUNCTION [function name]
+<br>- Opens a prompt for the user to enter a function.
+<br>- Alternatively, you could type !stop to stop auto iterate if it's on.
+<br>- Note that functions cannot be executed as of the time of writing.
 <br>
 <br>IF [number] [comparison] [number]
 <br>- If the comparison is true, the nearest sequence preceded by a THEN is executed.
@@ -129,9 +143,6 @@
 <br>
 <br>WAIT [number]
 <br>- Waits for that amount of milliseconds. Currently very buggy.
-<br>
-<br>ASK [variable name]
-<br>- Opens a popup asking for a variable value
 <br>
 <br>POINTER 
 <br>- Controls various aspects about the pointer

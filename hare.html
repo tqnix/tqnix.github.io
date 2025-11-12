@@ -52,25 +52,19 @@ GET pd.
 <button style="font-size: 28px;" onclick="init(); drau(); func_odometer = 0; init(); drau();">RESET</button>
 <button style="font-size: 28px;" onclick="parse_text()">RUN</button>
 <button style="font-size: 28px;" onclick="toggle_fun_box()">TOOLBOX</button>
-
-
 <br>
 <input type=text id=heoi placeholder="something in ms"></input>
 <button onclick="if (s != null) {clearInterval(s);} s = setInterval(parse_text,mafs(document.getElementById('heoi').value))">Auto Iterate (ms)</button>
 <button onclick="clearInterval(s)">STOP Auto Iterate</button><br>
-<input type="file" id="fileInput" accept=".hare">
-<button onclick="save()">Export!</button>
-
 <br>
 Toggle: 
 <button onclick="toggle_output()">Output</button>
 <button onclick="delayflag = !delayflag">Delay</button>
-<button onclick="i_am_righteous = !i_am_righteous">Output clearing</button><br>
-<br>
-<button onclick="window.open('hare_documentation.html')">i actually need help tho</button>
-<button onclick="document.getElementById('input').value = '';">CLEAR ALL CODE</button>
+<button onclick="i_am_righteous = !i_am_righteous">Output clearing</button><br><br>
+File:
+<input type="file" id="fileInput" accept=".hare">
+<button onclick="save()">Export!</button>
 
-<br>
 <canvas height=256 width=256 id=art style="border: 1px solid white"></canvas>
 <canvas height=256 width=256 id=artf style="border: 1px solid white"></canvas><br><br>
 OUTPUT: -------------------------------------------------------------<br>
@@ -80,6 +74,7 @@ OUTPUT: -------------------------------------------------------------<br>
   const ctx2 = canvas2.getContext("2d");
   const canvas = document.getElementById("art");
 const ctx = canvas.getContext("2d");
+const outputlog = document.getElementById("output");
 ctx.fillStyle = "#d8e0d0";
 ctx.fillRect(0,0,256,256);
 generate_fun_box();
@@ -90,6 +85,9 @@ var the = [
   {page:"random",word:0},
   {page:"randomangle",word:0},
   {page:"randominteger",word:0},
+];
+var these = [
+  {page:"%b",word:"PRINT oioi."},
 ];
 var qz = "";
 var func_odometer = 0;
@@ -190,51 +188,51 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       break;
       case "MOVE": 
         move(mafs(arraygoeshere[fjdsa+1]));
-        document.getElementById("output").innerText +=("\nMoved " + mafs(arraygoeshere[fjdsa+1]));
+        outputlog.innerText +=("\nMoved " + mafs(arraygoeshere[fjdsa+1]));
       break;
       case "TURN": 
         turn(mafs(arraygoeshere[fjdsa+1]));
-        document.getElementById("output").innerText +=("\nTurned " + mafs(arraygoeshere[fjdsa+1]) + " deg.");
+        outputlog.innerText +=("\nTurned " + mafs(arraygoeshere[fjdsa+1]) + " deg.");
       break;
       case "PEN": //subfunction (PEN STYLE, PEN LINE, PEN UP, PEN DOWN, ETC)
         rin(arraygoeshere[fjdsa+1]);
-        document.getElementById("output").innerText +=("\nPEN " + arraygoeshere[fjdsa+1] + " DONE");
+        outputlog.innerText +=("\nPEN " + arraygoeshere[fjdsa+1] + " DONE");
       break;
       case "POINTER": //subfunction (PEN STYLE, PEN LINE, PEN UP, PEN DOWN, ETC)
         dogitum(arraygoeshere[fjdsa+1]);
-        document.getElementById("output").innerText +=("\nPOINTER " + arraygoeshere[fjdsa+1] + " DONE");
+        outputlog.innerText +=("\nPOINTER " + arraygoeshere[fjdsa+1] + " DONE");
       break;
       case "GOTO": 
         goto(mafs(arraygoeshere[fjdsa+1]),mafs(arraygoeshere[fjdsa+2]));
-        document.getElementById("output").innerText += ("\nWent to x=" + mafs(arraygoeshere[fjdsa+1]) + ", y=" + mafs(arraygoeshere[fjdsa+2]));
+        outputlog.innerText += ("\nWent to x=" + mafs(arraygoeshere[fjdsa+1]) + ", y=" + mafs(arraygoeshere[fjdsa+2]));
       break;
       case "ANGLE": 
         angle(mafs(arraygoeshere[fjdsa+1]));
-        document.getElementById("output").innerText +=("\nTurned " + mafs(arraygoeshere[fjdsa+1]) + " deg.");
+        outputlog.innerText +=("\nTurned " + mafs(arraygoeshere[fjdsa+1]) + " deg.");
       break;
       case "RESET":
       init();
-        document.getElementById("output").innerText += ("\nReset!");
+        outputlog.innerText += ("\nReset!");
       break;
       case "CLEAR":
       pen.fillStyle = "#d8e0d0";
         ctx.fillRect(0,0,256,256);
-        document.getElementById("output").innerText += ("\nCanvas Cleared!");
+        outputlog.innerText += ("\nCanvas Cleared!");
       break;
       case "VAR":
       fakevar(arraygoeshere[fjdsa+1],mafs(arraygoeshere[fjdsa+2]),"is");
-        document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " +arraygoeshere[fjdsa+2]);
+        outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " +arraygoeshere[fjdsa+2]);
       break;
       case "INC":
       fakevar(arraygoeshere[fjdsa+1],mafs(arraygoeshere[fjdsa+2]),"inc");
-        document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " has been increased by " + arraygoeshere[fjdsa+2] + " and now is " + getvar(arraygoeshere[fjdsa+1]));
+        outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " has been increased by " + arraygoeshere[fjdsa+2] + " and now is " + getvar(arraygoeshere[fjdsa+1]));
       break;
       case "GET":
       getvar(arraygoeshere[fjdsa+1]);
-        document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is " + getvar(arraygoeshere[fjdsa+1]));
+        outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is " + getvar(arraygoeshere[fjdsa+1]));
       break;
       case "HELP":
-      document.getElementById("output").innerText += "\nHelp is bad for the environment";
+      outputlog.innerText += "\nHelp is bad for the environment";
       break;
       case "THEN": //search for REPEAT, IF, or ELSE (ELSE searches for IF)
       for (a=j; a>=0; a--) {
@@ -249,6 +247,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
             case "<": if (mafs(leto[1]) >= mafs(leto[3])) {tengflang = true;} break;
             case "!=": if (mafs(leto[1]) == mafs(leto[3])) {tengflang = true;} break;
             case "lim": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {tengflang = true;} break;
+            case "range": if (mafs(leto[1]) < mafs(leto[3]) || mafs(leto[1]) > mafs(leto[4])) {tengflang = true;} break;
           }
         } else if (leto[0] == "REPEAT") {
           a = -100;
@@ -261,6 +260,7 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
             case ">": if (mafs(leto[1]) > mafs(leto[3])) {tengflang = true;} break;
             case "!=": if (mafs(leto[1]) !== mafs(leto[3])) {tengflang = true;} break;
             case "lim": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {tengflang = true;} break;
+            case "range": if (mafs(leto[1]) > mafs(leto[3]) && mafs(leto[1]) < mafs(leto[4])) {tengflang = true;} break;
           }
         }
         
@@ -273,37 +273,62 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
       }
       break;
       case "PRINT":
-      document.getElementById("output").innerText += ("\n" + arraygoeshere[fjdsa+1]);
+      outputlog.innerText += ("\n" + arraygoeshere[fjdsa+1]);
       break;
       case "PRINTMAFS":
-      document.getElementById("output").innerText += ("\n" + mafs(arraygoeshere[fjdsa+1]));
+      outputlog.innerText += ("\n" + mafs(arraygoeshere[fjdsa+1]));
       break;
       case "WAIT": //fucked
       waitflag = mafs(arraygoeshere[fjdsa+1]);
-      document.getElementById("output").innerText += ("\nSleeping for " + arraygoeshere[fjdsa+1]);
+      outputlog.innerText += ("\nSleeping for ms: " + arraygoeshere[fjdsa+1]);
       break;
       case "ASK":
-      let glung = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"please stop\" to stop (or you can reload the website)");
+      let glu = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"!stop\" to stop (or you can reload the website)");
       //console.log(glung);
-      if (glung == "please stop") {
-        reload();
+      if (glu == "!stop") {
+        clearInterval(s);
       }
-      fakevar(arraygoeshere[fjdsa+1],mafs(glung),"is");
-      document.getElementById("output").innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " + glung);
+      fakevar(arraygoeshere[fjdsa+1],mafs(glu),"is");
+      outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " + glung);
       break;
       case "CONFIG":
-      if (arraygoeshere[fjdsa+1] == "SEMICOLON_TERMINATOR") {
+      /*if (arraygoeshere[fjdsa+1] == "SEMICOLON_TERMINATOR") {
         alert("Javascript injection enabled");
         MAGIC_MIKE = ";";
       }
       if (arraygoeshere[fjdsa+1] == "THE" && arraygoeshere[fjdsa+2] == "CHARACTER" && arraygoeshere[fjdsa+3] == "TERMINATING" && arraygoeshere[fjdsa+4] == "IS") {
         alert("Weirdness Enabled");
         MAGIC_MIKE = arraygoeshere[fjdsa+5];
-      }
+      }*/
       break;
       case "TITLE":
       document.title = arraygoeshere[fjdsa+1];
-      document.getElementById("output").innerText += ("\nWindow title is now " + arraygoeshere[fjdsa+1]);
+      outputlog.innerText += ("\nWindow title is now " + arraygoeshere[fjdsa+1]);
+      break;
+      case "DEF":
+      let darast = "";
+      for (darasten = fjdsa+2; darasten < parse_line(j).length; darasten++) {
+        darast += arraygoeshere[darasten];
+        darast += " ";
+      }
+      darast += ".";
+      console.log(darast);
+      fakefunc(arraygoeshere[fjdsa+1],darast);
+        outputlog.innerText += ("\nFunction " + arraygoeshere[fjdsa+1] + " defined as " + darast);
+        fjdsa = arraygoeshere.length + 16;
+      break;
+      case "CALL":
+      getfunc(arraygoeshere[fjdsa+1]);
+        outputlog.innerText += ("\nFunction " + arraygoeshere[fjdsa+1] + " called");
+      break;
+      case "ASKFUNCTION": /*delete this*/
+      let glue = prompt(arraygoeshere[fjdsa+1] + " = ? (type \"!stop\" to stop (or you can reload the website)");
+      //console.log(glung);
+      if (glue == "!stop") {
+        clearInterval(s);
+      }
+      fakefunc(arraygoeshere[fjdsa+1],glue);
+      outputlog.innerText += ("\nFunction " + arraygoeshere[fjdsa+1] + " is now defined as " + glung);
       break;
       default:
       break;
@@ -371,6 +396,32 @@ function fakevar(pa,o,yn) {
     }
   }
   return getvar(pa);
+}
+
+function getfunc(pa) {
+for (i=0; i<these.length; i++) {
+  if (these[i].page == pa) {
+  console.log(these[i].word);
+    return these[i].word;
+  }
+}
+return "PRINT function_undefined_unfortunately_sad";
+}
+function getfuncindex(pa) {//might be unused
+for (i=0; i<these.length; i++) {
+  if (these[i].page == pa) {
+    return i;
+  }
+}
+return "PRINT function_undefined_unfortunately_sad";
+}
+function fakefunc(pa,o) {
+  if (getfunc(pa) == "PRINT function_undefined_unfortunately_sad") {
+    these.push({page:pa,word:o});
+  } else {
+    these[getfuncindex(pa)].word = o;
+  }
+  return getfunc(pa);
 }
 function mafs(func) {
   let kayasaki = func;
@@ -492,23 +543,33 @@ function toggle_pointer() {
 function generate_fun_box() {
   let magic_mike_fun_box_cozy_interior = document.getElementById("magic_mike_fun_box");
   let fun_box_thingies = [
-    "INIT",
     "MOVE",
     "GOTO",
     "TURN",
     "ANGLE",
+    "PEN",
+    "POINTER",
+    "!break",
+    "WAIT",
+    "TITLE",
+    "INIT",
     "CLEAR",
     "RESET",
+    "!break",
     "VAR",
     "INC",
     "GET",
     "ASK",
+    "DEF",
+    "CALL",
+    "ASKFUNCTION",
     "px",
     "py",
     "pd",
     "random",
     "randomangle",
     "randominteger",
+     "!break",
     "IF",
     "THEN",
     "UNLESS",
@@ -516,13 +577,14 @@ function generate_fun_box() {
     ">",
     "<",
     "=",
-    "lim",
+    "range",
+     "!break",
     "PRINT",
     "PRINTMAFS",
-    "PEN",
-    "POINTER",
     "WAIT",
+    "TITLE",
     ".",
+     "!break",
     "#sin",
   "#cos",
   "#tan",
@@ -552,12 +614,17 @@ function generate_fun_box() {
       {"name":"randomly generated art","data":"INIT ASK size POINTER OFF.TITLE art_scalable.MOVE size.ANGLE randomangle.IF px < 0 THEN ANGLE 90.IF px > 256 THEN ANGLE 270.IF py < 0 THEN ANGLE 180.IF py > 256 THEN ANGLE 0."},
    ];
   for (i=0; i<fun_box_thingies.length; i++) {
-    magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value += \""+fun_box_thingies[i]+" \"'>" + fun_box_thingies[i] + "</button>";
+    if (fun_box_thingies[i] == "!break") {
+      magic_mike_fun_box_cozy_interior.innerHTML += "<br>";
+    } else {
+magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value += \""+fun_box_thingies[i]+" \"'>" + fun_box_thingies[i] + "</button>";
+    }
   }
     magic_mike_fun_box_cozy_interior.innerHTML += "<br><br>";
    for (i=0; i<fun_box_examples.length; i++) {
     magic_mike_fun_box_cozy_interior.innerHTML += "<button onclick='document.getElementById(\"input\").value = \""+fun_box_examples[i].data +" \"'>" + fun_box_examples[i].name + "</button>";
   }
+  magic_mike_fun_box_cozy_interior.innerHTML += "<br><br><button onclick=\"window.open('hare_documentation.html')\">Documentation</button><button onclick=\"document.getElementById('input').value = '';\">CLEAR ALL CODE</button>"
 }
 function toggle_fun_box() {
   if (document.getElementById("magic_mike_fun_box").style.display != "none") {

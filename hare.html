@@ -219,6 +219,9 @@ async function turn_that_shit_into_code(arraygoeshere,j) {//j = current line of 
         ctx.fillRect(0,0,256,256);
         outputlog.innerText += ("\nCanvas Cleared!");
       break;
+      case "CLEAROUTPUT":
+        document.getElementById("output").innerText = "";
+      break;
       case "VAR":
       fakevar(arraygoeshere[fjdsa+1],mafs(arraygoeshere[fjdsa+2]),"is");
         outputlog.innerText += ("\nVariable " + arraygoeshere[fjdsa+1] + " is now " +arraygoeshere[fjdsa+2]);

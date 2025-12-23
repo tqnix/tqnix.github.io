@@ -331,7 +331,7 @@ dhaub_final = [
   "going to marry their high school",
   "surrounded by friends",
   "worldwide",
-  "being sent more life in lieu of flowers"
+  "being sent more life in lieu of flowers",
   "globally applauded",
   "suicidal",
   "collecting calculators",

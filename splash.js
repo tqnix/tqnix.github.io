@@ -485,7 +485,7 @@ dhaub_final = [
   "+MAURICED",
   "+FISTFUL OF DOLLAR",
   "+ULTRACOUNTERRICOSHOT x67108863",
-  "dead. Blood is fuel. Hell is full."
+  "dead. Blood is fuel. Hell is full.",
   "+SCRINDONGULODED",
   "trying to BLJ into a parallel universe",
   "good for only allowing 20 files",

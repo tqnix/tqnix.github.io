@@ -281,7 +281,7 @@ dhaub_initial = [
   "Bill Nye is",
   "My history teacher is",
   "THIS TICKET:",
-  "\'s punishment is",
+  "%f%\'s punishment is",
 ];
 dhaub_final = [
   "gonna make me miss my exit",

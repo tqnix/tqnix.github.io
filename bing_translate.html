@@ -11,13 +11,19 @@
         font-size:18px;
         padding:1.5%;
     }
+    .button-container {
+      margin: 0;
+      padding: 0;
+    }
     .button {
       width: 100%;
-      height:5%;
+      height:10%;
       font-size:20px;
     }
-    .button-half {
-      width: 50%;
+    .button-mini {
+      width: 32%;
+      margin: 0px;
+      padding: 0;
       height:5%;
       font-size:20px;
     }
@@ -32,10 +38,13 @@
 <h3>Enter text (latin characters pls)</h3>
 <div style="width:100%;margin:0;padding:0">
 
-<input type=text class="button" placeholder = "Enter text here!" id=dahao></input><br>
+<div class="button-container">
+  <input type=text class="button" placeholder = "Enter text here!" id=dahao></input><br>
 <button class="button" onclick="ruu()">Run!</button>
-<button class="button" onclick="document.getElementById('dahao').value = ''; document.getElementById('ya').innerText = '';">Clear</button>
-<button class="button" onclick="document.getElementById('dahao').value = localStorage.savedtranslation1; document.getElementById('ya').innerText = localStorage.savedtranslation2">Load!</button>
+<button class="button-mini" onclick="document.getElementById('dahao').value = '';">Clear In</button>
+<button class="button-mini" onclick="document.getElementById('dahao').value = ''; document.getElementById('ya').innerText = '';">Clear Out</button>
+<button class="button-mini" onclick="document.getElementById('dahao').value = localStorage.savedtranslation1; document.getElementById('ya').innerText = localStorage.savedtranslation2">Load</button>
+</div>
 Final vowel
 <select id="final" name="ha">
   <option value="a">A</option>
@@ -44,17 +53,18 @@ Final vowel
   <option value="o">O</option>
   <option value="u">U</option>
 </select>
+<br>
 <!--Follow final vowel of next syllable
 <input type=checkbox id="final-follow-previous-syllable"></input>-->
 Language
 <select id="langsel" name="ha">
   <option value="text">Syllabify!</option>
-  <option value="cypriot">Cypriot Syllabary</option>
   <option value="japan">Bad Japanese</option>
   <option value="china">Bad Chinese</option>
  <option value="french">Bad French</option>
  <option value="russian">Bad Russian</option>
  <option value="brainrot">Bad Brainrot</option>
+  <option value="cypriot">Cypriot Syllabary</option>
 </select>
 </div>
 <h3>output</h3>
@@ -641,6 +651,7 @@ function arraytomgoisai() {
   localStorage.savedtranslation2 = document.getElementById('ya').innerText;
 }
 </script>
+
 
 
 

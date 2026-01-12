@@ -13,7 +13,7 @@
         <div id="navbar">
           <button class="navbutton" onclick="luck()">i am lucky</button>
           <button class="navbutton" onclick="contacting()">contact</button>
-            <button class="navbutton" id="seng-hoop-hide" onclick="hime()">toggle previews</button><br>
+            <button class="navbutton" id="seng-hoop-hide" onclick="toggleTextView()">toggle previews</button><br>
         </div>
 	<br>
     <p class="bigtext">Welcome to</p>
@@ -108,27 +108,17 @@ function aintit() {
   add();
   document.getElementById("title_bottomtext").innerHTML = ProcessPlaceholders(splash_texts[splash_showing],true);
   if (localStorage.writeview != null) {
-		if (localStorage.writeview == "false") {
-			view_plaintext = false;
-		}
-		if (localStorage.writeview == "true") {
-			view_plaintext = true;
-		}
+    view_plaintext = (localStorage.writeview === "true");
 	}
   activate();
 }
-function hime() {
+function toggleTextView() {
 	if (document.getElementById("seng-hoop").style.display != "none") {
     view_plaintext = true; 
-  DealWithLocalStorage('send');
-		document.getElementById("seng-hoop").style.display = "none";
-		document.getElementById("seng-hoop-hide").style.backgroundColor = "#e14c41";
 	} else {
     view_plaintext = false; 
-  DealWithLocalStorage('send');
-		document.getElementById("seng-hoop").style.display = "block";
-		document.getElementById("seng-hoop-hide").style.backgroundColor = "#189520";
 	}
+  DealWithLocalStorage('send');
 }
 function DealWithLocalStorage(j) {
 	if (j == "send") {
@@ -140,30 +130,30 @@ function DealWithLocalStorage(j) {
 	} else if (j == "get") {
 		if (localStorage.writeview == "false") {
 			view_plaintext = false;
-      document.getElementById("seng-hoop").style.display = "block";
+      
 		}
 		if (localStorage.writeview == "true" || window.innerWidth < 900) {
 			view_plaintext = true;
-      document.getElementById("seng-hoop").style.display = "none";
+      
 		}
 	}
 	activate();
 }
 function activate() {
   document.getElementById("tianxue").innerHTML = "";
-  if (input_text.length < 1) {
     for (var i=0; i<seecret_items.length; i++) {
       //console.log("<a href=" + seecret_items[i].link + ".html>" + seecret_items[i].na + "</a>");
-      DrawListItems(i);
-    }
-  } else {
-    for (var i=0; i<seecret_items.length; i++) {
-      //console.log("<a href=" + seecret_items[i].link + ".html>" + seecret_items[i].na + "</a>");
-        if (seecret_items[i].na.toLowerCase().includes(input_text.toLowerCase())) {
+        if (input_text < 1 || seecret_items[i].na.toLowerCase().includes(input_text.toLowerCase())) {
          DrawListItems(i);
         }
       }
-  }
+    if (view_plaintext) {
+      document.getElementById("seng-hoop").style.display = "none";
+      document.getElementById("seng-hoop-hide").style.backgroundColor = "#e14c41";
+    } else {
+      document.getElementById("seng-hoop").style.display = "block";
+      document.getElementById("seng-hoop-hide").style.backgroundColor = "#189520";
+    }
   document.getElementById("search").innerHTML = ProcessPlaceholders("Search: %input");
 }
 

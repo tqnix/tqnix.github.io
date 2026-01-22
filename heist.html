@@ -14,12 +14,14 @@
 <p>HEIST is a doodle-jump style clone made for a school project in which we had 10 days to create a game. Don't download this game. This may get a 100 because everyone else in my class is trash at coding, but you'd probably give it a 50. I made this website in 5 minutes.
 </p>
 <br>
-<button class="navbutton" onclick="bach_bvw_639_i_pray_to_you_lord_jesus_christ">download</button>
+<button class="navbutton" onclick="bach_bvw_639_i_pray_to_you_lord_jesus_christ()">📲download</button>
 <br><br>
-<button class="navbutton" onclick="">ost sheet music</button>
+<button class="navbutton" onclick="bach_bvw_639_i_pray_to_you_lord_jesus_christ_sheet_music()">🎼ost sheet music</button>
+<br><br>
  </body>
  <script>
 function bach_bvw_639_i_pray_to_you_lord_jesus_christ() {
+    console.log("Downloading");
   const link = document.createElement('a');
   link.href = "heist.zip";
   link.download = "Heist_v1_0.zip"; 
@@ -28,6 +30,7 @@ function bach_bvw_639_i_pray_to_you_lord_jesus_christ() {
   document.body.removeChild(link); 
 }
 function bach_bvw_639_i_pray_to_you_lord_jesus_christ_sheet_music() {
+    console.log("Downloading");
   const link = document.createElement('a');
   link.href = "heist_snd.pdf";
   link.download = "heist_official_sound_track.pdf"; 

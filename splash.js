@@ -359,6 +359,7 @@ dhaub_final = [
   "slower than a chronic vaper",
   "slower than a computer from DELL",
   "[valorant reference blocker]",
+  "[%input reference blocker]",
   "[ULTRAKILL fandom reference blocker]",
   "above average speed",
   "the slowest kid in class",
@@ -526,5 +527,30 @@ dhaub_final = [
   "currently on a saving lives spree!",
   "wholesome",
   "a valence electron in a sea of electrons",
-  "able to calculate valence electrons in a nucleus",
+  "calculating valence electrons in a nucleus",
+  "Bach to writing fugues again",
+  "Haydn on the %input",
+  "on an FBI watchLiszt",
+  "bing",
+  "being like Alkan do this",
+  "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 ];

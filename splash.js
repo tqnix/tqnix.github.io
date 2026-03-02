@@ -151,7 +151,7 @@ famous_peoples = [
   "My Minecraft Dungeons Roll Build",
 ]
 dhaub_initial = [
-  "%f% is",
+  /*"%f% is",
   "%f%:",
   "%f% is",
   "%f%:",
@@ -178,16 +178,17 @@ dhaub_initial = [
   "%input is not",
   "%input:",
   "Tqnixity is",
-  "This website is",
+  "This website is",*/
   "Tqnixity is",
   "Tqnixity is not",
   "This website is",
   "Tqnixity is",
   "This website is",
   "Tqnixity is addicted to ",
-  "Tqnixity's rank is",
   "Tqnixity's values are",
-  "HP OMEN laptops are",
+  "We are",
+  "You are",
+ /* "HP OMEN laptops are",
   "It's",
   "Tqnixity's friends are",
   "Tqnixity's osu! profile is",
@@ -221,7 +222,7 @@ dhaub_initial = [
   "My history teacher is",
   "THIS TICKET:",
   "TICKET | GOOD FOR",
-  "%f%\'s punishment is",
+  "%f%\'s punishment is",*/
 ];
 dhaub_final = [
   "gonna make me miss my exit",

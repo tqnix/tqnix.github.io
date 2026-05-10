@@ -47,25 +47,24 @@ div {
 }
 #cookie_forshow{
   color:white;
-  width:50vw;
-  height:50vw;
+  width:30vw;
+  height:30vw;
 }
-button {
-  height:10vh;
-  margin:-3px;
-  padding: 0px;
-}
-.bear {width:66vw;}
+.bear {width:67.5vw;}
 .twink {width:33.5vw;}
 .v7 {
   height:10vh;
   text-align:center;
 }
 button {
+  white-space: normal;
+  height:10vh;
+  margin:-0.8vw;
+  padding: -0.8vw;
   background-color:#3f3faf;
   color: white;
   border: 1px solid black;
-  font-size:5vw;
+  font-size:4.5vw;
   transition-duration: 200ms;
 }
 button:hover {
@@ -76,8 +75,12 @@ button:active {
   transition-duration: 50ms;
 }
 #about {
-  font-size:5vw;
+  font-size:4.5vw;
+  
 }
+    .small {
+      font-size: 3vw;
+    }
 @keyframes rightroundbaby {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -103,24 +106,18 @@ button:active {
 </div>
 <div id="about" style="display:none;">
   <br>
-  <goblin id="rankings">Reach 1,000,000 cookies as quickly as possible!</goblin>
+  <goblin id="rankings">
+  Reach 1,000,000 cookies as quickly as possible!
+  </goblin>
   <br>
   <br>
   <img id="cookie_forshow" onclick="bunty();" src=""></img><br>
   <br>
-  Thanks for playing <b>Scone Clicker</b>, a simple game made as part of <b>Grandma's Scones'</b> advertising campaign.
+  Thanks for playing <b>Scone Clicker</b>, a simple <br>game made as part of <b>Grandma's Scones'</b> advertising campaign.
   <br><br>
   If you enjoyed this game, feel free to drop by on <b>May 21st at lunch</b>!
   <add-to-calendar-button
-  name="Get a scone from Grandma's Scones"
-  options="'Apple','Google'"
-  location="LDHSS"
-  startDate="2026-05-21"
-  endDate="2026-05-21"
-  startTime="06:30"
-  endTime="07:15"
-  timeZone="EST"
-></add-to-calendar-button>
+  name="Get a scone from Grandma's Scones" options="'Apple','Google'" location="LDHSS" startDate="2026-05-21" endDate="2026-05-21" startTime="06:30" endTime="07:15" timeZone="EST"></add-to-calendar-button>
 
 </div>
 </div>
@@ -131,19 +128,20 @@ button:active {
 <button class="twink" onclick="reset();">Reset</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
-<script>cookies = 0;
+<script>
+cookies = 0;
 cookie_rotation = 0;
 timer = 0;
-buildings_names = ["Unpaid Intern","Grandma","Franchise","Division","Javascript Console"];
+buildings_names = ["Unpaid Intern","LDH Student","Grandma","<span class='small'>Grandma </span>Pro Max","Kevin"];
 buildings = [0,0,0,0,0];
 buildings_base_prices = [1,20,400,8000,100000];
 buildings_output_per = [0.5,5,40,400,4000];
-ranking_names = ["Diamond","Gold","Silver","Bronze"];
 ranking_times = [180, 240, 360, 480];
 click_upgrades = 0;
 sellmode = false;
 startflag = false;
 winflag = false;
+top = document.getElementById("top");
 pbody = document.getElementById("cookie_progress");
 time_disp = document.getElementById("text_1");
 cookie_disp = document.getElementById("text_2");
@@ -176,14 +174,16 @@ function toggle_liszt() {
 function toggle_about() {
   if (abotta.style.display == "none") {
     abotta.style.display = "block";
+    top.style.overflowY = 'auto';
     return 67;
   }
   abotta.style.display = "none";
-  
+  top.style.overflowY = 'hidden';
 }
 function dProgressBar() {
   if (cookies >= 1) {
     pbody.value = Math.log10(cookies) + (cookies / 166667);
+    
   }
   cookie_disp.innerText = Math.floor(cookies) + " Scones";
   document.title = Math.floor(cookies) + " Scones";
@@ -192,9 +192,9 @@ function dProgressBar() {
 function update_liszt() {
   liszt.innerHTML = "";
   for (i=0; i<5; i++) {
-    liszt.innerHTML += '<button class="bear">' + buildings_names[i] + ' x' + buildings[i] + '<br>Cost:' + Math.floor(buildings_price_gouging(i)) + ' | ' + buildings_output_per[i] + ' /sec' + '</button><button class="twink" style="color: '+shop_button_color(i)+';" onclick="buildings_buy(' + i + ')">' + shop_button_text() +'</button></div>';
+    liszt.innerHTML += '<button class="bear">' + buildings_names[i] + ' x' + buildings[i] + '<span class="small"> $' + Math.floor(buildings_price_gouging(i)) + ' | ' + buildings_output_per[i] + '/s' + '</button><button class="twink" style="color: '+shop_button_color(i)+';" onclick="buildings_buy(' + i + ')">' + shop_button_text() +'</span></button>';
   }
-  liszt.innerHTML += '<button class="bear" onclick="click_upgrade_buy()">Click Upgrade' + '<br>Cost:' + Math.floor(click_upgrade_price_gouging()) + ' | ' + click_upgrade_tarot_readings() + ' /sec' + '</button><button class="twink" onclick="sellmode = !sellmode; update_liszt();">Sell Mode</button></div>';
+  liszt.innerHTML += '<button class="bear" onclick="click_upgrade_buy()">Click Upgrade' + '<span class="small"> $' + Math.floor(click_upgrade_price_gouging()) + ' | ' + click_upgrade_tarot_readings() + '/s' + '</span></button><button class="twink" onclick="sellmode = !sellmode; update_liszt();">Sell Mode</button>';
   dProgressBar();
   cookie_sec_disp.innerText = Math.floor(buildings_king_calculation()) + " scones/sec";
 
@@ -255,8 +255,27 @@ function the_rich_get_richer() {
   if (cookies < 1000000 && winflag == false) {
     dProgressBar();
     timer += 0.05;
-    time_disp.innerText = Math.floor(timer / 60)+ ":" +   (timer % 60).toFixed(2).toString().padStart(5, '0'); 
+    time_disp.innerText = Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
   } else {
+    if (winflag == false) {
+      let ranking_texts = ["<br>S (3:00)","<br>A (4:00)","<br>B (6:00)","<br>C (8:00)"];
+      let ranking_temp = 0;
+      liszt.style.display = "none";
+      abotta.style.display = "block";
+      document.getElementById("rankings").innerHTML = "Your Rank (" + time_disp.innerText.slice(0, -3)  + "):";
+      for (i=0; i<4; i++) {
+        if (timer > ranking_times[i]) {
+          ranking_temp = i;
+        }
+      }
+      for (i=0; i<4; i++) {
+        if (i == ranking_temp) {
+          document.getElementById("rankings").innerHTML += "<b>" + ranking_texts[i] + "</b>";
+        } else {
+          document.getElementById("rankings").innerHTML += ranking_texts[i];
+        }
+      }
+    }
     winflag = true;
   }
   /*cookie_rotation += 1;
@@ -273,11 +292,11 @@ click_upgrades = 0;
 sellmode = false;
 winflag = false;
 update_liszt();
+abotta.style.display = "none";
 }
 
 
 </script>
-
 
 
 

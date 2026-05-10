@@ -137,7 +137,7 @@ buildings_names = ["Unpaid Intern","LDH Student","Grandma","<span class='small'>
 buildings = [0,0,0,0,0];
 buildings_base_prices = [1,20,400,8000,100000];
 buildings_output_per = [0.5,5,40,400,4000];
-ranking_times = [180, 300, 420, 600];
+ranking_times = [180, 270, 420, 600];
 click_upgrades = 0;
 sellmode = false;
 startflag = false;
@@ -257,7 +257,7 @@ function the_rich_get_richer() {
     time_disp.innerText = Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
   } else {
     if (winflag == false) {
-      let ranking_texts = ["<br>S (3:00)","<br>A (5:00)","<br>B (7:00)","<br>C (10:00)"];
+      let ranking_texts = ["<br>S (3:00)","<br>A (4:30)","<br>B (7:00)","<br>C (10:00)"];
       let ranking_temp = 0;
       liszt.style.display = "none";
       abotta.style.display = "block";

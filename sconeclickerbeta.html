@@ -8,6 +8,7 @@
   overflow-x: hidden;
   overflow-y: hidden;
   font-family: Arial;
+  font-size:4.5vmin;
 }
 div {
   width:100vw;
@@ -23,13 +24,13 @@ div {
   overflow-y: auto;
 }
 #main > span {
-  font-size:7.5vw;
+  font-size:7.5vmin;
 }
 #scone{
   color:white;
   position: absolute;
-  width:50vw;
-  height:50vw;
+  width:50vmin;
+  height:50vmin;
   left: 50%;
   top: 55%;
   -webkit-transform: translate(-50%, -50%);
@@ -38,18 +39,18 @@ div {
   transition-duration: 100ms;
 }
 #scone:hover{
-  width:60vw;
-  height:60vw;
+  width:60vmin;
+  height:60vmin;
 }
 #scone:active{
-  width:50vw;
-  height:50vw;
+  width:50vmin;
+  height:50vmin;
   transition-duration: 50ms;
 }
 #scone_forshow{
   color:white;
-  width:30vw;
-  height:30vw;
+  width:30vmin;
+  height:30vmin;
 }
 .bear {width:67.5vw;}
 .twink {width:33.5vw;}
@@ -65,7 +66,7 @@ button {
   background-color:#3f3faf;
   color: white;
   border: 1px solid black;
-  font-size:4.5vw;
+  font-size:4.5vmin;
   transition-duration: 200ms;
 }
 button:hover {
@@ -76,11 +77,14 @@ button:active {
   transition-duration: 50ms;
 }
 #about {
-  font-size:4.5vw;
+  
   overflow-y: scroll;
 }
     .small {
-      font-size: 3vw;
+      font-size: 3vmin;
+    }
+    .midgified {
+      font-size: 4.5vmin;
     }
 @keyframes rightroundbaby {
   from {
@@ -98,7 +102,7 @@ button:active {
 <div id="main">
   <span id="text_1">Scone Clicker</span><br>
   <progress id="scone_progress" max="12"></progress><br>
-<span id="text_2" style="font-size:10vw">Click to play!</span><br>
+<span id="text_2" style="font-size:10vmin">Click to play!</span><br>
 <img id="scone" onclick="bunty();" src="https://cdn.loveandlemons.com/wp-content/uploads/2025/04/scones.jpg"></img><br>
 <span id="text_3">Click "About" for more info!</span>
 <div id="flotilla"></div>
@@ -188,7 +192,7 @@ function dProgressBar() {
     pbody.value = Math.log10(scones) + (scones / 166667);
     
   }
-  scone_disp.innerText = Math.floor(scones) + " Scones";
+  scone_disp.innerHTML = Math.floor(scones) + "<span class='midgified'>/1,000,000 Scones</span>";
   document.title = Math.floor(scones) + " Scones";
 
 }
@@ -266,10 +270,10 @@ function the_rich_get_richer() {
   if (scones < 1000000 && winflag == false) {
     dProgressBar();
     timer += 0.05;
-    time_disp.innerText = Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
+    time_disp.innerHTML = "<span class='midgified'>Time: </span>" + Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
   } else {
     if (winflag == false) {
-      let ranking_texts = ["<br>S (3:00)","<br>A (4:30)","<br>B (6:00)","<br>C (8:00)","<br>D (>10:00)"];
+      let ranking_texts = ["<br>S (3:00)","<br>A (4:30)","<br>B (6:00)","<br>C (8:00)","<br>D (>8:00)"];
       let ranking_times = [180, 270, 360, 480,9999];
       let ranking_temp = 0;
       liszt.style.display = "none";
@@ -312,7 +316,6 @@ scone.style.display = "block";
 
 
 </script>
-
 
 
 

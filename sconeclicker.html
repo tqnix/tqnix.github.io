@@ -1,10 +1,9 @@
 <head>
+  <meta charset="UTF-16">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
   <title>Scone Clicker</title>
   <style>
-  body {
-  background-color: "#4f4f4f";
-  color: "#ffffcd";
+ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -14,22 +13,23 @@
 }
 div {
   width:100vw;
-  border: 1px solid red;
+  border: 1px solid transparent;
   
   margin:0;
   padding:0;
 }
 #top {
+  background: #1f1f1f;
   height:90vh;
   text-align:center;
   overflow-x: hidden;
   overflow-y: auto;
+  color: #efb77f;
 }
 #main > span {
   font-size:7.5vmin;
 }
 #scone{
-  color:white;
   position: absolute;
   width:50vmin;
   height:50vmin;
@@ -50,12 +50,11 @@ div {
   transition-duration: 50ms;
 }
 #scone_forshow{
-  color:white;
   width:30vmin;
   height:30vmin;
 }
 .bear {width:67.5vw;}
-.twink {width:33.5vw;}
+.twink {width:34vw;}
 .v7 {
   height:10vh;
   text-align:center;
@@ -65,17 +64,21 @@ button {
   height:10vh;
   margin:-0.8vw;
   padding: -0.8vw;
-  background-color:#3f3faf;
+  background-color:#2f1f1f;
   color: white;
   border: 1px solid black;
   font-size:4.5vmin;
   transition-duration: 200ms;
+  
 }
+    #liszt > button {
+      text-align: left;
+    }
 button:hover {
-  background-color:#6f6faf;
+  background-color:#502528;
 }
 button:active {
-  background-color:#3f3faf;
+  background-color:#2f1f1f;
   transition-duration: 50ms;
 }
 #about {
@@ -106,7 +109,7 @@ button:active {
   <progress id="scone_progress" max="12"></progress><br>
 <span id="text_2" style="font-size:10vmin">Click to play!</span><br>
 <img id="scone" onclick="bunty();" src="https://cdn.loveandlemons.com/wp-content/uploads/2025/04/scones.jpg"></img><br>
-<span id="text_3">Click "About" for more info!</span>
+<span id="text_3" class="midgified">Click "About" for more info!</span>
 <div id="flotilla"></div>
 </div>
 
@@ -123,25 +126,27 @@ button:active {
   <br>
   Thanks for playing <b>Scone Clicker</b>, a simple <br>game made as part of <b>Rosetta Scone's</b> advertising campaign.
   <br><br>
-  If you enjoyed this game, feel free to drop by <br>on <b>May 21st at lunch</b>!
+  If you enjoyed this game, feel free to drop by <br>on <b>May 21st at lunch</b>!<br>
+<br>
+Contact: kqi1@ocdsb.ca
   <add-to-calendar-button
   name="Get a scone from Rosetta Scone" options="'Apple','Google'" location="LDHSS" startDate="2026-05-21" endDate="2026-05-21" startTime="11:30" endTime="12:15" timeZone="EST"></add-to-calendar-button><br>
-<i>anyone can have a scone <br> 人人能吃烤饼 <br> tout personne peut manger un scone</i><br><br>
+<i>anyone can have a scone <br> 人人能吃烤饼 <br> tout personne peut manger un scone</i><br><br><br><br><br><br><br><br><br><br><br><br><span onclick="timer += 60;">🥴</span><br><br>
 
 </div>
 </div>
 
 <div class="v7">
-<button class="twink" onclick="toggle_liszt()">Buildings</button>
-<button class="twink" onclick="toggle_about();">About</button>
-<button class="twink" onclick="reset();">Reset</button>
+<button class="twink" onclick="toggle_liszt()">💹Buildings</button>
+<button class="twink" onclick="toggle_about();">🤔About</button>
+<button class="twink" onclick="reset();">💀Reset</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
 <script>
 scones = 0;
 scone_rotation = 0;
 timer = 0;
-buildings_names = ["\"Paid\" Intern","LDH Student","Grandma","<span class='small'>Advert </span>Translator","Polyglot"];
+buildings_names = ["🧑‍💻<span class=small>\"Paid\"</span> Intern","📔<span class='small'>Business </span>Student","🍰Grandma","🉑<span class='small'>Ad </span>Translator","🔰Polyglot"];
 buildings = [0,0,0,0,0];
 buildings_base_prices = [2,20,400,8000,100000];
 buildings_output_per = [1,4,20,250,3000];
@@ -157,12 +162,19 @@ scone_sec_disp = document.getElementById("text_3");
 liszt = document.getElementById("liszt");
 abotta = document.getElementById("about");
 scone_rotato = document.getElementById("scone");
+click_noise = new Audio("bro.ogg");
+click_noise.volume = 0.2;
+sell_noise = new Audio("woh.ogg");
+sell_noise.volume = 0.2;
 function bunty() {
   if (!startflag) {
     startflag = true;
     setInterval(the_rich_get_richer,50);
   }
   scones += click_upgrade_tarot_readings();
+  click_noise.pause();
+  click_noise.currentTime = 0;
+  click_noise.play();
   
   dProgressBar();
 }
@@ -211,9 +223,9 @@ function update_liszt() {
 }
 function shop_button_text() {
   if (sellmode) {
-    return "SELL";
+    return "SELL📉";
   } else {
-    return "BUY";
+    return "BUY📈";
   }
 }
 function shop_button_color(n) {
@@ -234,11 +246,16 @@ function buildings_buy(n) {
   if (sellmode && buildings[n] > 0) {
     scones += buildings_price_gouging(n);
     buildings[n]--;
-    
+    sell_noise.pause();
+  sell_noise.currentTime = 0;
+  sell_noise.play();
   } 
   else if (scones >= buildings_price_gouging(n)) {
     scones -= buildings_price_gouging(n);
     buildings[n]++;
+  click_noise.pause();
+  click_noise.currentTime = 0;
+  click_noise.play();
   }
   update_liszt();
 }
@@ -246,6 +263,9 @@ function click_upgrade_buy(n) {
   if (scones >= click_upgrade_price_gouging()) {
     scones -= click_upgrade_price_gouging();
     click_upgrades++;
+click_noise.pause();
+  click_noise.currentTime = 0;
+  click_noise.play();
   }
   update_liszt();
 }
@@ -270,10 +290,13 @@ function click_upgrade_tarot_readings(n) {
 function the_rich_get_richer() {
   for (i=0; i<5; i++) {
     scones += buildings[i] * buildings_output_per_cooked(i)/20;}
+  dProgressBar();
   if (scones < 1000000 && winflag == false) {
-    dProgressBar();
+    
     timer += 0.05;
-    time_disp.innerHTML = "<span class='midgified'>Time: </span>" + Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
+    if (timer >= 0) {
+      time_disp.innerHTML = "<span class='midgified'>Time: </span>" + Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
+    }
   } else {
     if (winflag == false) {
       let ranking_texts = ["<br>S (3:00)","<br>A (4:30)","<br>B (6:00)","<br>C (8:00)","<br>D (>8:00)"];
@@ -305,14 +328,18 @@ function the_rich_get_richer() {
 }
 
 function reset() {
+sell_noise.pause();
+  sell_noise.currentTime = 0;
+  sell_noise.play();
 scones = 0;
 scone_rotation = 0;
-timer = 0;
+timer = -0.3;
 buildings = [0,0,0,0,0];
 click_upgrades = 0;
 sellmode = false;
 winflag = false;
 update_liszt();
+liszt.style.display = "none";
 abotta.style.display = "none";
 scone.style.display = "block";
 }

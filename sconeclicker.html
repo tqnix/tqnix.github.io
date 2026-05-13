@@ -101,7 +101,7 @@ button:active {
 }
 </style>
 </head>
-
+<span style="position:absolute;background: #1f1f1f;color: #efb77f; font-size:4.5vmin;" id="cps">CPS:</span>
 <div id="top">
 
 <div id="main">
@@ -162,6 +162,7 @@ scone_sec_disp = document.getElementById("text_3");
 liszt = document.getElementById("liszt");
 abotta = document.getElementById("about");
 scone_rotato = document.getElementById("scone");
+cps_disp = document.getElementById("cps");
 click_noise = new Audio("bro.ogg");
 click_noise.volume = 0.2;
 sell_noise = new Audio("woh.ogg");
@@ -294,6 +295,10 @@ function the_rich_get_richer() {
   if (scones < 1000000 && winflag == false) {
     
     timer += 0.05;
+    if (timer % 1 < 0.025) {
+      cps_disp.innerText = "CPS:" + (clicks - clicks_old);
+      clicks_old = clicks;
+    }
     if (timer >= 0) {
       time_disp.innerHTML = "<span class='midgified'>Time: </span>" + Math.floor(timer / 60)+ ":" + (timer % 60).toFixed(2).toString().padStart(5, '0'); 
     }
@@ -328,6 +333,8 @@ function the_rich_get_richer() {
 }
 
 function reset() {
+    clicks = 0;
+clicks_old = 0;
 sell_noise.pause();
   sell_noise.currentTime = 0;
   sell_noise.play();

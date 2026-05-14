@@ -10,6 +10,7 @@
   overflow-y: hidden;
   font-family: Arial;
   font-size:4.5vmin;
+  touch-action: manipulation;
 }
 div {
   width:100vw;
@@ -27,7 +28,7 @@ div {
   color: #efb77f;
 }
 #main > span {
-  font-size:7.5vmin;
+  font-size:6vmin;
 }
 #scone{
   position: absolute;
@@ -51,7 +52,6 @@ div {
 }
 #scone_forshow{
   width:30vmin;
-  height:30vmin;
 }
 .bear {width:67.5vw;}
 .twink {width:34vw;}
@@ -101,14 +101,15 @@ button:active {
 }
 </style>
 </head>
+<body>
 <span style="position:absolute;background: #1f1f1f;color: #efb77f; font-size:4.5vmin;" id="cps">CPS:</span>
 <div id="top">
 
 <div id="main">
   <span id="text_1">Scone Clicker</span><br>
-  <progress id="scone_progress" max="12"></progress><br>
+  <progress id="scone_progress" max="12" style="width:100vw"></progress><br>
 <span id="text_2" style="font-size:10vmin">Click to play!</span><br>
-<img id="scone" onclick="bunty();" src="https://cdn.loveandlemons.com/wp-content/uploads/2025/04/scones.jpg"></img><br>
+<img id="scone" onclick="bunty();" src="scone1.png"></img><br>
 <span id="text_3" class="midgified">Click "About" for more info!</span>
 <div id="flotilla"></div>
 </div>
@@ -131,7 +132,7 @@ button:active {
 Contact: kqi1@ocdsb.ca
   <add-to-calendar-button
   name="Get a scone from Rosetta Scone" options="'Apple','Google'" location="LDHSS" startDate="2026-05-21" endDate="2026-05-21" startTime="11:30" endTime="12:15" timeZone="EST"></add-to-calendar-button><br>
-<i>anyone can have a scone <br> 人人能吃烤饼 <br> tout personne peut manger un scone</i><br><br><br><br><br><br><br><br><br><br><br><br><span onclick="timer += 60;">🥴</span><br><br>
+<i>anyone can have a scone</i><br><br><br><br><br><br><br><br><br><br><br><br><span onclick="timer += 60;">🥴</span><br><br>
 
 </div>
 </div>
@@ -141,6 +142,7 @@ Contact: kqi1@ocdsb.ca
 <button class="twink" onclick="toggle_about();">🤔About</button>
 <button class="twink" onclick="reset();">💀Reset</button>
 </div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
 <script>
 clicks = 0;
@@ -148,7 +150,7 @@ clicks_old = 0;
 scones = 0;
 scone_rotation = 0;
 timer = 0;
-buildings_names = ["🧑‍💻<span class=small>\"Paid\"</span> Intern","📔<span class='small'>Business </span>Student","🍰Grandma","🉑<span class='small'>Ad </span>Translator","🔰Polyglot"];
+buildings_names = ["🧑‍💻 Intern","📔<span class='small'>Business </span>Student","🍰Grandma","🏚️Store","🔰Polyglot"];
 buildings = [0,0,0,0,0];
 buildings_base_prices = [2,20,400,8000,100000];
 buildings_output_per = [1,4,20,250,3000];
@@ -298,7 +300,7 @@ function the_rich_get_richer() {
   if (scones < 1000000 && winflag == false) {
     
     timer += 0.05;
-    if (timer % 1 < 0.049) {
+    if (timer % 1 < 0.05) {
       cps_disp.innerText = "CPS:" + (clicks - clicks_old);
       clicks_old = clicks;
     }
@@ -356,7 +358,6 @@ scone.style.display = "block";
 
 
 </script>
-
 
 
 

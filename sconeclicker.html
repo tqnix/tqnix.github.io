@@ -123,7 +123,7 @@ button:active {
   </goblin>
   <br>
   <br>
-  <img id="scone_forshow" onclick="bunty();" src="Rosetta Scone Logo.png"></img><br>
+  <img id="scone_forshow" onclick="alert('Wrong scone!')" src="Rosetta Scone Logo.png"></img><br>
   <div>
   <add-to-calendar-button style="display: inline-block"
   name="Get a scone from Rosetta Scone" location="Longfields Davidson-Heights Secondary School" startDate="2026-05-21" endDate="2026-05-21" startTime="10:30" endTime="11:15" timeZone="EST" options="'Apple','Google','iCal','Microsoft365'"
@@ -134,7 +134,7 @@ button:active {
   If you enjoyed this game, and like scones,<br> feel free to drop by on <b>May 21st at lunch</b>!<br>
 <br>
 Contact: kqi1@ocdsb.ca<br><br>
-<i>"Discover the Rosetta Scone"</i><br><br><br><br><span onclick="timer += 60;">🥴</span><br><br>
+<i>"Discover the Rosetta Scone"</i><br><br><br><br><button class="twink" onclick="timer += 600;scones=999990">🥴</button><br><br>
 
 </div>
 </div>
@@ -187,6 +187,7 @@ function bunty() {
   dProgressBar();
 }
 function toggle_liszt() {
+  abotta.style.display = "none";
   if (!startflag) {
     startflag = true;
     setInterval(the_rich_get_richer,50);
@@ -202,6 +203,7 @@ function toggle_liszt() {
   
 }
 function toggle_about() {
+  liszt.style.display = "none";
   if (abotta.style.display == "none") {
     abotta.style.display = "block";
     scone.style.display = "none";
